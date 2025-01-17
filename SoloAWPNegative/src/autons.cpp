@@ -49,25 +49,54 @@ int lowerArm() {
 }
 
 void spinIntake() {
+  Conveyer.setVelocity(70, percent);
+  Intake.setVelocity(100, percent);
   Conveyer.spin(forward);
   Intake.spin(forward);
 }
 
+void stopIntake() {
+  Conveyer.stop();
+  Intake.stop();
+}
+
 void soloAWPNegative(){
   default_constants();
-  Intake.spin(forward);
-  chassis.drive_distance(45);
-  chassis.turn_to_angle(345);
-  chassis.drive_distance(5);
-  chassis.left_swing_to_angle(300);
-  chassis.drive_distance(-10);
+  chassis.drive_distance(-22);
   chassis.set_drive_constants(3, 1.5, 0, 10, 0);
   chassis.drive_distance(-8);
   MogoPneu.set(true);
-  wait(0.3, seconds);
+  wait(0.5, seconds);
+  default_constants();  
+  chassis.turn_to_angle(118);
   spinIntake();
-  chassis.turn_to_angle(280);
-
+  //chassis.set_drive_constants(6, 1.5, 0, 10, 0);
+  chassis.drive_distance(21.5);
+  wait(0.3, seconds);
+  //chassis.drive_distance(-10);
+  //chassis.turn_to_angle(105);
+  //chassis.drive_distance(15);
+  //wait(0.3, seconds);
+  chassis.drive_distance(-18);
+  chassis.turn_to_angle(65);
+  MogoPneu.set(false);
+  chassis.drive_distance(15);
+  wait(0.3, seconds);
+  stopIntake();
+  chassis.turn_to_angle(98);
+  MogoPneu.set(true);
+  chassis.drive_distance(-60.5);
+  chassis.drive_distance(3);
+  chassis.turn_to_angle(154);
+  chassis.set_drive_exit_conditions(1, 300, 1000);
+  chassis.drive_distance(-7);
+  spinIntake();
+  wait(1.5, seconds);
+  stopIntake();
+  chassis.set_drive_constants(8, 0.75, 0, 10, 0);
+  Arm.setVelocity(25, percent);
+  Arm.spin(forward);
+  chassis.drive_distance(40);
 }
 
 void Auton43Points(){

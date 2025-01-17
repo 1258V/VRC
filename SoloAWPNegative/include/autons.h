@@ -24,3 +24,5 @@ int moveArmFullyDown();
 int pickUpMogo();
 int lowerArm();
 void spinIntake();
+void stopIntake();
+int pickUpDisk();
