@@ -129,7 +129,7 @@ void pre_auton(void) {
     Drivetrain.setStopping(coast);
     Inertial13.calibrate();
     
-    Arm.setStopping(brake);
+    Arm.setStopping(hold);
     Arm.setMaxTorque(100, percent);
     Arm.setVelocity(100, percent);
 
@@ -161,7 +161,7 @@ void pre_auton(void) {
   }
 
 void autonomous(void) {
-  soloAWPNegative();
+  NR();
   //Auton43Points();
   //Auton38Points();
   //Auton26Points(); 
@@ -230,11 +230,11 @@ void triggerDoinkerMech() {
 }
 
 void moveArmUp() {
-  Arm.spin(reverse);
+  Arm.spin(forward);
 }
 
 void moveArmDown() {
-  Arm.spin(forward);
+  Arm.spin(reverse);
 }
 
 void stopArm() {

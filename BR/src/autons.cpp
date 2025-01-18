@@ -61,7 +61,7 @@ void stopIntake() {
 }
 
 void loadArm() {
-  Arm.spinTo(-150, degrees);
+  Arm.spinTo(156, degrees);
   /*while (true) {
     if (DistSensor.objectDistance(inches) < 1) {
       Intake.setVelocity(50, percent);
@@ -78,7 +78,7 @@ void loadArm() {
   }*/
 }
 
-void soloAWPNegative(){
+void NR(){
   default_constants();
   chassis.set_drive_constants(6, 1.5, 0, 10, 0);
   chassis.drive_distance(-24);

@@ -8,7 +8,7 @@ extern Drive chassis;
 void default_constants();
 
 void DriveStraight();
-void soloAWPNegative();
+void NR();
 void Auton43Points();
 void Auton38Points();
 void Auton26Points();
