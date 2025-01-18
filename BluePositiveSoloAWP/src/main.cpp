@@ -129,16 +129,20 @@ void pre_auton(void) {
     Drivetrain.setStopping(coast);
     Inertial13.calibrate();
     
-    Arm.setStopping(hold);
+    Arm.setStopping(brake);
     Arm.setMaxTorque(100, percent);
     Arm.setVelocity(100, percent);
 
     DoinkerPneu.set(false);
     HangPneu.set(false);
 
-    Conveyer.setStopping(coast);
-    Conveyer.setMaxTorque(100, percent);
-    Conveyer.setVelocity(100, percent);
+    Intake.setStopping(coast);
+    Intake.setMaxTorque(100, percent);
+    Intake.setVelocity(70, percent);
+    
+    FrontIntake.setStopping(coast);
+    FrontIntake.setMaxTorque(100, percent);
+    FrontIntake.setVelocity(100, percent);
 
     LeftFront.setMaxTorque(100, percent);
     LeftBack.setMaxTorque(100, percent);
@@ -153,7 +157,7 @@ void pre_auton(void) {
     RightFront.setVelocity(100, percent);
     RightBack.setVelocity(100, percent);
     Right6th.setVelocity(100, percent);
-    Conveyer.setVelocity(100.0, percent);
+    Intake.setVelocity(100.0, percent);
 
     ArmRotation.setReversed(true);
     ArmRotation.resetPosition();
@@ -161,10 +165,7 @@ void pre_auton(void) {
   }
 
 void autonomous(void) {
-  NB();
-  //Auton43Points();
-  //Auton38Points();
-  //Auton26Points(); 
+  regular();
 }
 
 /*---------------------------------------------------------------------------*/
@@ -178,20 +179,55 @@ void autonomous(void) {
 /*---------------------------------------------------------------------------*/
 bool mobilePneu = false;
 
+void loadArm() {
+  Arm.spinTo(-150, degrees);
+  /*while (true) {
+    if (DistSensor.objectDistance(inches) < 1) {
+      Intake.setVelocity(50, percent);
+      Intake.spinFor(reverse, 12, turns);
+      Intake.setVelocity(100, percent);
+      break;
+    }
+    else  {
+      Intake.setVelocity(100, percent);
+      Intake.spin(forward);
+    }
+
+    wait(0.02, seconds);
+  }*/
+}
+
 void spinIntakeForward() {
   Intake.setVelocity(100, percent);
   Intake.spin(forward);
-  Conveyer.setVelocity(100, percent);
-  Conveyer.spin(forward);
+  FrontIntake.setVelocity(100, percent);
+  FrontIntake.spin(forward);
+  /*while(true){
+    if(Optical6.hue() > 150 && Optical6.hue() < 270){
+      Intake.setVelocity(30, percent);
+      wait(1, seconds);
+      Intake.setVelocity(100, percent);
+    }
+    else if(Optical6.hue() > 200 && Optical6.hue() < 300){
+      //Intake.setVelocity(30, percent);
+      //wait(1, seconds);
+      //Intake.setVelocity(100, percent);
+    }
+    wait(10, msec);
+  }*/
 }
 
 void spinIntakeReverse() {
   Intake.setVelocity(100, percent);
   Intake.spin(reverse);
-  Conveyer.setVelocity(100, percent);
-  Conveyer.spin(reverse);
+  FrontIntake.setVelocity(100, percent);
+  FrontIntake.spin(reverse);
 }
 
+void stopIntake() {
+  Intake.stop();
+  FrontIntake.stop();
+}
 
 void toggleDoinkerPneuPos() {
   if (DoinkerPneu) {
@@ -230,12 +266,11 @@ void triggerDoinkerMech() {
 }
 
 void moveArmUp() {
-  stopIntake();
-  Arm.spin(forward);
+  Arm.spin(reverse);
 }
 
 void moveArmDown() {
-  Arm.spin(reverse);
+  Arm.spin(forward);
 }
 
 void stopArm() {
@@ -246,9 +281,8 @@ int DisplayToController() {
 
   while (true) {
     //controller(primary).Screen.print(Intake.velocity(rpm));
-    controller(primary).Screen.print(chassis.get_absolute_heading());
-    //controller(primary).Screen.print(ArmRotation.angle(degrees));
-    //controller(primary).Screen.print(DistSensor.objectDistance(inches));
+    //controller(primary).Screen.print(chassis.get_absolute_heading());
+    controller(primary).Screen.print(ArmRotation.angle(degrees));
     vex::this_thread::sleep_for(1000);
   }
 
@@ -258,9 +292,8 @@ void usercontrol(void) {
 
     MogoPneu.set(true);
 
+    Arm.setStopping(brake);
     Drivetrain.setStopping(coast);
-    
-    Arm.setVelocity(100, percent);
 
     controller(primary).ButtonL2.pressed(spinIntakeReverse); 
     controller(primary).ButtonL2.released(stopIntake); 
