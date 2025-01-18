@@ -1,5 +1,5 @@
 #include "vex.h"
-int matchloadangle = 167;
+int matchloadangle = 13;
 
 void default_constants(){
   chassis.set_drive_constants(11, 1.5, 0, 10, 0);
@@ -33,13 +33,13 @@ void ArmDown(){
 void mirrored(){
   //wait(2, seconds);
   int d = matchloadangle;
-  chassis.drive_distance(49, -167+d);
+  chassis.drive_distance(49, -13+d);
   chassis.set_drive_constants(11, 1, 0, 10, 0);
   Intake.spin(forward);
   //IntakeBack.spin(forward);
   //wait(0.1, seconds);
   //IntakeFront.stop();
-  chassis.drive_distance(8, -167+d);
+  chassis.drive_distance(8, -13+d);
   //IntakeBack.spin(forward);
   //wait(0.4, seconds);
   //IntakeBack.stop();
@@ -58,23 +58,23 @@ void mirrored(){
   //chassis.drive_distance(-8, -160+d); //-10
   chassis.set_turn_constants(12, 2, .03, 0.5, 15);
   chassis.set_drive_exit_conditions(1.5, 300, 400); //800
-  chassis.drive_distance(-10, -167+d);
+  chassis.drive_distance(-10, -13+d);
   Intake.stop();
   chassis.set_swing_exit_conditions(1, 300, 700);
-  chassis.left_swing_to_angle(-118+d);
+  chassis.right_swing_to_angle(-62+d);
   Conveyer.spin(forward);
   wait(0.35, seconds);
   Conveyer.stop();
-  Intake.spin(forward);
   chassis.set_swing_exit_conditions(1, 300, 1000);
   //thi sis for pickup on closer side to middle
   chassis.set_drive_constants(11, 1, 0, 10, 0);
   chassis.drive_distance(7);
+  Intake.spin(forward);
   //IntakeFront.stop();
-  chassis.left_swing_to_angle(-127+d); //-135
+  chassis.right_swing_to_angle(-53+d); //-45
   chassis.set_drive_exit_conditions(1.5, 300, 800);
   chassis.set_drive_constants(11, 1.2, 0, 10, 0);
-  chassis.drive_distance(-17.0); //19
+  chassis.drive_distance(-19.5); //19
   chassis.set_drive_constants(5, 1.2, 0, 10, 0);
   //chassis.right_swing_to_angle(-110+d);
   chassis.set_drive_exit_conditions(1.5, 300, 170);
@@ -82,12 +82,12 @@ void mirrored(){
   thread(ArmDown).detach();
   wait(0.3, seconds);
   chassis.set_swing_exit_conditions(1, 100, 500);
-  chassis.left_swing_to_angle(-70+d); //-90+d
+  chassis.right_swing_to_angle(-110+d); //-90+d
   chassis.set_drive_constants(11, 1.2, 0, 10, 0);
   chassis.set_drive_exit_conditions(1.5, 300, 800);
   Conveyer.spin(forward);
   //IntakeFront.spin(forward);
-  chassis.drive_distance(11, -70+d); // 14,-90+d
+  chassis.drive_distance(11, -110+d); // 14,-90+d
   //wait(0.5, seconds);
   chassis.set_turn_exit_conditions(1, 100, 450);
   chassis.set_swing_exit_conditions(1, 100, 500);
@@ -113,12 +113,12 @@ void mirrored(){
   // wait(0.1, seconds);
   // Intake.spin(forward);
   // chassis.drive_distance(15, -20+d);
-  chassis.right_swing_to_angle(8+d);
+  chassis.left_swing_to_angle(172+d);
   chassis.drive_distance(24);
   //wait(0.1, seconds);
-  chassis.right_swing_to_angle(-45+d);
+  chassis.left_swing_to_angle(-135+d);
   chassis.set_drive_constants(11, 12, 0, 10, 0);
-  chassis.drive_distance(45, -42+d);
+  chassis.drive_distance(45, -138+d);
   Intake.stop();
   wait(2, seconds);
   Conveyer.stop();

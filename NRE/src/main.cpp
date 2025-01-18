@@ -236,6 +236,14 @@ void triggerDoinkerMech() {
   DoinkerPneu.set(DoinkerPneuPos);
 }
 
+void checkPosition(){
+  while(true){
+    if(Arm.position(degrees)>760){
+      Arm.stop();
+    }
+  }
+}
+
 void moveArmUp() {
   if(Arm.position(degrees)<=760){
     Arm.spin(forward);
@@ -271,7 +279,6 @@ void loadArm(){
 }
 
 void usercontrol(void) {
-
     MogoPneu.set(true);
 
     Arm.setStopping(hold);
