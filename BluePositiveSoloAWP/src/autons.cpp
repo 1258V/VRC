@@ -103,7 +103,7 @@ void auton_task(){
   chassis.set_drive_constants(8, 1.5, 0, 10, 0);
   chassis.drive_distance(-18.75);
   chassis.set_drive_constants(11, 1.5, 0, 10, 0);
-  chassis.turn_to_angle(-90);
+  chassis.turn_to_angle(90);
   thread(ArmUp).detach();
 
   chassis.set_drive_exit_conditions(0.3, 300, 900);
@@ -111,7 +111,7 @@ void auton_task(){
   chassis.set_drive_exit_conditions(0.3, 300, 700);
   FrontIntake.spin(forward);
   
-  chassis.right_swing_to_angle(-27 - 90);
+  chassis.left_swing_to_angle(27 + 90);
   chassis.drive_distance(15);
   wait(0.05, seconds);
   thread(task3).detach();
@@ -121,7 +121,7 @@ void auton_task(){
   chassis.set_drive_constants(8, 1.5, 0, 10, 0);
   chassis.drive_distance(-24.75);
   chassis.set_drive_constants(11, 1.5, 0, 10, 0);
-  chassis.turn_to_angle(-54 - 180);
+  chassis.turn_to_angle(54 + 180);
 
   chassis.set_drive_exit_conditions(0.3, 300, 2000);
   chassis.set_drive_constants(8, 1.5, 0, 10, 0);
@@ -132,13 +132,13 @@ void auton_task(){
 
   MogoPneu.set(true);
   wait(0.5, seconds);
-  chassis.turn_to_angle(-360);
+  chassis.turn_to_angle(360);
   thread(task2).detach();
 
   FrontIntake.spin(forward);
   chassis.drive_distance(20);
   thread(task3).detach();
-  chassis.turn_to_angle(-360 - 135);
+  chassis.turn_to_angle(360 + 135);
   thread(task1).detach();
   chassis.drive_distance(20);
 
