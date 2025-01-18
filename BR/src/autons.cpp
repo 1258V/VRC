@@ -78,7 +78,7 @@ void loadArm() {
   }*/
 }
 
-void NR(){
+void NB(){
   default_constants();
   chassis.set_drive_constants(6, 1.5, 0, 10, 0);
   chassis.drive_distance(-24);
@@ -87,22 +87,22 @@ void NR(){
   MogoPneu.set(true);
   wait(0.3, seconds);
   default_constants();  
-  chassis.turn_to_angle(114);
+  chassis.turn_to_angle(360-114);
   spinIntake();
   chassis.drive_distance(20.5);
   wait(0.3, seconds);
   chassis.drive_distance(-15);
-  chassis.turn_to_angle(60);
+  chassis.turn_to_angle(360-60);
   MogoPneu.set(false);
   stopIntake();
   Intake.spin(forward);
   chassis.drive_distance(15);
-  chassis.turn_to_angle(93);
+  chassis.turn_to_angle(360-93);
   Intake.stop();
   MogoPneu.set(true);
   chassis.drive_distance(-62);
   chassis.drive_distance(5);
-  chassis.turn_to_angle(150);
+  chassis.turn_to_angle(360-150);
   chassis.set_drive_exit_conditions(1, 300, 1000);
   chassis.drive_distance(-11);
   spinIntake();
