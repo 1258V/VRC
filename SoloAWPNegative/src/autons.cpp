@@ -82,7 +82,7 @@ void soloAWPNegative(){
   chassis.turn_to_angle(93);
   Intake.stop();
   MogoPneu.set(true);
-  chassis.drive_distance(-63.5);
+  chassis.drive_distance(-62);
   chassis.drive_distance(5);
   chassis.turn_to_angle(150);
   chassis.set_drive_exit_conditions(1, 300, 1000);
