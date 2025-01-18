@@ -230,6 +230,7 @@ void triggerDoinkerMech() {
 }
 
 void moveArmUp() {
+  stopIntake();
   Arm.spin(forward);
 }
 
@@ -258,6 +259,8 @@ void usercontrol(void) {
     MogoPneu.set(true);
 
     Drivetrain.setStopping(coast);
+    
+    Arm.setVelocity(100, percent);
 
     controller(primary).ButtonL2.pressed(spinIntakeReverse); 
     controller(primary).ButtonL2.released(stopIntake); 

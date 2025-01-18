@@ -62,6 +62,7 @@ void stopIntake() {
 
 void loadArm() {
   Arm.spinTo(156, degrees);
+  spinIntake();
   /*while (true) {
     if (DistSensor.objectDistance(inches) < 1) {
       Intake.setVelocity(50, percent);
@@ -89,9 +90,9 @@ void NR(){
   default_constants();  
   chassis.turn_to_angle(114);
   spinIntake();
-  chassis.drive_distance(20.5);
+  chassis.drive_distance(19);
   wait(0.3, seconds);
-  chassis.drive_distance(-15);
+  chassis.drive_distance(-13.5);
   chassis.turn_to_angle(60);
   MogoPneu.set(false);
   stopIntake();
@@ -100,7 +101,7 @@ void NR(){
   chassis.turn_to_angle(93);
   Intake.stop();
   MogoPneu.set(true);
-  chassis.drive_distance(-62);
+  chassis.drive_distance(-66);
   chassis.drive_distance(5);
   chassis.turn_to_angle(150);
   chassis.set_drive_exit_conditions(1, 300, 1000);
@@ -110,6 +111,7 @@ void NR(){
   chassis.set_drive_constants(8, 0.75, 0, 10, 0);
   Arm.setVelocity(25, percent);
   chassis:Arm.spinToPosition(676, degrees, false);
+  MogoPneu.set(true);
   chassis.drive_distance(40);
 }
 
