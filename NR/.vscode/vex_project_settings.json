@@ -1,7 +1,7 @@
 {
 	"project": {
 		"name": "NR",
-		"slot": 2,
+		"slot": 3,
 		"description": "NR V5 C++ Project",
 		"platform": "V5",
 		"creationDate": "Tue, 19 Nov 2024 04:24:26 GMT",

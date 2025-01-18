@@ -257,7 +257,6 @@ void usercontrol(void) {
 
     MogoPneu.set(true);
 
-    Arm.setStopping(brake);
     Drivetrain.setStopping(coast);
 
     controller(primary).ButtonL2.pressed(spinIntakeReverse); 

@@ -161,7 +161,7 @@ void pre_auton(void) {
   }
 
 void autonomous(void) {
-  NR();
+  NB();
   //Auton43Points();
   //Auton38Points();
   //Auton26Points(); 
@@ -257,7 +257,6 @@ void usercontrol(void) {
 
     MogoPneu.set(true);
 
-    Arm.setStopping(brake);
     Drivetrain.setStopping(coast);
 
     controller(primary).ButtonL2.pressed(spinIntakeReverse); 
