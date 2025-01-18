@@ -179,14 +179,19 @@ void autonomous(void) {
 bool mobilePneu = false;
 
 void spinIntakeForward() {
+  Intake.setVelocity(100, percent);
+  Intake.spin(forward);
   Conveyer.setVelocity(100, percent);
   Conveyer.spin(forward);
 }
 
 void spinIntakeReverse() {
+  Intake.setVelocity(100, percent);
+  Intake.spin(reverse);
   Conveyer.setVelocity(100, percent);
   Conveyer.spin(reverse);
 }
+
 
 void toggleDoinkerPneuPos() {
   if (DoinkerPneu) {
@@ -262,7 +267,7 @@ void usercontrol(void) {
     controller(primary).ButtonL1.released(stopIntake); 
 
     controller(primary).ButtonR1.pressed(triggerMogoMech);
-    controller(primary).ButtonR2.pressed(loadArmController);
+    controller(primary).ButtonR2.pressed(loadArm);
 
     controller(primary).ButtonY.pressed(moveArmUp);
     controller(primary).ButtonY.released(stopArm);

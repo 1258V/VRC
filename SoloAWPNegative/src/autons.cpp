@@ -60,6 +60,24 @@ void stopIntake() {
   Intake.stop();
 }
 
+void loadArm() {
+  Arm.spinTo(-150, degrees);
+  /*while (true) {
+    if (DistSensor.objectDistance(inches) < 1) {
+      Intake.setVelocity(50, percent);
+      Intake.spinFor(reverse, 12, turns);
+      Intake.setVelocity(100, percent);
+      break;
+    }
+    else  {
+      Intake.setVelocity(100, percent);
+      Intake.spin(forward);
+    }
+
+    wait(0.02, seconds);
+  }*/
+}
+
 void soloAWPNegative(){
   default_constants();
   chassis.set_drive_constants(6, 1.5, 0, 10, 0);
@@ -91,7 +109,7 @@ void soloAWPNegative(){
   wait(1.5, seconds);
   chassis.set_drive_constants(8, 0.75, 0, 10, 0);
   Arm.setVelocity(25, percent);
-  Arm.spin(forward);
+  chassis:Arm.spinToPosition(676, degrees, false);
   chassis.drive_distance(40);
 }
 
@@ -114,14 +132,14 @@ void Auton43Points(){
   chassis.turn_to_angle(0);
   default_constants();
   chassis.set_drive_constants(6, 1.5, 0, 10, 0);
-  vex::task t(loadArm);
+  //vex::task t(loadArm);
   chassis.drive_distance(25);
   wait(0.3, seconds);
   chassis.turn_to_angle(38);
   chassis.drive_distance(30.5);
   chassis.turn_to_angle(90);
   vex::task t4(moveArmFullyUp);
-  t.stop();
+  //t.stop();
   Conveyer.setVelocity(100, percent);
   Conveyer.spin(forward);
   chassis.turn_to_angle(90);
@@ -228,14 +246,14 @@ void Auton38Points(){
   chassis.turn_to_angle(0);
   default_constants();
   chassis.set_drive_constants(6, 1.5, 0, 10, 0);
-  vex::task t(loadArm);
+  //vex::task t(loadArm);
   chassis.drive_distance(25);
   wait(0.3, seconds);
   chassis.turn_to_angle(38);
   chassis.drive_distance(30);
   chassis.turn_to_angle(90);
   chassis.arm_to_angle(110);
-  t.stop();
+  //t.stop();
   Conveyer.setVelocity(100, percent);
   Conveyer.spin(forward);
   chassis.turn_to_angle(90);

@@ -22,7 +22,7 @@ void tank_odom_test();
 void holonomic_odom_test();
 int moveArmFullyDown();
 int pickUpMogo();
-int lowerArm();
 void spinIntake();
 void stopIntake();
 int pickUpDisk();
+void loadArm();

@@ -7,9 +7,6 @@
  * @return Reduced angle.
  */
 
-void loadArmController() {
-  loadArm();
-}
 
 int loadIntake() {
   bool done = false;
@@ -23,33 +20,6 @@ int loadIntake() {
       Conveyer.spin(forward);
     }
   }
-}
-
-int loadArm() {
-  Arm.setVelocity(100, percent);
-  chassis.arm_to_angle(2);
-  Arm.setVelocity(50, percent);
-  while (true) {
-    if (DistSensor.objectDistance(inches) < 1) {
-      Conveyer.setVelocity(50, percent);
-      Conveyer.spinFor(reverse, 12, turns);
-      Conveyer.setVelocity(100, percent);
-      break;
-    }
-    else  {
-      Conveyer.setVelocity(100, percent);
-      Conveyer.spin(forward);
-    }
-  }
-  return 0;
-}
-
-float reduce_0_to_360(float angle) {
-  while(!(angle >= 0 && angle < 360)) {
-    if( angle < 0 ) { angle += 360; }
-    if(angle >= 360) { angle -= 360; }
-  }
-  return(angle);
 }
 
 /**

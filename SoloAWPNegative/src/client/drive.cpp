@@ -232,6 +232,13 @@ float Drive::get_absolute_heading(){
   return( reduce_0_to_360( Gyro.rotation()*360.0/gyro_scale ) ); 
 }
 
+float Drive::reduce_0_to_360(float angle) {
+  if (angle >= 360) {
+    angle -= 360;
+  }
+  return angle;
+}
+
 /**
  * Gets the motor group's position and converts to inches.
  * 
