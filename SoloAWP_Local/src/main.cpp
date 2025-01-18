@@ -180,7 +180,7 @@ void autonomous(void) {
 bool mobilePneu = false;
 
 void loadArm() {
-  Arm.spinTo(-149, degrees);
+  Arm.spinTo(-170, degrees);
   /*while (true) {
     if (DistSensor.objectDistance(inches) < 1) {
       Intake.setVelocity(50, percent);
