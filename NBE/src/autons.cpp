@@ -122,7 +122,14 @@ void mirrored(){
   Intake.stop();
   wait(2, seconds);
   Conveyer.stop();
-  //DoinkerPneu.set(true);
+  DoinkerPneu.set(true);
+  chassis.set_turn_exit_conditions(1, 100, 800);
+  wait(0.1, seconds);
+  chassis.turn_to_angle(45+d);
+  wait(0.1, seconds);
+  DoinkerPneu.set(false);
+  wait(0.1, seconds);
+  chassis.turn_to_angle(-45+d);
   // wait(0.4, seconds);
   // chassis.set_drive_exit_conditions(1.5, 300, 600);
   // chassis.drive_distance(-15);
