@@ -61,11 +61,8 @@ void stopIntake() {
 }
 
 void loadArm() {
-  Conveyer.setVelocity(70, percent);
-  Intake.setVelocity(100, percent);
-  Conveyer.spin(forward);
-  Intake.spin(forward);
   Arm.spinTo(156, degrees);
+  spinIntake();
   /*while (true) {
     if (DistSensor.objectDistance(inches) < 1) {
       Intake.setVelocity(50, percent);
