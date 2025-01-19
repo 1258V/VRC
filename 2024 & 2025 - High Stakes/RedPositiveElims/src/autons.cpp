@@ -136,16 +136,10 @@ void auton_task(){
 
   chassis.set_drive_constants(11, 1.5, 0, 10, 0);
   Intake.stop();
-  chassis.drive_distance(10);
-  chassis.drive_distance(-10);
+  chassis.drive_distance(16);
+  chassis.drive_distance(-16);
 
   chassis.set_turn_exit_conditions(1, 300, 900);
-  chassis.turn_to_angle(0);
-  Intake.spin(forward);
-  chassis.drive_distance(15);
-  thread(task3).detach();
-
-  chassis.drive_distance(-9);
   chassis.turn_to_angle(180);
   thread(ArmUp).detach();
   chassis.drive_distance(-9);
