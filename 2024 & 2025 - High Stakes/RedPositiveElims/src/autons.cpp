@@ -95,7 +95,12 @@ void task2(){
 }
 
 void task3(){
-  wait(1.4, seconds);
+  wait(0.8, seconds);
+  Intake.stop();
+}
+
+void task4(){
+  wait(1.5, seconds);
   Intake.stop();
 }
 
@@ -123,9 +128,31 @@ void auton_task(){
   chassis.drive_distance(-4);
 
   Intake.spin(forward);
-  chassis.turn_to_angle(49);
-  chassis.drive_distance(24);
+  chassis.turn_to_angle(43.5);
+  chassis.set_drive_constants(5, 1.5, 0, 10, 0);
+  thread(task4).detach();
+  chassis.drive_distance(34);
   MogoPneu.set(false);
+
+  chassis.set_drive_constants(11, 1.5, 0, 10, 0);
+  Intake.stop();
+  chassis.drive_distance(10);
+  chassis.drive_distance(-10);
+
+  chassis.set_turn_exit_conditions(1, 300, 900);
+  chassis.turn_to_angle(0);
+  Intake.spin(forward);
+  chassis.drive_distance(15);
+  thread(task3).detach();
+
+  chassis.drive_distance(-9);
+  chassis.turn_to_angle(180);
+  thread(ArmUp).detach();
+  chassis.drive_distance(-9);
+
+
+
+  /*
 
   thread(task3).detach();
   chassis.drive_distance(34);
