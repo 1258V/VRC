@@ -60,10 +60,10 @@ motor_group(LeftFront, LeftBack, Left6th),
 motor_group(RightFront, RightBack, Right6th),
 
 //Specify the PORT NUMBER of your inertial sensor, in PORT format (i.e. "PORT1", not simply "1"):
-PORT21,
+PORT13,
 
 //Input your wheel diameter. (4" omnis are actually closer to 4.125"):
-2.75,
+3.25,
 
 //External ratio, must be in decimal, in the format of input teeth/output teeth.
 //If your motor has an 84-tooth gear and your wheel has a 60-tooth gear, this value will be 1.4.
@@ -131,15 +131,15 @@ void pre_auton(void) {
     
     Arm.setStopping(brake);
     Arm.setMaxTorque(100, percent);
-    Arm.setVelocity(100, percent);
+    Arm.setVelocity(50, percent);
 
     DoinkerPneu.set(false);
     HangPneu.set(false);
 
     Intake.setStopping(coast);
     Intake.setMaxTorque(100, percent);
-    Intake.setVelocity(70, percent);
-    
+    Intake.setVelocity(100, percent);
+
     FrontIntake.setStopping(coast);
     FrontIntake.setMaxTorque(100, percent);
     FrontIntake.setVelocity(100, percent);
@@ -165,7 +165,7 @@ void pre_auton(void) {
   }
 
 void autonomous(void) {
-  regular();
+  auton_task();
 }
 
 /*---------------------------------------------------------------------------*/
@@ -179,54 +179,18 @@ void autonomous(void) {
 /*---------------------------------------------------------------------------*/
 bool mobilePneu = false;
 
-void loadArm() {
-  Arm.spinTo(-150, degrees);
-  /*while (true) {
-    if (DistSensor.objectDistance(inches) < 1) {
-      Intake.setVelocity(50, percent);
-      Intake.spinFor(reverse, 12, turns);
-      Intake.setVelocity(100, percent);
-      break;
-    }
-    else  {
-      Intake.setVelocity(100, percent);
-      Intake.spin(forward);
-    }
-
-    wait(0.02, seconds);
-  }*/
-}
-
 void spinIntakeForward() {
   Intake.setVelocity(100, percent);
   Intake.spin(forward);
-  FrontIntake.setVelocity(100, percent);
-  FrontIntake.spin(forward);
-  /*while(true){
-    if(Optical6.hue() > 150 && Optical6.hue() < 270){
-      Intake.setVelocity(30, percent);
-      wait(1, seconds);
-      Intake.setVelocity(100, percent);
-    }
-    else if(Optical6.hue() > 200 && Optical6.hue() < 300){
-      //Intake.setVelocity(30, percent);
-      //wait(1, seconds);
-      //Intake.setVelocity(100, percent);
-    }
-    wait(10, msec);
-  }*/
 }
 
 void spinIntakeReverse() {
   Intake.setVelocity(100, percent);
   Intake.spin(reverse);
-  FrontIntake.setVelocity(100, percent);
-  FrontIntake.spin(reverse);
 }
 
 void stopIntake() {
   Intake.stop();
-  FrontIntake.stop();
 }
 
 void toggleDoinkerPneuPos() {
@@ -277,6 +241,11 @@ void stopArm() {
   Arm.stop();
 }
 
+void loadArm(){
+  Arm.spinTo(156, degrees);
+  FrontIntake.spin(forward);
+  Intake.spin(forward);
+}
 int DisplayToController() {
 
   while (true) {

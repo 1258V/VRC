@@ -29,11 +29,14 @@ void regular(){
 void ArmDown(){
   MogoPneu.set(true);
 }
-
+void BarTouch(){
+  Arm.setVelocity(50, percent);
+  Arm.spinTo(630, degrees);
+}
 void mirrored(){
   //wait(2, seconds);
   int d = matchloadangle;
-  chassis.drive_distance(49, -167+d);
+  chassis.drive_distance(42, -167+d);
   chassis.set_drive_constants(11, 1, 0, 10, 0);
   Intake.spin(forward);
   //IntakeBack.spin(forward);
@@ -58,36 +61,36 @@ void mirrored(){
   //chassis.drive_distance(-8, -160+d); //-10
   chassis.set_turn_constants(12, 2, .03, 0.5, 15);
   chassis.set_drive_exit_conditions(1.5, 300, 400); //800
-  chassis.drive_distance(-10, -167+d);
+  chassis.drive_distance(-12, -167+d);
   Intake.stop();
   chassis.set_swing_exit_conditions(1, 300, 700);
   chassis.left_swing_to_angle(-118+d);
   Conveyer.spin(forward);
-  wait(0.35, seconds);
+  wait(0.3, seconds);
   Conveyer.stop();
   Intake.spin(forward);
   chassis.set_swing_exit_conditions(1, 300, 1000);
   //thi sis for pickup on closer side to middle
   chassis.set_drive_constants(11, 1, 0, 10, 0);
-  chassis.drive_distance(7);
+  chassis.drive_distance(9.2);
   //IntakeFront.stop();
-  chassis.left_swing_to_angle(-127+d); //-135
+  //chassis.left_swing_to_angle(-127+d); //-135
   chassis.set_drive_exit_conditions(1.5, 300, 800);
   chassis.set_drive_constants(11, 1.2, 0, 10, 0);
   chassis.drive_distance(-17.0); //19
   chassis.set_drive_constants(5, 1.2, 0, 10, 0);
   //chassis.right_swing_to_angle(-110+d);
-  chassis.set_drive_exit_conditions(1.5, 300, 170);
-  chassis.drive_distance(-7);
+  chassis.set_drive_exit_conditions(1.5, 300, 500);
+  chassis.drive_distance(-13);
   thread(ArmDown).detach();
   wait(0.3, seconds);
   chassis.set_swing_exit_conditions(1, 100, 500);
-  chassis.left_swing_to_angle(-70+d); //-90+d
+  chassis.left_swing_to_angle(-80+d); //-70+d
   chassis.set_drive_constants(11, 1.2, 0, 10, 0);
   chassis.set_drive_exit_conditions(1.5, 300, 800);
   Conveyer.spin(forward);
   //IntakeFront.spin(forward);
-  chassis.drive_distance(11, -70+d); // 14,-90+d
+  chassis.drive_distance(13, -80+d); // 14,-90+d
   //wait(0.5, seconds);
   chassis.set_turn_exit_conditions(1, 100, 450);
   chassis.set_swing_exit_conditions(1, 100, 500);
@@ -114,22 +117,28 @@ void mirrored(){
   // Intake.spin(forward);
   // chassis.drive_distance(15, -20+d);
   chassis.right_swing_to_angle(8+d);
-  chassis.drive_distance(24);
+  chassis.drive_distance(16);
   //wait(0.1, seconds);
   chassis.right_swing_to_angle(-45+d);
   chassis.set_drive_constants(11, 12, 0, 10, 0);
-  chassis.drive_distance(45, -42+d);
+  chassis.drive_distance(35, -42+d);
   Intake.stop();
   wait(2, seconds);
   Conveyer.stop();
-  DoinkerPneu.set(true);
-  chassis.set_turn_exit_conditions(1, 100, 800);
-  wait(0.1, seconds);
-  chassis.turn_to_angle(45+d);
-  wait(0.1, seconds);
-  DoinkerPneu.set(false);
-  wait(0.1, seconds);
-  chassis.turn_to_angle(-45+d);
+  wait(10, seconds);
+  chassis.drive_distance(-10);
+  // DoinkerPneu.set(true);
+  // chassis.set_turn_exit_conditions(1, 100, 800);
+  // wait(0.1, seconds);
+  // chassis.turn_to_angle(45+d);
+  // wait(0.1, seconds);
+  // DoinkerPneu.set(false);
+  // wait(0.1, seconds);
+  // chassis.turn_to_angle(-45+d);
+  // chassis.set_drive_constants(11, 1, 0, 10, 0);
+  // chassis.set_drive_exit_conditions(1.5, 300, 10000);
+  // chassis.drive_distance(-55, -45+d);
+  // thread(BarTouch).detach();
   // wait(0.4, seconds);
   // chassis.set_drive_exit_conditions(1.5, 300, 600);
   // chassis.drive_distance(-15);

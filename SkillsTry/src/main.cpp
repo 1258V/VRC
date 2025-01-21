@@ -60,10 +60,10 @@ motor_group(LeftFront, LeftBack, Left6th),
 motor_group(RightFront, RightBack, Right6th),
 
 //Specify the PORT NUMBER of your inertial sensor, in PORT format (i.e. "PORT1", not simply "1"):
-PORT21,
+PORT13,
 
 //Input your wheel diameter. (4" omnis are actually closer to 4.125"):
-2.75,
+3.25,
 
 //External ratio, must be in decimal, in the format of input teeth/output teeth.
 //If your motor has an 84-tooth gear and your wheel has a 60-tooth gear, this value will be 1.4.
@@ -129,16 +129,13 @@ void pre_auton(void) {
     Drivetrain.setStopping(coast);
     Inertial13.calibrate();
     
-    Arm.setStopping(hold);
+    Arm.setStopping(brake);
     Arm.setMaxTorque(100, percent);
-    Arm.setVelocity(100, percent);
+    Arm.setVelocity(50, percent);
 
     DoinkerPneu.set(false);
     HangPneu.set(false);
 
-    Conveyer.setStopping(coast);
-    Conveyer.setMaxTorque(100, percent);
-    Conveyer.setVelocity(100, percent);
     Intake.setStopping(coast);
     Intake.setMaxTorque(100, percent);
     Intake.setVelocity(100, percent);
@@ -156,7 +153,7 @@ void pre_auton(void) {
     RightFront.setVelocity(100, percent);
     RightBack.setVelocity(100, percent);
     Right6th.setVelocity(100, percent);
-    Conveyer.setVelocity(100.0, percent);
+    Intake.setVelocity(100.0, percent);
 
     ArmRotation.setReversed(true);
     ArmRotation.resetPosition();
@@ -164,8 +161,7 @@ void pre_auton(void) {
   }
 
 void autonomous(void) {
-  mirrored();
-  //Auton43Points();
+  Auton43Points();
   //Auton38Points();
   //Auton26Points(); 
 }
@@ -184,20 +180,15 @@ bool mobilePneu = false;
 void spinIntakeForward() {
   Intake.setVelocity(100, percent);
   Intake.spin(forward);
-  Conveyer.setVelocity(100, percent);
-  Conveyer.spin(forward);
 }
 
 void spinIntakeReverse() {
   Intake.setVelocity(100, percent);
   Intake.spin(reverse);
-  Conveyer.setVelocity(100, percent);
-  Conveyer.spin(reverse);
 }
 
-void stopIntake(){
+void stopIntake() {
   Intake.stop();
-  Conveyer.stop();
 }
 
 void toggleDoinkerPneuPos() {
@@ -236,40 +227,16 @@ void triggerDoinkerMech() {
   DoinkerPneu.set(DoinkerPneuPos);
 }
 
-void checkPosition(){
-  while(true){
-    if(Arm.position(degrees)>760){
-      Arm.stop();
-    }
-  }
-}
-
 void moveArmUp() {
-  if(Arm.position(degrees)<=760){
-    Arm.spin(forward);
-    wait(0.2, seconds);
-    Intake.stop();
-    Conveyer.stop();
-  }
+  Arm.spin(reverse);
 }
 
 void moveArmDown() {
-  Arm.spin(reverse);
+  Arm.spin(forward);
 }
 
 void stopArm() {
   Arm.stop();
-}
-
-int DisplayToController() {
-
-  while (true) {
-    //controller(primary).Screen.print(Intake.velocity(rpm));
-    controller(primary).Screen.print(chassis.get_absolute_heading());
-    //controller(primary).Screen.print(ArmRotation.angle(degrees));
-    //controller(primary).Screen.print(DistSensor.objectDistance(inches));
-    vex::this_thread::sleep_for(1000);
-  }
 }
 
 void loadArm(){
@@ -277,11 +244,22 @@ void loadArm(){
   Conveyer.spin(forward);
   Intake.spin(forward);
 }
+int DisplayToController() {
+
+  while (true) {
+    //controller(primary).Screen.print(Intake.velocity(rpm));
+    //controller(primary).Screen.print(chassis.get_absolute_heading());
+    controller(primary).Screen.print(ArmRotation.angle(degrees));
+    vex::this_thread::sleep_for(1000);
+  }
+
+}
 
 void usercontrol(void) {
+
     MogoPneu.set(true);
-    Arm.setVelocity(100, percent);
-    Arm.setStopping(hold);
+
+    Arm.setStopping(brake);
     Drivetrain.setStopping(coast);
 
     controller(primary).ButtonL2.pressed(spinIntakeReverse); 
@@ -295,11 +273,10 @@ void usercontrol(void) {
 
     controller(primary).ButtonY.pressed(moveArmUp);
     controller(primary).ButtonY.released(stopArm);
-
     controller(primary).ButtonRight.pressed(moveArmDown);
     controller(primary).ButtonRight.released(stopArm);
 
-    controller(primary).ButtonDown.pressed(triggerDoinkerMech);    
+    controller(primary).ButtonB.pressed(triggerDoinkerMech);    
 
   // User control code here, inside the loop
   while (1) {

@@ -273,7 +273,7 @@ void loadArm(){
 void usercontrol(void) {
 
     MogoPneu.set(true);
-
+    Arm.setVelocity(100, percent);
     Arm.setStopping(hold);
     Drivetrain.setStopping(coast);
 
@@ -292,7 +292,7 @@ void usercontrol(void) {
     controller(primary).ButtonRight.pressed(moveArmDown);
     controller(primary).ButtonRight.released(stopArm);
 
-    controller(primary).ButtonB.pressed(triggerDoinkerMech);    
+    controller(primary).ButtonDown.pressed(triggerDoinkerMech);    
 
   // User control code here, inside the loop
   while (1) {
