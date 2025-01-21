@@ -260,6 +260,8 @@ void usercontrol(void) {
 
     Drivetrain.setStopping(coast);
     
+    Intake.setVelocity(100, percent);
+    Conveyer.setVelocity(70, percent);
     Arm.setVelocity(100, percent);
 
     controller(primary).ButtonL2.pressed(spinIntakeReverse); 

@@ -258,6 +258,8 @@ void usercontrol(void) {
 
     MogoPneu.set(true);
 
+    Intake.setVelocity(100, percent);
+    Conveyer.setVelocity(70, percent);
     Drivetrain.setStopping(coast);
     
     Arm.setVelocity(100, percent);

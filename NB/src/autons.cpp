@@ -49,7 +49,7 @@ int lowerArm() {
 }
 
 void spinIntake() {
-  Conveyer.setVelocity(70, percent);
+  Conveyer.setVelocity(60, percent);
   Intake.setVelocity(100, percent);
   Conveyer.spin(forward);
   Intake.spin(forward);
