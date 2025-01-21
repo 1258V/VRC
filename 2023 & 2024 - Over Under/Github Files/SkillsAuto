@@ -1,0 +1,128 @@
+vexcode_brain_precision = 0
+vexcode_console_precision = 0
+proportional = 0
+derivative = 0
+kd = 0
+integral = 0
+ki = 0
+catapultTimePerShot = 0
+targetangle = 0
+PidSwitch = False
+message1 = Event()
+PidMove = Event()
+
+def PStraight_dist_head_velo(PStraight_dist_head_velo__dist, PStraight_dist_head_velo__head, PStraight_dist_head_velo__velo):
+    global proportional, derivative, kd, integral, ki, catapultTimePerShot, targetangle, PidSwitch, message1, PidMove, vexcode_brain_precision, vexcode_console_precision
+    drivetrain.set_drive_velocity(PStraight_dist_head_velo__velo, PERCENT)
+    drivetrain.drive_for(FORWARD, PStraight_dist_head_velo__dist, INCHES, wait=False)
+    while not not drivetrain.is_moving():
+        wait(5, MSEC)
+    while not not RightDriveMotor3.is_spinning():
+        wait(5, MSEC)
+    while not not LeftDriveMotor3.is_spinning():
+        wait(5, MSEC)
+
+def PTurn_head(PTurn_head__head):
+    global proportional, derivative, kd, integral, ki, catapultTimePerShot, targetangle, PidSwitch, message1, PidMove, vexcode_brain_precision, vexcode_console_precision
+    if PTurn_head__head > 0:
+        drivetrain.set_drive_velocity(derivative, PERCENT)
+        drivetrain.turn_for(RIGHT, (PTurn_head__head - 0), DEGREES)
+    else:
+        drivetrain.set_drive_velocity(derivative, PERCENT)
+        drivetrain.turn_for(LEFT, (PTurn_head__head - 0), DEGREES)
+
+def when_started1():
+    global proportional, derivative, kd, integral, ki, catapultTimePerShot, targetangle, PidSwitch, message1, PidMove, vexcode_brain_precision, vexcode_console_precision
+    Wings.set(False)
+    # Set wings in, set intake down
+    derivative = 100
+    catapultTimePerShot = 0.75
+    ki = 1
+    kd = 1.2
+    while not limit_switch_f.pressing():
+        wait(5, MSEC)
+    IntakeLift.set(True)
+    brain.screen.clear_screen()
+    brain.screen.set_cursor(1, 1)
+    brain.screen.print("Moving")
+    message1.broadcast()
+    drivetrain.set_drive_velocity(30, PERCENT)
+    drivetrain.turn_to_heading(-20, DEGREES)
+    drivetrain.drive_for(FORWARD, 2.5, INCHES)
+    brain.screen.clear_screen()
+    brain.screen.set_cursor(1, 1)
+    brain.screen.print("Shooting Triballs")
+    brain.timer.clear()
+    Catapult.set_max_torque(100, PERCENT)
+    Catapult.set_stopping(COAST)
+    Catapult.set_velocity((60 / catapultTimePerShot), PERCENT)
+    Catapult.spin(FORWARD)
+    while not brain.timer.time(SECONDS) > 44 * catapultTimePerShot:
+        wait(5, MSEC)
+    Catapult.stop()
+    IntakeLift.set(False)
+    drivetrain.set_drive_velocity(30, PERCENT)
+    drivetrain.drive_for(REVERSE, 2.5, INCHES)
+    drivetrain.set_drive_velocity(10, PERCENT)
+    drivetrain.turn_to_heading(19, DEGREES)
+    drivetrain.set_drive_velocity(20, PERCENT)
+    drivetrain.drive_for(REVERSE, 14, INCHES)
+    drivetrain.turn_to_heading(-3, DEGREES)
+    drivetrain.set_drive_velocity(50, PERCENT)
+    drivetrain.drive_for(REVERSE, 80, INCHES)
+    drivetrain.set_drive_velocity(30, PERCENT)
+    drivetrain.turn_to_heading(-63, DEGREES)
+    drivetrain.set_drive_velocity(100, PERCENT)
+    drivetrain.drive_for(REVERSE, 23, INCHES)
+    drivetrain.set_drive_velocity(30, PERCENT)
+    drivetrain.drive_for(FORWARD, 6, INCHES)
+    drivetrain.turn_to_heading(7, DEGREES)
+    drivetrain.drive_for(FORWARD, 40, INCHES)
+    drivetrain.turn_to_heading(93, DEGREES)
+    drivetrain.drive_for(FORWARD, 31, INCHES)
+    drivetrain.turn_to_heading(-3, DEGREES)
+    Wings.set(True)
+    wait(1, SECONDS)
+    drivetrain.set_drive_velocity(100, PERCENT)
+    drivetrain.drive_for(REVERSE, 25, INCHES)
+    drivetrain.turn_to_heading(-20, DEGREES)
+
+def when_started2():
+    global proportional, derivative, kd, integral, ki, catapultTimePerShot, targetangle, PidSwitch, message1, PidMove, vexcode_brain_precision, vexcode_console_precision
+    RightDriveMotor3.set_velocity(30, PERCENT)
+    LeftDriveMotor3.set_velocity(30, PERCENT)
+
+def onevent_PidMove_0():
+    global proportional, derivative, kd, integral, ki, catapultTimePerShot, targetangle, PidSwitch, message1, PidMove, vexcode_brain_precision, vexcode_console_precision
+    RightDriveMotor3.spin_for(REVERSE, (30 * derivative), DEGREES, wait=False)
+    LeftDriveMotor3.spin_for(REVERSE, (30 * derivative), DEGREES, wait=False)
+    PidSwitch = False
+
+def onevent_message1_0():
+    global proportional, derivative, kd, integral, ki, catapultTimePerShot, targetangle, PidSwitch, message1, PidMove, vexcode_brain_precision, vexcode_console_precision
+    while True:
+        brain.screen.clear_screen()
+        brain.screen.set_cursor(1, 1)
+        brain.screen.print(drivetrain.rotation(), precision=6 if vexcode_brain_precision is None else vexcode_brain_precision)
+        brain.screen.print(derivative, precision=6 if vexcode_brain_precision is None else vexcode_brain_precision)
+        wait(0.02, SECONDS)
+        wait(5, MSEC)
+
+def onevent_message1_1():
+    global proportional, derivative, kd, integral, ki, catapultTimePerShot, targetangle, PidSwitch, message1, PidMove, vexcode_brain_precision, vexcode_console_precision
+    while not limit_switch_c.pressing():
+        wait(5, MSEC)
+    Catapult.stop()
+
+# Calibrate the Drivetrain
+calibrate_drivetrain()
+
+# system event handlers
+PidMove(onevent_PidMove_0)
+message1(onevent_message1_0)
+message1(onevent_message1_1)
+# add 15ms delay to make sure events are registered correctly.
+wait(15, MSEC)
+
+ws2 = Thread( when_started2 )
+when_started1()

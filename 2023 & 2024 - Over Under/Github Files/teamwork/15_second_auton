@@ -1,0 +1,147 @@
+// User defined function
+void myblockfunction_PTime_time_angle_velocity(double myblockfunction_PTime_time_angle_velocity__time, double myblockfunction_PTime_time_angle_velocity__angle, double myblockfunction_PTime_time_angle_velocity__velocity);
+// User defined function
+void myblockfunction_PTurn_head(double myblockfunction_PTurn_head__head);
+// User defined function
+void myblockfunction_PStraight_dist_head_velo(double myblockfunction_PStraight_dist_head_velo__dist, double myblockfunction_PStraight_dist_head_velo__head, double myblockfunction_PStraight_dist_head_velo__velo);
+
+int Brain_precision = 0, Console_precision = 0;
+
+float proportional, derivative, kd, integral, ki, catapultTimePerShot, targetangle;
+
+bool PidSwitch, MotorEnable;
+
+event message1 = event();
+event PidMove = event();
+event message2 = event();
+
+// User defined function
+void myblockfunction_PTime_time_angle_velocity(double myblockfunction_PTime_time_angle_velocity__time, double myblockfunction_PTime_time_angle_velocity__angle, double myblockfunction_PTime_time_angle_velocity__velocity) {
+  Brain.Timer.clear();
+  Drivetrain.drive(forward);
+  Drivetrain.setDriveVelocity(myblockfunction_PTime_time_angle_velocity__velocity, percent);
+  waitUntil((Brain.Timer.time(seconds) > myblockfunction_PTime_time_angle_velocity__time));
+  Drivetrain.stop();
+}
+
+// User defined function
+void myblockfunction_PTurn_head(double myblockfunction_PTurn_head__head) {
+}
+
+// User defined function
+void myblockfunction_PStraight_dist_head_velo(double myblockfunction_PStraight_dist_head_velo__dist, double myblockfunction_PStraight_dist_head_velo__head, double myblockfunction_PStraight_dist_head_velo__velo) {
+  Drivetrain.setDriveVelocity(myblockfunction_PStraight_dist_head_velo__velo, percent);
+  Drivetrain.driveFor(forward, myblockfunction_PStraight_dist_head_velo__dist, inches, false);
+  waitUntil((!Drivetrain.isMoving()));
+}
+
+// "when started" hat block
+int whenStarted1() {
+  while (true) {
+    if (MotorEnable) {
+      Motor14.setVelocity(Drivetrain.velocity(percent), percent);
+      Motor18.setVelocity(Drivetrain.velocity(percent), percent);
+    }
+    else {
+    }
+  wait(5, msec);
+  }
+  return 0;
+}
+
+// "when I receive PidMove" hat block
+void onevent_PidMove_0() {
+}
+
+// "when started" hat block
+int whenStarted2() {
+  Drivetrain.setStopping(coast);
+  Intake.setVelocity(100.0, percent);
+  MotorEnable = false;
+  derivative = 100.0;
+  catapultTimePerShot = 0.6;
+  ki = 1.0;
+  kd = 1.2;
+  waitUntil((false && (false && false)));
+  Brain.Screen.clearScreen();
+  Brain.Screen.setCursor(1, 1);
+  Brain.Screen.print("Moving");
+  message1.broadcast();
+  Drivetrain.setRotation(-45.0, degrees);
+  IntakeStructure.set(false);
+  Wings.set(false);
+  myblockfunction_PStraight_dist_head_velo(17.0, -45.0, 60.0);
+  Wings.set(true);
+  myblockfunction_PStraight_dist_head_velo(-17.0, -45.0, -100.0);
+  Wings.set(false);
+  myblockfunction_PStraight_dist_head_velo(12.0, -45.0, 60.0);
+  myblockfunction_PTurn_head(45.0);
+  myblockfunction_PStraight_dist_head_velo(55.0, 45.0, 80.0);
+  myblockfunction_PTurn_head(-90.0);
+  IntakeStructure.set(true);
+  Intake.spin(reverse);
+  myblockfunction_PTime_time_angle_velocity(1.0, -90.0, 100.0);
+  myblockfunction_PStraight_dist_head_velo(-8.5, -90.0, 100.0);
+  myblockfunction_PTurn_head(0.0);
+  Intake.stop();
+  myblockfunction_PTime_time_angle_velocity(1.25, 0.0, -100.0);
+  myblockfunction_PStraight_dist_head_velo(5.0, 0.0, 50.0);
+  message2.broadcast();
+  Drivetrain.turnFor(left, 120.0, degrees, false);
+  wait(1.0, seconds);
+  Drivetrain.drive(forward);
+  return 0;
+}
+
+// "when I receive message1" hat block
+void onevent_message1_0() {
+  wait(0.3, seconds);
+  Catapult.spin(forward);
+  waitUntil(LimitSwitchC.pressing());
+  Catapult.stop();
+  while (true) {
+    Brain.Screen.clearScreen();
+    Brain.Screen.setCursor(1, 1);
+    Brain.Screen.print(printToBrain_numberFormat(), static_cast<float>(Drivetrain.rotation()));
+    Brain.Screen.print(printToBrain_numberFormat(), static_cast<float>(derivative));
+    wait(0.02, seconds);
+  wait(5, msec);
+  }
+}
+
+// "when I receive message1" hat block
+void onevent_message1_1() {
+  waitUntil(LimitSwitchC.pressing());
+  Catapult.stop();
+}
+
+// "when I receive message2" hat block
+void onevent_message2_0() {
+  Catapult.spin(forward);
+  waitUntil((!LimitSwitchC.pressing()));
+  Catapult.stop();
+}
+
+
+int main() {
+  // Calibrate the Drivetrain
+  calibrateDrivetrain();
+
+  // register event handlers
+  PidMove(onevent_PidMove_0);
+  message1(onevent_message1_0);
+  message1(onevent_message1_1);
+  message2(onevent_message2_0);
+
+  wait(15, msec);
+  // post event registration
+
+  // set default print color to black
+  printf("\033[30m");
+
+  // wait for rotation sensor to fully initialize
+  wait(30, msec);
+
+  vex::task ws1(whenStarted2);
+  whenStarted1();
+}
