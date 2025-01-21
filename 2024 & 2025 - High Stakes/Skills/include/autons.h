@@ -22,3 +22,7 @@ void holonomic_odom_test();
 int moveArmFullyDown();
 int pickUpMogo();
 int lowerArm();
+void spinIntake();
+void stopIntake();
+void loadArm();
+void auton();

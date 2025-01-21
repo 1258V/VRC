@@ -14,6 +14,7 @@ extern digital_out DoinkerPneu;
 extern digital_out MogoPneu;
 extern digital_out HangPneu;
 extern motor Arm;
+extern motor Conveyer;
 extern motor Intake;
 extern limit LimitSwitchC;
 extern distance DistSensor;

@@ -1,9 +1,5 @@
 int setArmToZero();
 
-void loadArmController();
-
-int loadArm();
-
 int loadIntake();
 
 float reduce_0_to_360(float angle);
