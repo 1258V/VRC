@@ -1,0 +1,169 @@
+competition Competition;
+
+// User defined function
+void myblockfunction_PStraight_dist_head_velo(double myblockfunction_PStraight_dist_head_velo__dist, double myblockfunction_PStraight_dist_head_velo__head, double myblockfunction_PStraight_dist_head_velo__velo);
+// User defined function
+void myblockfunction_PTurn_head(double myblockfunction_PTurn_head__head);
+
+int Brain_precision = 0, Console_precision = 0;
+
+float proportional, derivative, kd, integral, ki, catapultTimePerShot, targetangle;
+
+bool PidSwitch;
+
+event message1 = event();
+event PidMove = event();
+
+// User defined function
+void myblockfunction_PStraight_dist_head_velo(double myblockfunction_PStraight_dist_head_velo__dist, double myblockfunction_PStraight_dist_head_velo__head, double myblockfunction_PStraight_dist_head_velo__velo) {
+  Drivetrain.setDriveVelocity(myblockfunction_PStraight_dist_head_velo__velo, percent);
+  Drivetrain.driveFor(forward, myblockfunction_PStraight_dist_head_velo__dist, inches, false);
+  waitUntil((!Drivetrain.isMoving()));
+  waitUntil((!RightDriveMotor3.isSpinning()));
+  waitUntil((!LeftDriveMotor3.isSpinning()));
+}
+
+// User defined function
+void myblockfunction_PTurn_head(double myblockfunction_PTurn_head__head) {
+  if (myblockfunction_PTurn_head__head > 0.0) {
+    Drivetrain.setDriveVelocity(derivative, percent);
+    Drivetrain.turnFor(right, (myblockfunction_PTurn_head__head - 0.0), degrees, true);
+  }
+  else {
+    Drivetrain.setDriveVelocity(derivative, percent);
+    Drivetrain.turnFor(left, (myblockfunction_PTurn_head__head - 0.0), degrees, true);
+  }
+}
+
+// "when autonomous" hat block
+int onauton_autonomous_0() {
+  Wings.set(false);
+  // Set wings in, set intake down
+  derivative = 100.0;
+  catapultTimePerShot = 0.75;
+  ki = 1.0;
+  kd = 1.2;
+  IntakeLift.set(true);
+  Brain.Screen.clearScreen();
+  Brain.Screen.setCursor(1, 1);
+  Brain.Screen.print("Moving");
+  message1.broadcast();
+  Drivetrain.setDriveVelocity(30.0, percent);
+  Drivetrain.turnToHeading(-20.0, degrees, true);
+  Drivetrain.driveFor(forward, 2.5, inches, true);
+  Brain.Screen.clearScreen();
+  Brain.Screen.setCursor(1, 1);
+  Brain.Screen.print("Shooting Triballs");
+  Brain.Timer.clear();
+  Catapult.setMaxTorque(100.0, percent);
+  Catapult.setStopping(coast);
+  Catapult.setVelocity((60.0 / catapultTimePerShot), percent);
+  Catapult.spin(forward);
+  waitUntil((Brain.Timer.time(seconds) > 44.0 * catapultTimePerShot));
+  Catapult.stop();
+  Drivetrain.setDriveVelocity(30.0, percent);
+  Drivetrain.driveFor(reverse, 2.5, inches, true);
+  Drivetrain.setDriveVelocity(30.0, percent);
+  Drivetrain.turnToHeading(19.0, degrees, true);
+  Drivetrain.setDriveVelocity(30.0, percent);
+  Drivetrain.driveFor(reverse, 14.0, inches, true);
+  Drivetrain.turnToHeading(-3.0, degrees, true);
+  Drivetrain.setDriveVelocity(60.0, percent);
+  Drivetrain.driveFor(reverse, 80.0, inches, true);
+  Drivetrain.setDriveVelocity(30.0, percent);
+  Drivetrain.turnToHeading(-63.0, degrees, true);
+  Drivetrain.setDriveVelocity(100.0, percent);
+  Drivetrain.driveFor(reverse, 23.0, inches, true);
+  Drivetrain.setDriveVelocity(70.0, percent);
+  Drivetrain.driveFor(forward, 6.0, inches, true);
+  Drivetrain.turnToHeading(10.0, degrees, true);
+  Drivetrain.driveFor(forward, 38.5, inches, true);
+  Drivetrain.turnToHeading(93.0, degrees, true);
+  Drivetrain.setDriveVelocity(140.0, percent);
+  Drivetrain.driveFor(forward, 30.5, inches, true);
+  Drivetrain.turnToHeading(-3.0, degrees, true);
+  Wings.set(true);
+  wait(0.3, seconds);
+  Drivetrain.setDriveVelocity(150.0, percent);
+  Drivetrain.driveFor(reverse, 25.0, inches, true);
+  Drivetrain.turnToHeading(10.0, degrees, true);
+  Drivetrain.driveFor(forward, 27.0, inches, true);
+  Drivetrain.turnToHeading(-3.0, degrees, true);
+  Drivetrain.driveFor(reverse, 25.0, inches, true);
+  return 0;
+}
+
+// "when started" hat block
+int whenStarted1() {
+  RightDriveMotor3.setVelocity(30.0, percent);
+  LeftDriveMotor3.setVelocity(30.0, percent);
+  return 0;
+}
+
+// "when I receive PidMove" hat block
+void onevent_PidMove_0() {
+  RightDriveMotor3.spinFor(reverse, (30.0 * derivative), degrees, false);
+  LeftDriveMotor3.spinFor(reverse, (30.0 * derivative), degrees, false);
+  PidSwitch = false;
+}
+
+// "when I receive message1" hat block
+void onevent_message1_0() {
+  while (true) {
+    Brain.Screen.clearScreen();
+    Brain.Screen.setCursor(1, 1);
+    Brain.Screen.print(printToBrain_numberFormat(), static_cast<float>(Drivetrain.rotation()));
+    Brain.Screen.print(printToBrain_numberFormat(), static_cast<float>(derivative));
+    wait(0.02, seconds);
+  wait(5, msec);
+  }
+}
+
+// "when I receive message1" hat block
+void onevent_message1_1() {
+  waitUntil(LimitSwitchC.pressing());
+  Catapult.stop();
+}
+
+void VEXcode_driver_task() {
+  // Start the driver control tasks....
+
+  while(Competition.isDriverControl() && Competition.isEnabled()) {this_thread::sleep_for(10);}
+
+  return;
+}
+
+void VEXcode_auton_task() {
+  // Start the auton control tasks....
+  vex::task auto0(onauton_autonomous_0);
+  while(Competition.isAutonomous() && Competition.isEnabled()) {this_thread::sleep_for(10);}
+  auto0.stop();
+  return;
+}
+
+
+
+int main() {
+  vex::competition::bStopTasksBetweenModes = false;
+  Competition.autonomous(VEXcode_auton_task);
+  Competition.drivercontrol(VEXcode_driver_task);
+
+  // Calibrate the Drivetrain
+  calibrateDrivetrain();
+
+  // register event handlers
+  PidMove(onevent_PidMove_0);
+  message1(onevent_message1_0);
+  message1(onevent_message1_1);
+
+  wait(15, msec);
+  // post event registration
+
+  // set default print color to black
+  printf("\033[30m");
+
+  // wait for rotation sensor to fully initialize
+  wait(30, msec);
+
+  whenStarted1();
+}
