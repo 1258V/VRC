@@ -22,7 +22,7 @@ motor Arm = motor(PORT12, ratio18_1, false);
 motor Intake = motor(PORT9, ratio6_1, false);
 motor FrontIntake = motor(PORT11, ratio6_1, true);
 limit LimitSwitchC = limit(Brain.ThreeWirePort.C);
-distance DistSensor = distance(PORT11);
+distance DistSensor = distance(PORT8);
 rotation ArmRotation = rotation(PORT10, true);
 optical Optical6 = optical(PORT20);
 

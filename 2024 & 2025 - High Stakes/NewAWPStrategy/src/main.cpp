@@ -202,19 +202,15 @@ void spinIntakeForward() {
   Intake.spin(forward);
   FrontIntake.setVelocity(100, percent);
   FrontIntake.spin(forward);
-  /*while(true){
-    if(Optical6.hue() > 150 && Optical6.hue() < 270){
-      Intake.setVelocity(30, percent);
-      wait(1, seconds);
-      Intake.setVelocity(100, percent);
+  while(true){
+    if(DistSensor.objectDistance(inches) < 1.5){
+      Intake.stop();
     }
     else if(Optical6.hue() > 200 && Optical6.hue() < 300){
-      //Intake.setVelocity(30, percent);
-      //wait(1, seconds);
-      //Intake.setVelocity(100, percent);
+      //Intake.stop();
     }
     wait(10, msec);
-  }*/
+  }
 }
 
 void spinIntakeReverse() {
