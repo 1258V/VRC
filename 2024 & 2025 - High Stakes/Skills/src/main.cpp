@@ -155,7 +155,7 @@ void pre_auton(void) {
     Right6th.setVelocity(100, percent);
     Conveyer.setVelocity(100.0, percent);
 
-    ArmRotation.setReversed(true);
+    ArmRotation.setReversed(false);
     ArmRotation.resetPosition();
 
   }
@@ -244,8 +244,8 @@ int DisplayToController() {
 
   while (true) {
     //controller(primary).Screen.print(Intake.velocity(rpm));
-    controller(primary).Screen.print(chassis.get_absolute_heading());
-    //controller(primary).Screen.print(ArmRotation.angle(degrees));
+    //controller(primary).Screen.print(chassis.get_absolute_heading());
+    controller(primary).Screen.print(ArmRotation.angle(degrees));
     //controller(primary).Screen.print(DistSensor.objectDistance(inches));
     vex::this_thread::sleep_for(1000);
   }

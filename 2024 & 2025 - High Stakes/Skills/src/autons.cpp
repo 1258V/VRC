@@ -61,28 +61,33 @@ void stopIntake() {
 }
 
 void loadArm() {
-  Arm.spinTo(156, degrees);
+  chassis.arm_to_angle(22);
   spinIntake();
-  /*while (true) {
-    if (DistSensor.objectDistance(inches) < 1) {
-      Intake.setVelocity(50, percent);
-      Intake.spinFor(reverse, 12, turns);
-      Intake.setVelocity(100, percent);
-      break;
-    }
-    else  {
-      Intake.setVelocity(100, percent);
-      Intake.spin(forward);
-    }
+}
 
-    wait(0.02, seconds);
-  }*/
+void allowDisksThrough() {
+  Arm.setVelocity(30, percent);
+  chassis.arm_to_angle(50);
+  Arm.setVelocity(100, percent);
 }
 
 int grabFirstMogo() {
   wait(0.75, seconds);
   MogoPneu.set(true);
   wait(3, seconds);
+  return 0;
+}
+
+int loadFirstWallStake() {
+  loadArm();
+  wait(3, seconds);
+  stopIntake();
+  allowDisksThrough();
+  return 0;
+}
+
+int placeFirstWallStakeDisk() {
+  chassis.arm_to_angle(150);
   return 0;
 }
 
@@ -94,7 +99,17 @@ void auton() {
   chassis.turn_to_angle(270);
   vex::task gfm(grabFirstMogo);
   chassis.set_drive_constants(6, 1.5, 0, 10, 0);
-  chassis.drive_distance(-20);
+  chassis.drive_distance(-24);
+  chassis.turn_to_angle(0);
+  loadArm();
+  vex::task loadForStake1(loadFirstWallStake);
+  chassis.drive_distance(20);
+  chassis.turn_to_angle(38);
+  chassis.drive_distance(37);
+  chassis.turn_to_angle(90);
+  spinIntake();
+  chassis.drive_distance(12);
+  placeFirstWallStakeDisk();
 }
 
 void Auton43Points(){
