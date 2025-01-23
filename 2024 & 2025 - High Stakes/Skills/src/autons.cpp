@@ -141,7 +141,20 @@ void auton() {
   chassis.drive_distance(7);
   chassis.turn_to_angle(90);
   vex::task gsm(grabSecondMogo);
-  chassis.drive_distance(-85, 90);
+  chassis.drive_distance(-82, 90);
+  chassis.turn_to_angle(0);
+  chassis.drive_distance(25);
+  chassis.turn_to_angle(270);
+  chassis.drive_distance(25);
+  chassis.turn_to_angle(180);
+  chassis.drive_distance(33);
+  chassis.drive_distance(-23);
+  chassis.turn_to_angle(220);
+  chassis.drive_distance(12);
+  wait(0.5, seconds);
+  chassis.turn_to_angle(15);
+  chassis.drive_distance(-12);
+  MogoPneu.set(false);
 }
 
 void Auton43Points(){
