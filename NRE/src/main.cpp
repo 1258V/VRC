@@ -164,10 +164,8 @@ void pre_auton(void) {
   }
 
 void autonomous(void) {
-  mirrored();
-  //Auton43Points();
-  //Auton38Points();
-  //Auton26Points(); 
+  wallstake();
+  //rushmid();
 }
 
 /*---------------------------------------------------------------------------*/
@@ -236,14 +234,6 @@ void triggerDoinkerMech() {
   DoinkerPneu.set(DoinkerPneuPos);
 }
 
-void checkPosition(){
-  while(true){
-    if(Arm.position(degrees)>760){
-      Arm.stop();
-    }
-  }
-}
-
 void moveArmUp() {
   if(Arm.position(degrees)<=760){
     Arm.spin(forward);
@@ -279,6 +269,7 @@ void loadArm(){
 }
 
 void usercontrol(void) {
+
     MogoPneu.set(true);
     Arm.setVelocity(100, percent);
     Arm.setStopping(hold);
