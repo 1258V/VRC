@@ -164,7 +164,7 @@ void pre_auton(void) {
   }
 
 void autonomous(void) {
-  mirrored();
+  regular();
   //Auton43Points();
   //Auton38Points();
   //Auton26Points(); 

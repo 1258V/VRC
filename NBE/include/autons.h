@@ -13,6 +13,7 @@ void Auton43Points();
 void Auton38Points();
 void Auton26Points();
 void mirrored();
+void regular();
 void macro();
 void subMacro();
 void swing_test();
