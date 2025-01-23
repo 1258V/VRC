@@ -23,7 +23,7 @@ void hs(){
   chassis.set_drive_exit_conditions(1.5, 300, 800);
 }
 
-void regular(){
+void wallstake(){
   chassis.drive_distance(38);
   chassis.set_swing_exit_conditions(1, 300, 500);
   chassis.right_swing_to_angle(-39);
@@ -49,9 +49,10 @@ void BarTouch(){
   Arm.spinTo(630, degrees);
 }
 void ArmDown(){
+  wait(0.3, seconds);
   MogoPneu.set(true);
 }
-void mirrored(){
+void rushmid(){
   //wait(2, seconds);
   int d = matchloadangle;
   chassis.drive_distance(42, -167+d);

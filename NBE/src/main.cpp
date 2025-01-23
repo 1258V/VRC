@@ -164,10 +164,8 @@ void pre_auton(void) {
   }
 
 void autonomous(void) {
-  regular();
-  //Auton43Points();
-  //Auton38Points();
-  //Auton26Points(); 
+  wallstake();
+  //rushmid();
 }
 
 /*---------------------------------------------------------------------------*/
