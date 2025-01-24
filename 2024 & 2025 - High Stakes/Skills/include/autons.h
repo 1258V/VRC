@@ -26,5 +26,5 @@ void spinIntake();
 void stopIntake();
 void loadArm();
 void auton();
-int loadFirstWallStake();
+int loadForWallStake();
 void allowDisksThrough(); 
