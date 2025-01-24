@@ -8,7 +8,7 @@ void default_constants(){
   chassis.set_turn_constants(12, .4, .03, 3, 15);
   chassis.set_swing_constants(12, .3, .001, 2, 15);
   chassis.set_drive_exit_conditions(1, 300, 5000);
-  chassis.set_turn_exit_conditions(1, 300, 1800);
+  chassis.set_turn_exit_conditions(1, 300, 1200); // previously 1800, might be source of issues
   chassis.set_swing_exit_conditions(1, 300, 1000);
 }
 
@@ -49,7 +49,7 @@ int lowerArm() {
 }
 
 void spinIntake() {
-  Conveyer.setVelocity(60, percent);
+  Conveyer.setVelocity(90, percent);
   Intake.setVelocity(100, percent);
   Conveyer.spin(forward);
   Intake.spin(forward);
@@ -62,7 +62,16 @@ void stopIntake() {
 
 void loadArm() {
   chassis.arm_to_angle(22);
-  spinIntake();
+  Conveyer.setVelocity(90, percent);
+  Intake.setVelocity(100, percent);
+  Conveyer.spin(forward);
+  Intake.spin(forward);
+}
+
+int loadArmTask() {
+  loadArm();
+  wait(3, seconds);
+  return 0;
 }
 
 void allowDisksThrough() {
@@ -85,7 +94,7 @@ int grabSecondMogo() {
   return 0;
 }
 
-int loadFirstWallStake() {
+int loadForWallStake() {
   loadArm();
   wait(3, seconds);
   stopIntake();
@@ -93,16 +102,16 @@ int loadFirstWallStake() {
   return 0;
 }
 
-int loadArmTask() {
+int bringArmDown() {
   Arm.spin(reverse);
-  wait(1, seconds);
+  wait(0.5, seconds);
   Arm.stop();
   return 0;
 }
 
-int placeFirstWallStakeDisk() {
+int placeWallStakeDisk() {
   chassis.arm_to_angle(150);
-  wait(1.5, seconds);
+  //wait(1, seconds);
   return 0;
 }
 
@@ -117,19 +126,19 @@ void auton() {
   chassis.drive_distance(-24);
   chassis.turn_to_angle(0);
   loadArm();
-  vex::task loadForStake1(loadFirstWallStake);
+  vex::task loadForStake1(loadForWallStake);
   chassis.drive_distance(20);
   chassis.turn_to_angle(30);
   chassis.drive_distance(33);
   chassis.turn_to_angle(90);
   spinIntake();
   chassis.drive_distance(18);
-  vex::task scoreFirstWallStake(placeFirstWallStakeDisk);
+  vex::task scoreFirstWallStake(placeWallStakeDisk);
   wait(1.5, seconds);
   chassis.drive_distance(-14);
   chassis.turn_to_angle(178);
   chassis.set_heading(180);
-  vex::task resetArm(loadArmTask);
+  vex::task resetArm(bringArmDown);
   chassis.drive_distance(61);
   chassis.drive_distance(-23);
   chassis.turn_to_angle(140);
@@ -145,7 +154,7 @@ void auton() {
   chassis.turn_to_angle(0);
   chassis.drive_distance(25);
   chassis.turn_to_angle(270);
-  chassis.drive_distance(25);
+  chassis.drive_distance(23);
   chassis.turn_to_angle(180);
   chassis.drive_distance(33);
   chassis.drive_distance(-23);
@@ -153,8 +162,24 @@ void auton() {
   chassis.drive_distance(12);
   wait(0.5, seconds);
   chassis.turn_to_angle(15);
-  chassis.drive_distance(-12);
+  chassis.drive_distance(-13);
   MogoPneu.set(false);
+  wait(0.2, seconds);
+  chassis.drive_distance(11);
+  chassis.turn_to_angle(0);
+  loadForStake1.stop();
+  scoreFirstWallStake.stop();
+  resetArm.stop();
+  gsm.stop();
+  loadArm();
+  vex::task loadForStake2(loadForWallStake);
+  chassis.drive_distance(42);
+  chassis.turn_to_angle(270);
+  chassis.drive_distance(3);
+  placeWallStakeDisk();
+  chassis.drive_distance(-13);
+  chassis.turn_to_angle(50);
+  chassis.drive_distance(30);
 }
 
 void Auton43Points(){

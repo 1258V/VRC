@@ -131,7 +131,7 @@ void pre_auton(void) {
     
     Arm.setStopping(hold);
     Arm.setMaxTorque(100, percent);
-    Arm.setVelocity(100, percent);
+    Arm.setVelocity(70, percent);
 
     DoinkerPneu.set(false);
     HangPneu.set(false);
@@ -257,10 +257,10 @@ void usercontrol(void) {
     MogoPneu.set(true);
 
     Intake.setVelocity(100, percent);
-    Conveyer.setVelocity(70, percent);
+    Conveyer.setVelocity(100, percent);
     Drivetrain.setStopping(coast);
     
-    Arm.setVelocity(100, percent);
+    Arm.setVelocity(70, percent);
 
     controller(primary).ButtonL2.pressed(spinIntakeReverse); 
     controller(primary).ButtonL2.released(stopIntake); 
