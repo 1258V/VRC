@@ -22,35 +22,48 @@ void hs(){
   chassis.drive_distance(1.3);
   chassis.set_drive_exit_conditions(1.5, 300, 800);
 }
-
+void armdown(){
+  Arm.spinTo(-100, degrees);
+}
 void wallstake(){
-  chassis.drive_distance(38);
+  Arm.setMaxTorque(100, percent);
+  Arm.setVelocity(100, percent);
+  chassis.drive_distance(38.4, -2);
   chassis.set_swing_exit_conditions(1, 300, 500);
   chassis.right_swing_to_angle(-39);
   chassis.set_swing_exit_conditions(1, 300, 1000);
   //thread(hs).detach();
-  Arm.spinTo(590, degrees); //585
+  Arm.spinTo(680, degrees); //585
   //thread(hs).detach();
-  wait(0.4, seconds);
+  wait(0.45, seconds);
   Arm.spinTo(-100, degrees);
+  wait(0.1, seconds);
   chassis.right_swing_to_angle(36);
   Intake.spin(forward);
   Conveyer.spin(forward);
-  chassis.drive_distance(11);
-  wait(0.2, seconds);
+  chassis.drive_distance(10);
+  wait(0.15, seconds);
   Conveyer.stop();
   chassis.drive_distance(-10);
   chassis.left_swing_to_angle(60);
-  chassis.drive_distance(13);
-  
+  chassis.drive_distance(14.4);
+  chassis.left_swing_to_angle(0);
+  chassis.set_drive_exit_conditions(1.5, 300, 200);
+  chassis.drive_distance(-8);
+  chassis.right_swing_to_angle(-60);
+  chassis.set_drive_exit_conditions(1.5, 300, 800);
+  chassis.drive_distance(-31);
+  wait(0.38, seconds);
+  MogoPneu.set(true);
+  wait(0.16, seconds);
+  Conveyer.spin(forward);
+  chassis.right_swing_to_angle(-120);
+  chassis.drive_distance(11);
+  wait(10, seconds);
 }
 void BarTouch(){
   Arm.setVelocity(50, percent);
   Arm.spinTo(630, degrees);
-}
-void ArmDown(){
-  wait(0.3, seconds);
-  MogoPneu.set(true);
 }
 void rushmid(){
   //wait(2, seconds);
@@ -101,7 +114,8 @@ void rushmid(){
   //chassis.right_swing_to_angle(-110+d);
   chassis.set_drive_exit_conditions(1.5, 300, 350);
   chassis.drive_distance(-10);
-  thread(ArmDown).detach();
+  wait(0.1, seconds);
+  MogoPneu.set(true);
   wait(0.3, seconds);
   chassis.set_swing_exit_conditions(1, 100, 500);
   chassis.right_swing_to_angle(-100+d); //-90+d
