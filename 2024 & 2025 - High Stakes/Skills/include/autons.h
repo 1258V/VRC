@@ -28,3 +28,4 @@ void loadArm();
 void auton();
 int loadForWallStake();
 void allowDisksThrough(); 
+int expelDisc();

@@ -94,6 +94,13 @@ int grabSecondMogo() {
   return 0;
 }
 
+int grabThirdMogo() {
+  wait(2.25, seconds);
+  MogoPneu.set(true);
+  wait(3, seconds);
+  return 0;
+}
+
 int loadForWallStake() {
   loadArm();
   wait(3, seconds);
@@ -104,14 +111,31 @@ int loadForWallStake() {
 
 int bringArmDown() {
   Arm.spin(reverse);
-  wait(0.5, seconds);
+  wait(1.5, seconds);
   Arm.stop();
   return 0;
 }
 
 int placeWallStakeDisk() {
-  chassis.arm_to_angle(150);
-  //wait(1, seconds);
+  chassis.arm_to_angle(125);
+  wait(1, seconds);
+  return 0;
+}
+
+int expelDisc() {
+  bool blue = false;
+  while (true) {
+    if (Opt.hue() > 100) {
+      blue = true;
+    }
+    if (DistSensor.objectDistance(inches) < 2 && blue) {
+      wait(0.05, seconds);
+      Conveyer.stop();
+      blue = false;
+      wait(0.05, seconds);
+      spinIntake();
+    }
+  }
   return 0;
 }
 
@@ -134,10 +158,11 @@ void auton() {
   spinIntake();
   chassis.drive_distance(18);
   vex::task scoreFirstWallStake(placeWallStakeDisk);
-  wait(1.5, seconds);
   chassis.drive_distance(-14);
   chassis.turn_to_angle(178);
   chassis.set_heading(180);
+  loadForStake1.stop();
+  scoreFirstWallStake.stop();
   vex::task resetArm(bringArmDown);
   chassis.drive_distance(61);
   chassis.drive_distance(-23);
@@ -155,6 +180,7 @@ void auton() {
   chassis.drive_distance(25);
   chassis.turn_to_angle(270);
   chassis.drive_distance(23);
+  wait(0.3, seconds);
   chassis.turn_to_angle(180);
   chassis.drive_distance(33);
   chassis.drive_distance(-23);
@@ -167,19 +193,28 @@ void auton() {
   wait(0.2, seconds);
   chassis.drive_distance(11);
   chassis.turn_to_angle(0);
-  loadForStake1.stop();
-  scoreFirstWallStake.stop();
   resetArm.stop();
   gsm.stop();
   loadArm();
   vex::task loadForStake2(loadForWallStake);
-  chassis.drive_distance(42);
+  chassis.drive_distance(40);
   chassis.turn_to_angle(270);
-  chassis.drive_distance(3);
+  chassis.drive_distance(4);
   placeWallStakeDisk();
   chassis.drive_distance(-13);
-  chassis.turn_to_angle(50);
-  chassis.drive_distance(30);
+  loadForStake2.stop();
+  vex::task resetArm2(bringArmDown);
+  chassis.turn_to_angle(45);
+  Intake.spin(forward);
+  chassis.drive_distance(35);
+  chassis.turn_to_angle(220);
+  vex::task gtm(grabThirdMogo);
+  chassis.drive_distance(-40);
+  wait(0.3, seconds);
+  chassis.turn_to_angle(230);
+  spinIntake();
+  chassis.drive_distance(-60);
+  MogoPneu.set(false);
 }
 
 void Auton43Points(){
