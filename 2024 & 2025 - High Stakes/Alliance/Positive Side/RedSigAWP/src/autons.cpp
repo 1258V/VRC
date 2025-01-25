@@ -109,7 +109,28 @@ void task5(){
   Intake.spin(forward);
 }
 
+void doinkerRush(){
+  wait(1, seconds);
+  DoinkerPneu.set(true);
+}
+
+void getWallStake(){
+  Arm.spinTo(-680, degrees);
+}
+
 void auton_task(){
+  double d = -5;
+
+  thread(doinkerRush).detach();
+  chassis.drive_distance(42);
+  chassis.drive_distance(-12);
+  DoinkerPneu.set(false);
+
+  chassis.drive_distance(5);
+  chassis.left_swing_to_angle(50 - d);
+  thread(getWallStake).detach();
+  chassis.drive_distance(6);
+  /*
   thread(task5).detach();
   chassis.left_swing_to_angle(-90);
   wait(1, seconds);
