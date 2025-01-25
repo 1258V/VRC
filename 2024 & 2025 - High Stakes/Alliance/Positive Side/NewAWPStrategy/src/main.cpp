@@ -202,7 +202,7 @@ void spinIntakeForward() {
   Intake.spin(forward);
   FrontIntake.setVelocity(100, percent);
   FrontIntake.spin(forward);
-  while(true){
+  /*while(true){
     if(DistSensor.objectDistance(inches) < 1.5){
       Intake.stop();
     }
@@ -210,7 +210,7 @@ void spinIntakeForward() {
       //Intake.stop();
     }
     wait(10, msec);
-  }
+  }*/
 }
 
 void spinIntakeReverse() {

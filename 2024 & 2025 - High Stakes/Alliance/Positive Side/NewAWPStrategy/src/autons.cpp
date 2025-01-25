@@ -121,18 +121,24 @@ void auton_task(){
   chassis.set_drive_constants(11, 1.5, 0, 10, 0);
 
   chassis.turn_to_angle(-213);
+  chassis.set_drive_constants(7, 1.5, 0, 10, 0);
+  FrontIntake.stop();
   chassis.drive_distance(-36);
+
   thread(ArmDown).detach();
   chassis.drive_distance(-2);
-
+  chassis.set_drive_constants(11, 1.5, 0, 10, 0);
   chassis.turn_to_angle(0);
-  chassis.drive_distance(24);
+  
   Intake.spin(forward);
-  chassis.turn_to_angle(63.4349488 + 2);
-  chassis.drive_distance(36);
+  FrontIntake.spin(forward);
+  chassis.drive_distance(24);
+  chassis.turn_to_angle(63.4349488 + 6);
+  chassis.drive_distance(36);/* 
   //Add corner items here
 
   thread(task1).detach();
+  thread(task4).detach();
   chassis.drive_distance(-78, 45);
   /*chassis.set_heading_constants(6, .0635, 0, 1, 0);
   chassis.drive_distance(-46, 30);
