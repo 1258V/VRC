@@ -109,8 +109,17 @@ void task5(){
   Intake.spin(forward);
 }
 
+void doinkerOut(){
+  DoinkerPneu.set(true);
+}
+
+void delayDoinkerIn(){
+  wait(0.5, seconds);
+  DoinkerPneu.set(false);
+}
+
 void auton_task(){
-  /*thread(task5).detach();
+  thread(task5).detach();
   chassis.left_swing_to_angle(-90);
   wait(1, seconds);
   chassis.set_drive_constants(7, 1.5, 0, 10, 0);
@@ -139,11 +148,30 @@ void auton_task(){
   chassis.turn_to_angle(-135);
   chassis.drive_distance(14);
   wait(10, seconds);
-  *//*
-  chassis.turn_to_angle(63.4349488 + 6);
-  chassis.drive_distance(36);*/ 
+  */
+  double d = 69.4349488;
+  chassis.turn_to_angle(d);
+  chassis.drive_distance(36); 
   //Add corner items here
+  thread(doinkerOut).detach();
+  chassis.left_swing_to_angle(10 + d);
+  thread(delayDoinkerIn).detach();
+  chassis.turn_to_angle(110 + d);
+  
+  chassis.drive_distance(30);
+  FrontIntake.spin(forward);
+  Intake.spin(forward);
+  chassis.right_swing_to_angle(-64 + d);
 
+  chassis.set_drive_constants(6, 1.5, 0, 10, 0);
+  chassis.drive_distance(30);
+  chassis.drive_distance(15);
+  chassis.set_drive_constants(12, 1.5, 0, 10, 0);
+
+  chassis.left_swing_to_angle(-200 + d);
+  thread(task1).detach();
+  chassis.drive_distance(85);
+/*
   thread(task1).detach();
   thread(task4).detach();
   chassis.drive_distance(-78, 45);
