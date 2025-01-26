@@ -110,7 +110,7 @@ void task5(){
 }
 
 void auton_task(){
-  thread(task5).detach();
+  /*thread(task5).detach();
   chassis.left_swing_to_angle(-90);
   wait(1, seconds);
   chassis.set_drive_constants(7, 1.5, 0, 10, 0);
@@ -132,16 +132,16 @@ void auton_task(){
   
   Intake.spin(forward);
   FrontIntake.spin(forward);
-  chassis.drive_distance(24);
+  chassis.drive_distance(24);/*
   chassis.drive_distance(-24);
 
   thread(task1).detach();
   chassis.turn_to_angle(-135);
   chassis.drive_distance(14);
   wait(10, seconds);
-  /*
+  *//*
   chassis.turn_to_angle(63.4349488 + 6);
-  chassis.drive_distance(36);/* 
+  chassis.drive_distance(36);*/ 
   //Add corner items here
 
   thread(task1).detach();
