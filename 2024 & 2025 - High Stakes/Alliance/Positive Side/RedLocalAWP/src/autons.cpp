@@ -87,7 +87,7 @@ void ArmUp(){
 }
 
 void task1(){
-  Arm.spinTo(-300, degrees);
+  Arm.spinTo(-600, degrees);
 }
 
 void task2(){
@@ -133,6 +133,13 @@ void auton_task(){
   Intake.spin(forward);
   FrontIntake.spin(forward);
   chassis.drive_distance(24);
+  chassis.drive_distance(-24);
+
+  thread(task1).detach();
+  chassis.turn_to_angle(-135);
+  chassis.drive_distance(10);
+  wait(10, seconds);
+  /*
   chassis.turn_to_angle(63.4349488 + 6);
   chassis.drive_distance(36);/* 
   //Add corner items here
