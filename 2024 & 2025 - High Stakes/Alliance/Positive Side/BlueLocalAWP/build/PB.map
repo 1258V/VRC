@@ -225,9 +225,9 @@ Discarded input sections
                 0x00000000       0x78 build/src/client/drive.o
  .ARM.exidx.text._ZN5Drive14drive_distanceEfffffff
                 0x00000000        0x8 build/src/client/drive.o
- .text._ZN5Drive20right_swing_to_angleEf
+ .text._ZN5Drive19left_swing_to_angleEf
                 0x00000000       0x50 build/src/client/drive.o
- .ARM.exidx.text._ZN5Drive20right_swing_to_angleEf
+ .ARM.exidx.text._ZN5Drive19left_swing_to_angleEf
                 0x00000000        0x8 build/src/client/drive.o
  .text._ZN5Drive27get_ForwardTracker_positionEv
                 0x00000000       0xa8 build/src/client/drive.o
@@ -3082,16 +3082,16 @@ Linker script and memory map
  .text._ZN5Drive14drive_distanceEff
                 0x03801e18       0x7c build/src/client/drive.o
                 0x03801e18                Drive::drive_distance(float, float)
- .text._ZN5Drive19left_swing_to_angleEf
-                0x03801e94       0x50 build/src/client/drive.o
-                0x03801e94                Drive::left_swing_to_angle(float)
- *fill*         0x03801ee4        0x4 
+ *fill*         0x03801e94        0x4 
  .text._ZN5Drive19left_swing_to_angleEfffffffff
-                0x03801ee8      0x1f0 build/src/client/drive.o
-                0x03801ee8                Drive::left_swing_to_angle(float, float, float, float, float, float, float, float, float)
+                0x03801e98      0x1f0 build/src/client/drive.o
+                0x03801e98                Drive::left_swing_to_angle(float, float, float, float, float, float, float, float, float)
  .text._ZN5Drive20right_swing_to_angleEfffffffff
-                0x038020d8      0x1f0 build/src/client/drive.o
-                0x038020d8                Drive::right_swing_to_angle(float, float, float, float, float, float, float, float, float)
+                0x03802088      0x1f0 build/src/client/drive.o
+                0x03802088                Drive::right_swing_to_angle(float, float, float, float, float, float, float, float, float)
+ .text._ZN5Drive20right_swing_to_angleEf
+                0x03802278       0x50 build/src/client/drive.o
+                0x03802278                Drive::right_swing_to_angle(float)
  .text._ZN5Drive12control_tankEv
                 0x038022c8       0xfc build/src/client/drive.o
                 0x038022c8                Drive::control_tank()
@@ -4359,13 +4359,13 @@ Linker script and memory map
  .ARM.exidx.text._ZN5Drive14drive_distanceEff
                 0x03805c64        0x0 build/src/client/drive.o
                                   0x8 (size before relaxing)
- .ARM.exidx.text._ZN5Drive19left_swing_to_angleEf
-                0x03805c64        0x0 build/src/client/drive.o
-                                  0x8 (size before relaxing)
  .ARM.exidx.text._ZN5Drive19left_swing_to_angleEfffffffff
                 0x03805c64        0x0 build/src/client/drive.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text._ZN5Drive20right_swing_to_angleEfffffffff
+                0x03805c64        0x0 build/src/client/drive.o
+                                  0x8 (size before relaxing)
+ .ARM.exidx.text._ZN5Drive20right_swing_to_angleEf
                 0x03805c64        0x0 build/src/client/drive.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text._ZN5Drive12control_tankEv
@@ -4708,7 +4708,7 @@ LOAD C:\Program Files (x86)\VEX Robotics\VEXcode Pro V5\sdk/vexv5/gcc/libs\libc.
 LOAD C:\Program Files (x86)\VEX Robotics\VEXcode Pro V5\sdk/vexv5/gcc/libs\libm.a
 LOAD C:\Program Files (x86)\VEX Robotics\VEXcode Pro V5\sdk/vexv5/gcc/libs\libgcc.a
 END GROUP
-OUTPUT(build/PR.elf elf32-littlearm)
+OUTPUT(build/PB.elf elf32-littlearm)
 
 .comment        0x00000000       0x9d
  .comment       0x00000000       0x2d build/src/main.o
