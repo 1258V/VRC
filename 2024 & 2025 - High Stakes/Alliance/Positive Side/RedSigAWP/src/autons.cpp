@@ -133,6 +133,8 @@ void auton_task(){
 
   thread(ArmDown).detach();
   chassis.drive_distance(-2);
+  
+  /*
   chassis.drive_distance(5);
   chassis.turn_to_angle(52 - d);
   /*
@@ -140,7 +142,7 @@ void auton_task(){
   //chassis.drive_distance(-12);
 
  // chassis.left_swing_to_angle(45 - d);
-  */thread(getWallStake).detach();
+  *//*thread(getWallStake).detach();
   chassis.drive_distance(6);
   wait(0.5, seconds);
   thread(task1).detach();
