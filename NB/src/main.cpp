@@ -139,6 +139,9 @@ void pre_auton(void) {
     Conveyer.setStopping(coast);
     Conveyer.setMaxTorque(100, percent);
     Conveyer.setVelocity(100, percent);
+    Intake.setStopping(coast);
+    Intake.setMaxTorque(100, percent);
+    Intake.setVelocity(100, percent);
 
     LeftFront.setMaxTorque(100, percent);
     LeftBack.setMaxTorque(100, percent);
@@ -161,10 +164,8 @@ void pre_auton(void) {
   }
 
 void autonomous(void) {
-  NB();
-  //Auton43Points();
-  //Auton38Points();
-  //Auton26Points(); 
+  //wallstake();
+  rushmid();
 }
 
 /*---------------------------------------------------------------------------*/
@@ -192,6 +193,10 @@ void spinIntakeReverse() {
   Conveyer.spin(reverse);
 }
 
+void stopIntake(){
+  Intake.stop();
+  Conveyer.stop();
+}
 
 void toggleDoinkerPneuPos() {
   if (DoinkerPneu) {
@@ -230,11 +235,17 @@ void triggerDoinkerMech() {
 }
 
 void moveArmUp() {
-  stopIntake();
-  Arm.spin(forward);
+  Arm.setVelocity(100, percent);
+  if(Arm.position(degrees)<=760){
+    Arm.spin(forward);
+    wait(0.2, seconds);
+    Intake.stop();
+    Conveyer.stop();
+  }
 }
 
 void moveArmDown() {
+  Arm.setVelocity(100, percent);
   Arm.spin(reverse);
 }
 
@@ -251,18 +262,21 @@ int DisplayToController() {
     //controller(primary).Screen.print(DistSensor.objectDistance(inches));
     vex::this_thread::sleep_for(1000);
   }
+}
 
+void loadArm(){
+  Arm.setVelocity(100, percent);
+  Arm.spinTo(156, degrees);
+  Conveyer.spin(forward);
+  Intake.spin(forward);
 }
 
 void usercontrol(void) {
 
     MogoPneu.set(true);
-
-    Intake.setVelocity(100, percent);
-    Conveyer.setVelocity(70, percent);
-    Drivetrain.setStopping(coast);
-    
     Arm.setVelocity(100, percent);
+    Arm.setStopping(hold);
+    Drivetrain.setStopping(coast);
 
     controller(primary).ButtonL2.pressed(spinIntakeReverse); 
     controller(primary).ButtonL2.released(stopIntake); 
@@ -275,10 +289,11 @@ void usercontrol(void) {
 
     controller(primary).ButtonY.pressed(moveArmUp);
     controller(primary).ButtonY.released(stopArm);
+
     controller(primary).ButtonRight.pressed(moveArmDown);
     controller(primary).ButtonRight.released(stopArm);
 
-    controller(primary).ButtonB.pressed(triggerDoinkerMech);    
+    controller(primary).ButtonDown.pressed(triggerDoinkerMech);    
 
   // User control code here, inside the loop
   while (1) {

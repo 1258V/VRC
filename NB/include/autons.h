@@ -8,11 +8,12 @@ extern Drive chassis;
 void default_constants();
 
 void DriveStraight();
-void NB();
+void NR();
 void Auton43Points();
 void Auton38Points();
 void Auton26Points();
-void mirrored();
+void rushmid();
+void wallstake();
 void macro();
 void subMacro();
 void swing_test();
