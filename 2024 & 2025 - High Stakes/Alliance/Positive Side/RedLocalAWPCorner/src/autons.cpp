@@ -100,12 +100,12 @@ void task3(){
 }
 
 void task4(){
-  wait(1, seconds);
+  wait(1.2, seconds);
   Intake.stop();
 }
 
 void task5(){
-  wait(1.3, seconds);
+  wait(0.7, seconds);
   Intake.spin(forward);
 }
 
@@ -121,7 +121,7 @@ void delayDoinkerIn(){
 void auton_task(){
   thread(task5).detach();
   chassis.left_swing_to_angle(-90);
-  wait(1, seconds);
+  wait(0.3, seconds);
   chassis.set_drive_constants(7, 1.5, 0, 10, 0);
 
   FrontIntake.spin(forward);
@@ -130,14 +130,14 @@ void auton_task(){
   chassis.set_drive_constants(11, 1.5, 0, 10, 0);
 
   chassis.turn_to_angle(-213);
-  chassis.set_drive_constants(7, 1.5, 0, 10, 0);
+  chassis.set_drive_constants(6.5, 2.5, 0, 15, 0);
   FrontIntake.stop();
-  chassis.drive_distance(-36);
+  chassis.set_drive_constants(11, 1.5, 0, 10, 0);
 
+  chassis.drive_distance(-36);
   thread(ArmDown).detach();
   chassis.drive_distance(-2);
-  chassis.set_drive_constants(11, 1.5, 0, 10, 0);
-  chassis.turn_to_angle(0);
+  chassis.turn_to_angle(4); //inertial drift at this point is 4 degrees
   
   Intake.spin(forward);
   FrontIntake.spin(forward);
