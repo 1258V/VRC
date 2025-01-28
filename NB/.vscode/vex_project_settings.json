@@ -1,8 +1,8 @@
 {
 	"project": {
-		"name": "NB",
+		"name": "NR",
 		"slot": 2,
-		"description": "NB V5 C++ Project",
+		"description": "NR V5 C++ Project",
 		"platform": "V5",
 		"creationDate": "Tue, 19 Nov 2024 04:24:26 GMT",
 		"language": "cpp",
