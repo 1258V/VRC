@@ -124,13 +124,39 @@ void getWallStake(){
 }
 
 void auton_task(){
-  double d = -6;
+  double d = -5;
+
   thread(doinkerRush).detach();
-  
-  chassis.drive_distance(42, -4);
-  chassis.drive_distance(-22);
+  chassis.drive_distance(42);
+  chassis.drive_distance(-12);
   DoinkerPneu.set(false);
-  chassis.right_swing_to_angle(-4 + 180);
+  
+  chassis.set_turn_constants(6, .4, .03, 3, 15);
+  chassis.turn_to_angle(163 - d);
+  chassis.set_turn_constants(11, .4, .03, 3, 15);
+  chassis.drive_distance(-12);
+
+  thread(ArmDown).detach();
+  chassis.drive_distance(-2);
+  chassis.turn_to_angle(140 - d + 77.5);
+  Intake.spin(forward);
+
+  FrontIntake.spin(forward);
+  thread(task3).detach();
+  chassis.drive_distance(12);
+  MogoPneu.set(false);
+  
+  /*
+  double d = 0;
+  thread(doinkerRush).detach();
+
+  chassis.set_heading_constants(6, .06, 0, 1, 0);
+  FrontIntake.spin(forward);
+  chassis.drive_distance(42, 45);
+  thread(doinkerInDelay).detach();
+
+  chassis.drive_distance(-22);/*
+  chassis.turn_to_angle(-4 + 180 - d);
 
   chassis.drive_distance(-12);
   thread(ArmDown).detach();
