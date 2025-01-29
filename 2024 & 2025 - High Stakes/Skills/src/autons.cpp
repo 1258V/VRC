@@ -223,9 +223,9 @@ void auton() {
   chassis.turn_to_angle(290);
   vex::task pfm(pushMogoForward);
   wait(3, seconds);
+  default_constants();
   pfm.stop();
   chassis.drive_distance(-20);
-  default_constants();
   chassis.turn_to_angle(320);
   chassis.drive_distance(-100);
 }
