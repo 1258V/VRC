@@ -49,7 +49,7 @@ int lowerArm() {
 }
 
 void spinIntake() {
-  Conveyer.setVelocity(60, percent);
+  Conveyer.setVelocity(70, percent);
   Intake.setVelocity(100, percent);
   Conveyer.spin(forward);
   Intake.spin(forward);
@@ -61,8 +61,8 @@ void stopIntake() {
 }
 
 void loadArm() {
-  Arm.spinTo(156, degrees);
   spinIntake();
+  Arm.spinTo(156, degrees);
   /*while (true) {
     if (DistSensor.objectDistance(inches) < 1) {
       Intake.setVelocity(50, percent);

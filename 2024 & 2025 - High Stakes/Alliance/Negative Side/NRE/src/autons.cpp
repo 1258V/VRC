@@ -1,5 +1,5 @@
 #include "vex.h"
-int matchloadangle = 13;
+int matchloadangle = 167;
 
 void default_constants(){
   chassis.set_drive_constants(11, 1.5, 0, 10, 0);
@@ -17,25 +17,55 @@ void odom_constants(){
   chassis.drive_max_voltage = 8;
   chassis.drive_settle_error = 3;
 }
-
-void regular(){
+void hs(){
+  chassis.set_drive_exit_conditions(1.5, 300, 200);
+  chassis.drive_distance(1.3);
+  chassis.set_drive_exit_conditions(1.5, 300, 800);
+}
+void armdown(){
+  Arm.spinTo(-100, degrees);
+}
+void wallstake(){
+  Arm.setMaxTorque(100, percent);
+  Arm.setVelocity(100, percent);
+  chassis.drive_distance(38.4, -2);
+  chassis.set_swing_exit_conditions(1, 300, 500);
+  chassis.right_swing_to_angle(-39);
+  chassis.set_swing_exit_conditions(1, 300, 1000);
+  //thread(hs).detach();
+  Arm.spinTo(680, degrees); //585
+  //thread(hs).detach();
+  wait(0.45, seconds);
+  Arm.spinTo(-100, degrees);
+  wait(0.1, seconds);
+  chassis.right_swing_to_angle(36);
   Intake.spin(forward);
   Conveyer.spin(forward);
-  chassis.drive_distance(40);
-  wait(2, seconds);
-  chassis.drive_distance(-10);
   chassis.drive_distance(10);
-}
-void ArmDown(){
+  wait(0.15, seconds);
+  Conveyer.stop();
+  chassis.drive_distance(-10);
+  chassis.left_swing_to_angle(60);
+  chassis.drive_distance(14.4);
+  chassis.left_swing_to_angle(0);
+  chassis.set_drive_exit_conditions(1.5, 300, 200);
+  chassis.drive_distance(-8);
+  chassis.right_swing_to_angle(-60);
+  chassis.set_drive_exit_conditions(1.5, 300, 800);
+  chassis.drive_distance(-31);
+  wait(0.38, seconds);
   MogoPneu.set(true);
+  wait(0.16, seconds);
+  Conveyer.spin(forward);
+  chassis.right_swing_to_angle(-120);
+  chassis.drive_distance(11);
+  wait(10, seconds);
 }
-
 void BarTouch(){
   Arm.setVelocity(50, percent);
   Arm.spinTo(630, degrees);
 }
-
-void mirrored(){
+void rushmid(){
   //wait(2, seconds);
   int d = matchloadangle;
   chassis.drive_distance(42, -13+d);
@@ -84,7 +114,8 @@ void mirrored(){
   //chassis.right_swing_to_angle(-110+d);
   chassis.set_drive_exit_conditions(1.5, 300, 350);
   chassis.drive_distance(-10);
-  thread(ArmDown).detach();
+  wait(0.1, seconds);
+  MogoPneu.set(true);
   wait(0.3, seconds);
   chassis.set_swing_exit_conditions(1, 100, 500);
   chassis.right_swing_to_angle(-100+d); //-90+d
@@ -151,37 +182,3 @@ void mirrored(){
 
 
 //The following codes are test codes, avoid editing!
-void swing_test(){
-  chassis.left_swing_to_angle(90);
-  chassis.right_swing_to_angle(0);
-}
-void full_test(){
-  chassis.drive_distance(24);
-  chassis.turn_to_angle(-45);
-  chassis.drive_distance(-36);
-  chassis.right_swing_to_angle(-90);
-  chassis.drive_distance(24);
-  chassis.turn_to_angle(0);
-}
-
-void odom_test(){
-  chassis.set_coordinates(0, 0, 0);
-  while(1){
-    Brain.Screen.clearScreen();
-    Brain.Screen.printAt(0,50, "X: %f", chassis.get_X_position());
-    Brain.Screen.printAt(0,70, "Y: %f", chassis.get_Y_position());
-    Brain.Screen.printAt(0,90, "Heading: %f", chassis.get_absolute_heading());
-    Brain.Screen.printAt(0,110, "ForwardTracker: %f", chassis.get_ForwardTracker_position());
-    Brain.Screen.printAt(0,130, "SidewaysTracker: %f", chassis.get_SidewaysTracker_position());
-    task::sleep(20);
-  }
-}
-
-void tank_odom_test(){
-  odom_constants();
-  chassis.set_coordinates(0, 0, 0);
-  chassis.turn_to_point(24, 24);
-  chassis.drive_to_point(24,24);
-  chassis.drive_to_point(0,0);
-  chassis.turn_to_angle(0);
-}

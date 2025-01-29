@@ -49,7 +49,7 @@ int lowerArm() {
 }
 
 void spinIntake() {
-  Conveyer.setVelocity(60, percent);
+  Conveyer.setVelocity(70, percent);
   Intake.setVelocity(100, percent);
   Conveyer.spin(forward);
   Intake.spin(forward);
@@ -101,7 +101,7 @@ void NR(){
   chassis.turn_to_angle(93);
   Intake.stop();
   MogoPneu.set(true);
-  chassis.drive_distance(-63);
+  chassis.drive_distance(-66);
   chassis.drive_distance(5);
   chassis.turn_to_angle(150);
   chassis.set_drive_exit_conditions(1, 300, 1000);
