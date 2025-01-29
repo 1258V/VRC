@@ -128,8 +128,8 @@ void auton_task(){
 
   thread(doinkerRush).detach();
   chassis.drive_distance(42);
+  thread(doinkerInDelay).detach();
   chassis.drive_distance(-12);
-  DoinkerPneu.set(false);
   
   chassis.set_turn_constants(6, .4, .03, 3, 15);
   chassis.turn_to_angle(163 - d);
@@ -145,6 +145,23 @@ void auton_task(){
   thread(task3).detach();
   chassis.drive_distance(12);
   MogoPneu.set(false);
+
+  chassis.turn_to_angle(77.5 - d + 360);
+  chassis.drive_distance(-22);
+  thread(ArmDown).detach();
+  Intake.spin(forward);
+
+  chassis.drive_distance(-2);
+  chassis.turn_to_angle(-135 - d);
+  chassis.drive_distance(21);
+  FrontIntake.spin(forward);
+
+  chassis.drive_distance(13);
+  thread(task5).detach();
+  chassis.turn_to_angle(0);
+  Intake.spin(forward);
+
+  chassis.drive_distance(-14);
   
   /*
   double d = 0;
