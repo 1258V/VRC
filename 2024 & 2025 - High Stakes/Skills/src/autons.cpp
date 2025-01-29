@@ -95,7 +95,7 @@ int grabSecondMogo() {
 }
 
 int grabThirdMogo() {
-  wait(2.25, seconds);
+  wait(1.75, seconds);
   MogoPneu.set(true);
   wait(3, seconds);
   return 0;
@@ -158,6 +158,7 @@ void auton() {
   spinIntake();
   chassis.drive_distance(18);
   vex::task scoreFirstWallStake(placeWallStakeDisk);
+  wait(1, seconds);
   chassis.drive_distance(-14);
   chassis.turn_to_angle(178);
   chassis.set_heading(180);
@@ -197,7 +198,7 @@ void auton() {
   gsm.stop();
   loadArm();
   vex::task loadForStake2(loadForWallStake);
-  chassis.drive_distance(40);
+  chassis.drive_distance(43);
   chassis.turn_to_angle(270);
   chassis.drive_distance(4);
   placeWallStakeDisk();
@@ -210,11 +211,15 @@ void auton() {
   chassis.turn_to_angle(220);
   vex::task gtm(grabThirdMogo);
   chassis.drive_distance(-40);
-  wait(0.3, seconds);
-  chassis.turn_to_angle(230);
+  chassis.turn_to_angle(235);
   spinIntake();
-  chassis.drive_distance(-60);
+  wait(1, seconds);
+  chassis.turn_to_angle(270);
+  chassis.drive_distance(-20);
+  chassis.turn_to_angle(256);
   MogoPneu.set(false);
+  wait(0.3, seconds);
+  chassis.drive_distance(-32);
 }
 
 void Auton43Points(){
