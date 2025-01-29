@@ -95,7 +95,7 @@ int grabSecondMogo() {
 }
 
 int grabThirdMogo() {
-  wait(1.75, seconds);
+  wait(2, seconds);
   MogoPneu.set(true);
   wait(3, seconds);
   return 0;
@@ -139,6 +139,16 @@ int expelDisc() {
   return 0;
 }
 
+int pushMogoReverse() {
+  chassis.drive_distance(-100);
+  return 0;
+}
+
+int pushMogoForward() {
+  chassis.drive_distance(100);
+  return 0;
+}
+
 void auton() {
   default_constants();
   spinIntake();
@@ -156,10 +166,10 @@ void auton() {
   chassis.drive_distance(33);
   chassis.turn_to_angle(90);
   spinIntake();
-  chassis.drive_distance(18);
+  chassis.drive_distance(20);
   vex::task scoreFirstWallStake(placeWallStakeDisk);
   wait(1, seconds);
-  chassis.drive_distance(-14);
+  chassis.drive_distance(-16);
   chassis.turn_to_angle(178);
   chassis.set_heading(180);
   loadForStake1.stop();
@@ -188,38 +198,36 @@ void auton() {
   chassis.turn_to_angle(220);
   chassis.drive_distance(12);
   wait(0.5, seconds);
-  chassis.turn_to_angle(15);
-  chassis.drive_distance(-13);
+  chassis.turn_to_angle(12);
+  chassis.drive_distance(-14);
   MogoPneu.set(false);
   wait(0.2, seconds);
-  chassis.drive_distance(11);
-  chassis.turn_to_angle(0);
-  resetArm.stop();
-  gsm.stop();
-  loadArm();
-  vex::task loadForStake2(loadForWallStake);
-  chassis.drive_distance(43);
-  chassis.turn_to_angle(270);
-  chassis.drive_distance(4);
-  placeWallStakeDisk();
-  chassis.drive_distance(-13);
-  loadForStake2.stop();
-  vex::task resetArm2(bringArmDown);
-  chassis.turn_to_angle(45);
+  stopIntake();
   Intake.spin(forward);
-  chassis.drive_distance(35);
-  chassis.turn_to_angle(220);
+  chassis.drive_distance(60);
+  chassis.turn_to_angle(50);
+  chassis.drive_distance(30);
+  chassis.turn_to_angle(225);
   vex::task gtm(grabThirdMogo);
   chassis.drive_distance(-40);
-  chassis.turn_to_angle(235);
-  spinIntake();
-  wait(1, seconds);
-  chassis.turn_to_angle(270);
-  chassis.drive_distance(-20);
-  chassis.turn_to_angle(256);
-  MogoPneu.set(false);
   wait(0.3, seconds);
-  chassis.drive_distance(-32);
+  chassis.turn_to_angle(285);
+  spinIntake();
+  chassis.drive_distance(-20);
+  chassis.turn_to_angle(250);
+  MogoPneu.set(false);
+  vex::task ptm(pushMogoReverse);
+  wait(1.75, seconds);
+  ptm.stop();
+  chassis.drive_distance(40);
+  chassis.turn_to_angle(290);
+  vex::task pfm(pushMogoForward);
+  wait(3, seconds);
+  pfm.stop();
+  chassis.drive_distance(-20);
+  default_constants();
+  chassis.turn_to_angle(320);
+  chassis.drive_distance(-100);
 }
 
 void Auton43Points(){
