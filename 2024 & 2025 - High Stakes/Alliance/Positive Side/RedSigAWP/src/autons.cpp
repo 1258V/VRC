@@ -114,25 +114,47 @@ void doinkerRush(){
   DoinkerPneu.set(true);
 }
 
+void doinkerInDelay(){
+  wait(0.4, seconds);
+  DoinkerPneu.set(false);
+}
+
 void getWallStake(){
   Arm.spinTo(-680, degrees);
 }
 
 void auton_task(){
-  double d = -5;
-
+  double d = -6;
   thread(doinkerRush).detach();
-  chassis.drive_distance(42);
-  chassis.drive_distance(-12);
+  
+  chassis.drive_distance(42, -4);
+  chassis.drive_distance(-22);
   DoinkerPneu.set(false);
+  chassis.right_swing_to_angle(-4 + 180);
+
+  chassis.drive_distance(-12);
+  thread(ArmDown).detach();
+  Intake.spin(forward);
+  chassis.drive_distance(-2);
+  /*
   
   chassis.set_turn_constants(6, .4, .03, 3, 15);
-  chassis.turn_to_angle(163 - d);
+  chassis.turn_to_angle(162 - d);
   chassis.set_turn_constants(11, .4, .03, 3, 15);
   chassis.drive_distance(-12);
 
   thread(ArmDown).detach();
+  Intake.spin(forward);
   chassis.drive_distance(-2);
+  chassis.turn_to_angle(90 + 162 - d);
+
+  FrontIntake.spin(forward);
+  chassis.drive_distance(12);
+
+
+
+
+  /*
   chassis.turn_to_angle(140 - d + 77.5);
   Intake.spin(forward);
 
