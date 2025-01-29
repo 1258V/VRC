@@ -128,6 +128,10 @@ Discarded input sections
                 0x00000000       0x18 build/src/autons.o
  .ARM.exidx.text._Z5task2v
                 0x00000000        0x8 build/src/autons.o
+ .text._Z5task3v
+                0x00000000       0x38 build/src/autons.o
+ .ARM.exidx.text._Z5task3v
+                0x00000000        0x8 build/src/autons.o
  .text._Z8mirroredv
                 0x00000000       0x1c build/src/autons.o
  .ARM.exidx.text._Z8mirroredv
@@ -161,7 +165,7 @@ Discarded input sections
  .data.m        0x00000000        0x4 build/src/autons.o
  .rodata.str1.1
                 0x00000000       0x5f build/src/autons.o
- .llvm_addrsig  0x00000000       0x11 build/src/autons.o
+ .llvm_addrsig  0x00000000       0x10 build/src/autons.o
  .text          0x00000000        0x0 build/src/robot-config.o
  .llvm_addrsig  0x00000000       0x14 build/src/robot-config.o
  .text          0x00000000        0x0 build/src/client/util.o
@@ -2985,25 +2989,22 @@ Linker script and memory map
  .text._Z5task1v
                 0x03800ce0       0x48 build/src/autons.o
                 0x03800ce0                task1()
- .text._Z5task3v
-                0x03800d28       0x38 build/src/autons.o
-                0x03800d28                task3()
  .text._Z5task4v
-                0x03800d60       0x38 build/src/autons.o
-                0x03800d60                task4()
+                0x03800d28       0x38 build/src/autons.o
+                0x03800d28                task4()
  .text._Z5task5v
-                0x03800d98       0x48 build/src/autons.o
-                0x03800d98                task5()
+                0x03800d60       0x48 build/src/autons.o
+                0x03800d60                task5()
  .text._Z10doinkerOutv
-                0x03800de0       0x10 build/src/autons.o
-                0x03800de0                doinkerOut()
+                0x03800da8       0x10 build/src/autons.o
+                0x03800da8                doinkerOut()
  .text._Z14delayDoinkerInv
-                0x03800df0       0x34 build/src/autons.o
-                0x03800df0                delayDoinkerIn()
- *fill*         0x03800e24        0x4 
+                0x03800db8       0x34 build/src/autons.o
+                0x03800db8                delayDoinkerIn()
+ *fill*         0x03800dec        0x4 
  .text._Z10auton_taskv
-                0x03800e28      0x348 build/src/autons.o
-                0x03800e28                auton_task()
+                0x03800df0      0x380 build/src/autons.o
+                0x03800df0                auton_task()
  .text._Z7regularv
                 0x03801170       0x1c build/src/autons.o
                 0x03801170                regular()
@@ -4275,9 +4276,6 @@ Linker script and memory map
                 0x03805e7c        0x0 build/src/autons.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text._Z5task1v
-                0x03805e7c        0x0 build/src/autons.o
-                                  0x8 (size before relaxing)
- .ARM.exidx.text._Z5task3v
                 0x03805e7c        0x0 build/src/autons.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text._Z5task4v

@@ -138,10 +138,11 @@ void auton_task(){
 
   chassis.drive_distance(-36);
   thread(ArmDown).detach();
-  chassis.drive_distance(-2);
+  wait(0.3, seconds);
+  chassis.set_turn_exit_conditions(1, 300, 750);
   chassis.turn_to_angle(4);
+  chassis.set_turn_exit_conditions(1, 300, 1000);
   Intake.spin(forward);
-  thread(task3).detach();
   //inertial drift at this point is 4 degrees
   
   //Intake.spin(forward);
@@ -157,6 +158,7 @@ void auton_task(){
   double d = 69.4349488;
   chassis.turn_to_angle(d);
   chassis.drive_distance(36); 
+  FrontIntake.stop();
 
   thread(doinkerOut).detach();
   chassis.left_swing_to_angle(10 + d);
@@ -168,7 +170,7 @@ void auton_task(){
   FrontIntake.spin(forward);
   chassis.right_swing_to_angle(-64 + d);
 
-  chassis.set_drive_constants(6, 1.5, 0, 10, 0);
+  chassis.set_drive_constants(8.5, 1.5, 0, 10, 0);
   chassis.drive_distance(30);
   chassis.drive_distance(15);
   chassis.set_drive_constants(12, 1.5, 0, 10, 0);
