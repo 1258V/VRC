@@ -255,6 +255,8 @@ int DisplayToController() {
 
 void usercontrol(void) {
 
+    //vex::task expel(expelDisc);
+
     MogoPneu.set(true);
 
     Intake.setVelocity(100, percent);
@@ -304,7 +306,6 @@ void usercontrol(void) {
 //
 int main() {
 
-  vex::task expel(expelDisc);
   vex::task t(DisplayToController);
 
   // Set up callbacks for autonomous and driver control periods.

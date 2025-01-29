@@ -110,8 +110,13 @@ void task5(){
 }
 
 void doinkerRush(){
-  wait(1, seconds);
+  wait(0.85, seconds);
   DoinkerPneu.set(true);
+}
+
+void doinkerInDelay(){
+  wait(0.4, seconds);
+  DoinkerPneu.set(false);
 }
 
 void getWallStake(){
@@ -123,17 +128,99 @@ void auton_task(){
 
   thread(doinkerRush).detach();
   chassis.drive_distance(42);
+  thread(doinkerInDelay).detach();
   chassis.drive_distance(-12);
-  DoinkerPneu.set(false);
   
   chassis.set_turn_constants(6, .4, .03, 3, 15);
-  chassis.turn_to_angle(161.5 - d);
+  chassis.turn_to_angle(163 - d);
   chassis.set_turn_constants(11, .4, .03, 3, 15);
   chassis.drive_distance(-12);
 
   thread(ArmDown).detach();
   chassis.drive_distance(-2);
+  chassis.turn_to_angle(140 - d + 77.5);
+  Intake.spin(forward);
+
+  FrontIntake.spin(forward);
+  thread(task3).detach();
+  chassis.drive_distance(12);
+  MogoPneu.set(false);
+
+  chassis.turn_to_angle(77.5 - d + 360);
+  chassis.drive_distance(-22);
+  thread(ArmDown).detach();
+  Intake.spin(forward);
+
+  chassis.drive_distance(-2);
+  chassis.turn_to_angle(-135 - d);
+  chassis.drive_distance(21);
+  FrontIntake.spin(forward);
+
+  chassis.drive_distance(13);
+  thread(task5).detach();
+  chassis.turn_to_angle(0);
+  Intake.spin(forward);
+
+  chassis.drive_distance(-14);
   
+  /*
+  double d = 0;
+  thread(doinkerRush).detach();
+
+  chassis.set_heading_constants(6, .06, 0, 1, 0);
+  FrontIntake.spin(forward);
+  chassis.drive_distance(42, 45);
+  thread(doinkerInDelay).detach();
+
+  chassis.drive_distance(-22);/*
+  chassis.turn_to_angle(-4 + 180 - d);
+
+  chassis.drive_distance(-12);
+  thread(ArmDown).detach();
+  Intake.spin(forward);
+  chassis.drive_distance(-2);
+  /*
+  
+  chassis.set_turn_constants(6, .4, .03, 3, 15);
+  chassis.turn_to_angle(162 - d);
+  chassis.set_turn_constants(11, .4, .03, 3, 15);
+  chassis.drive_distance(-12);
+
+  thread(ArmDown).detach();
+  Intake.spin(forward);
+  chassis.drive_distance(-2);
+  chassis.turn_to_angle(90 + 162 - d);
+
+  FrontIntake.spin(forward);
+  chassis.drive_distance(12);
+
+
+
+
+  /*
+  chassis.turn_to_angle(140 - d + 77.5);
+  Intake.spin(forward);
+
+  FrontIntake.spin(forward);
+  thread(task3).detach();
+  chassis.drive_distance(12);
+  MogoPneu.set(false);
+
+  chassis.turn_to_angle(57.5 - d);
+  chassis.drive_distance(-30);
+  thread(ArmDown).detach();
+  chassis.drive_distance(-2);
+
+  chassis.turn_to_angle(77.5 - d + 90 + 45 + 30);
+  chassis.drive_distance(30);
+  chassis.set_turn_constants(6, .4, .03, 3, 15);
+  FrontIntake.spin(forward);
+  Intake.spin(forward);
+
+  chassis.drive_distance(14);
+  chassis.turn_to_angle(0 - d);
+  Intake.spin(forward);
+  chassis.drive_distance(-24);
   /*
   chassis.drive_distance(5);
   chassis.turn_to_angle(52 - d);
