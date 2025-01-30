@@ -67,7 +67,7 @@ void BarTouch(){
 }
 void rushmid(){
   //wait(2, seconds);
-  int d = matchloadangle;
+  int d = 13;
   chassis.drive_distance(42, -13+d);
   chassis.set_drive_constants(11, 1, 0, 10, 0);
   Intake.spin(forward);
@@ -125,8 +125,8 @@ void rushmid(){
   //IntakeFront.spin(forward);
   chassis.drive_distance(14, -100+d); // 14,-90+d
   //wait(0.5, seconds);
-  chassis.set_turn_exit_conditions(1, 100, 450);
-  chassis.set_swing_exit_conditions(1, 100, 500);
+  // chassis.set_turn_exit_conditions(1, 100, 450);
+  // chassis.set_swing_exit_conditions(1, 100, 500);
   //below is for going to corner
   // chassis.left_swing_to_angle(-23+d);
   // chassis.set_drive_constants(11, 3.5, 0, 10, 0);

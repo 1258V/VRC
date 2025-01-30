@@ -162,7 +162,7 @@ void rushmid(){
   chassis.left_swing_to_angle(78+d);
 
   thread(IntakeStop).detach();
-  chassis.drive_distance(29.7);
+  chassis.drive_distance(29.0);
   thread(MogoDown).detach();
   chassis.turn_to_angle(182.6+d);
   chassis.set_drive_exit_conditions(1.5, 300, 600);
