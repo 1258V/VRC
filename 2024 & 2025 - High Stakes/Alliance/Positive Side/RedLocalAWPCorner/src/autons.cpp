@@ -87,7 +87,7 @@ void ArmUp(){
 }
 
 void task1(){
-  Arm.spinTo(-400, degrees);
+  Arm.spinTo(-750, degrees);
 }
 
 void task2(){
@@ -168,7 +168,9 @@ void auton_task(){
   Intake.spin(forward);
   FrontIntake.spin(forward);
   chassis.drive_distance(45, 100 + d);
-  
+  thread(task1).detach();
+  chassis.set_heading_constants(12, .8, 0, 1, 0);
+  chassis.drive_distance(60, 270);
   /*
   chassis.right_swing_to_angle(-64 + d);
 
