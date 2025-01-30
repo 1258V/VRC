@@ -163,11 +163,13 @@ void auton_task(){
   thread(doinkerOut).detach();
   chassis.left_swing_to_angle(10 + d);
   thread(delayDoinkerIn).detach();
-  chassis.turn_to_angle(114 + d);
+  chassis.turn_to_angle(64 + d); //64
   
   Intake.spin(forward);
-  chassis.drive_distance(30);
   FrontIntake.spin(forward);
+  chassis.drive_distance(45, 100 + d);
+  
+  /*
   chassis.right_swing_to_angle(-64 + d);
 
   chassis.set_drive_constants(8.5, 1.5, 0, 10, 0);
