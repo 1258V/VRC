@@ -122,32 +122,40 @@ void auton_task(){
   Intake.setVelocity(100, percent);
 
   thread(task5).detach();
-  chassis.left_swing_to_angle(-90);
+  chassis.right_swing_to_angle(90);
   wait(0.3, seconds);
   chassis.set_drive_constants(7, 1.5, 0, 10, 0);
 
   FrontIntake.spin(forward);
   thread(task4).detach();
-  chassis.drive_distance(34, -100);
+  chassis.drive_distance(34, 100);
   chassis.set_drive_constants(11, 1.5, 0, 10, 0);
 
-  chassis.turn_to_angle(-212.75);
+  chassis.turn_to_angle(212.75);
   chassis.set_drive_constants(6.5, 1.5, 0, 10, 0);
   FrontIntake.stop();
-  chassis.set_drive_constants(11, 1.5, 0, 10, 0);
+  chassis.set_drive_constants(8, 1.5, 0, 10, 0); //11
 
   chassis.drive_distance(-36);
   thread(ArmDown).detach();
-  wait(0.3, seconds);
+  chassis.set_drive_constants(11, 1.5, 0, 10, 0);
+  chassis.drive_distance(-2);
+
   chassis.set_turn_exit_conditions(1, 300, 750);
-  chassis.turn_to_angle(4);
+  chassis.turn_to_angle(-4);
   chassis.set_turn_exit_conditions(1, 300, 1000);
   Intake.spin(forward);
   //inertial drift at this point is 4 degrees
   
   //Intake.spin(forward);
   FrontIntake.spin(forward);
-  chassis.drive_distance(24);/*
+  chassis.drive_distance(24);
+  
+  chassis.turn_to_angle(150);
+  thread(task1).detach();
+  chassis.set_drive_constants(8, 1.5, 0, 10, 0);
+  chassis.drive_distance(45);
+  /*
   chassis.drive_distance(-24);
 
   thread(task1).detach();
@@ -155,10 +163,14 @@ void auton_task(){
   chassis.drive_distance(14);
   wait(10, seconds);
   */
-  double d = 69.4349488;
-  chassis.turn_to_angle(d);
+  double d = 90 - 69.4349488;
+  /*chassis.turn_to_angle(d);
   chassis.drive_distance(36); 
-  FrontIntake.stop();
+  FrontIntake.stop();*/
+  /*chassis.set_heading_constants(12, .8, 0, 2, 0);
+  chassis.drive_distance(-60, 60);
+  chassis.drive_distance(60, -30);
+
 
   thread(doinkerOut).detach();
   chassis.left_swing_to_angle(10 + d);
@@ -169,7 +181,6 @@ void auton_task(){
   FrontIntake.spin(forward);
   chassis.drive_distance(45, 100 + d);
   thread(task1).detach();
-  chassis.set_heading_constants(12, .8, 0, 1, 0);
   chassis.drive_distance(60, 270);
   /*
   chassis.right_swing_to_angle(-64 + d);
