@@ -2,7 +2,7 @@
 bool runningSkills = false;
 //Part of the code below (mainly the drivetrain constrictors) is used from the LemLib drive template, which is why you will notice a unique drivetrain setup
 //This drivetrain setup is specifically made to allow the most efficient drive possible, using LemLib's battery saving technique while still providing high strength
-//The drivetrain will stay on Eco mode for most of the High Stakes challenge
+//The drivetrain will stay on Ecos mode for most of the High Stakes challenge
 
 // ---- START VEXCODE CONFIGURED DEVICES ----
 // Robot Configuration:
