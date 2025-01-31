@@ -160,7 +160,7 @@ void pre_auton(void) {
 
     ArmRotation.setReversed(true);
     ArmRotation.resetPosition();
-
+    Opt.setLightPower(75, percent);
   }
 
 void autonomous(void) {
