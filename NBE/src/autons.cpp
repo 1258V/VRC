@@ -77,10 +77,14 @@ void ArmDown(){
   wait(0.3, seconds);
   MogoPneu.set(true);
 }
+void ConveyerStop(){
+  wait(0.3, seconds);
+  Conveyer.stop();
+}
 void rushmid(){
   //wait(2, seconds);
   int d = matchloadangle;
-  chassis.drive_distance(42, -167+d);
+  chassis.drive_distance(43, -167+d);
   chassis.set_drive_constants(11, 1, 0, 10, 0);
   Intake.spin(forward);
   //IntakeBack.spin(forward);
@@ -103,38 +107,36 @@ void rushmid(){
   //chassis.drive_distance(-6, -103+d);
   //this is normal pickup on far side
   //chassis.drive_distance(-8, -160+d); //-10
-  chassis.set_turn_constants(12, 2, .03, 0.5, 15);
   chassis.set_drive_exit_conditions(1.5, 300, 400); //800
+  wait(0.2, seconds);
   chassis.drive_distance(-12, -167+d);
-  Intake.stop();
+  Conveyer.spin(forward);
+  thread(ConveyerStop).detach();
   chassis.set_swing_exit_conditions(1, 300, 700);
   chassis.left_swing_to_angle(-118+d);
-  Conveyer.spin(forward);
-  wait(0.3, seconds);
-  Conveyer.stop();
-  Intake.spin(forward);
   chassis.set_swing_exit_conditions(1, 300, 1000);
   //thi sis for pickup on closer side to middle
   chassis.set_drive_constants(11, 1, 0, 10, 0);
-  chassis.drive_distance(9.2);
+  chassis.drive_distance(7.7);
   //IntakeFront.stop();
   //chassis.left_swing_to_angle(-127+d); //-135
   chassis.set_drive_exit_conditions(1.5, 300, 800);
   chassis.set_drive_constants(11, 1.2, 0, 10, 0);
-  chassis.drive_distance(-17.0); //19
+  wait(0.4, seconds);
+  chassis.drive_distance(-12.7, -121+d); //19
   chassis.set_drive_constants(5, 1.2, 0, 10, 0);
   //chassis.right_swing_to_angle(-110+d);
   chassis.set_drive_exit_conditions(1.5, 300, 500);
-  chassis.drive_distance(-13);
+  chassis.drive_distance(-12);
   thread(ArmDown).detach();
-  wait(0.3, seconds);
-  chassis.set_swing_exit_conditions(1, 100, 500);
-  chassis.left_swing_to_angle(-86+d); //-70+d
+  wait(0.4, seconds);
+  chassis.set_swing_exit_conditions(1, 100, 550);
+  chassis.left_swing_to_angle(-87+d); //-70+d
   chassis.set_drive_constants(11, 1.2, 0, 10, 0);
   chassis.set_drive_exit_conditions(1.5, 300, 800);
   Conveyer.spin(forward);
   //IntakeFront.spin(forward);
-  chassis.drive_distance(18.5, -86+d); // 14,-90+d
+  chassis.drive_distance(19.9, -87+d); // 14,-90+d
   //wait(0.5, seconds);
   // chassis.set_turn_exit_conditions(1, 100, 400);
   // chassis.set_swing_exit_conditions(1, 100, 500);
@@ -161,15 +163,35 @@ void rushmid(){
   // Intake.spin(forward);
   // chassis.drive_distance(15, -20+d);
   chassis.right_swing_to_angle(13+d);
-  chassis.drive_distance(13);
+  chassis.drive_distance(20, 13+d);
   //wait(0.1, seconds);
   chassis.right_swing_to_angle(-49+d);
-  chassis.set_drive_constants(11, 12, 0, 10, 0);
-  chassis.drive_distance(35, -42+d);
-  Intake.stop();
-  wait(2, seconds);
-  Conveyer.stop();
-  wait(10, seconds);
+  
+  Conveyer.spin(forward);
+  Intake.spin(forward);
+  chassis.set_drive_exit_conditions(1.5, 300, 300);
+  chassis.drive_distance(100, -49+d);
+  wait(0.5, seconds);
+  chassis.set_drive_exit_conditions(1.5, 300, 700);
+  chassis.drive_distance(-15, -49+d);
+  //wait(1, seconds);
+  chassis.set_drive_exit_conditions(1.5, 300, 300);
+  chassis.drive_distance(100, -49+d);
+  wait(0.5, seconds);
+  chassis.set_drive_exit_conditions(1.5, 300, 700);
+  chassis.drive_distance(-15, -49+d);
+  //wait(1, seconds);
+  chassis.set_drive_exit_conditions(1.5, 300, 300);
+  chassis.drive_distance(100, -49+d);
+  wait(0.5, seconds);
+  chassis.set_drive_exit_conditions(1.5, 300, 700);
+  chassis.drive_distance(-10, -49+d);
+  chassis.set_drive_exit_conditions(1.5, 300, 300);
+  chassis.drive_distance(100, -49+d);
+  wait(0.5, seconds);
+  chassis.set_drive_exit_conditions(1.5, 300, 700);
+  chassis.drive_distance(-10, -49+d);
+  wait(15, seconds);
   //chassis.drive_distance(-10);
   // DoinkerPneu.set(true);
   // chassis.set_turn_exit_conditions(1, 100, 800);
