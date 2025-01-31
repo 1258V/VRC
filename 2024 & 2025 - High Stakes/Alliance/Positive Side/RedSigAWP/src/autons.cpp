@@ -157,8 +157,10 @@ void auton_task(){
   chassis.drive_distance(21);
   FrontIntake.spin(forward);
 
-  MogoPneu.set(false);
-  chassis.drive_distance(25); //16.5
+  //MogoPneu.set(false);
+  chassis.drive_distance(32);
+  chassis.drive_distance(-60);
+  /* //16.5
   chassis.right_swing_to_angle(0);
   thread(task2).detach();
 
