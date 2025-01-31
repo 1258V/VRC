@@ -164,8 +164,8 @@ void pre_auton(void) {
   }
 
 void autonomous(void) {
-  //wallstake();
-  rushmid();
+  wallstake();
+  //rushmid();
 }
 
 /*---------------------------------------------------------------------------*/
