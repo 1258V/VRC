@@ -20,7 +20,7 @@ void default_constants(){
   chassis.set_turn_constants(11, .4, .03, 3, 15);
   chassis.set_swing_constants(11, .3, .001, 2, 15);
   chassis.set_drive_exit_conditions(0.3, 300, 1200);
-  chassis.set_turn_exit_conditions(1, 300, 1800); // originally 1800
+  chassis.set_turn_exit_conditions(1, 300, 1000); //reduced from 1800
   chassis.set_swing_exit_conditions(1, 300, 1000);
 }
 
@@ -87,11 +87,10 @@ void ArmUp(){
 }
 
 void task1(){
-  Arm.spinTo(-100, degrees);
+  Arm.spinTo(-750, degrees);
 }
 
 void task2(){
-  wait(0.5, seconds);
   Intake.spin(forward);
 }
 
@@ -101,178 +100,99 @@ void task3(){
 }
 
 void task4(){
-  wait(1, seconds);
+  wait(1.325, seconds);
   Intake.stop();
 }
 
 void task5(){
-  wait(1.3, seconds);
+  wait(0.54, seconds);
   Intake.spin(forward);
 }
 
-void doinkerRush(){
-  wait(0.85, seconds);
+void doinkerOut(){
   DoinkerPneu.set(true);
 }
 
-void doinkerInDelay(){
-  wait(0.4, seconds);
+void delayDoinkerIn(){
+  wait(0.5, seconds);
   DoinkerPneu.set(false);
 }
 
-void getWallStake(){
-  Arm.spinTo(-680, degrees);
-}
-
 void auton_task(){
-  double d = -5;
+  Intake.setVelocity(100, percent);
 
-  thread(doinkerRush).detach();
-  chassis.drive_distance(42);
-  thread(doinkerInDelay).detach();
-  chassis.drive_distance(-12);
-  
-  chassis.set_turn_constants(6, .4, .03, 3, 15);
-  chassis.turn_to_angle(163 - d);
-  chassis.set_turn_constants(11, .4, .03, 3, 15);
-  chassis.drive_distance(-12);
-
-  thread(ArmDown).detach();
-  chassis.drive_distance(-2);
-  chassis.turn_to_angle(140 - d + 77.5);
-  Intake.spin(forward);
-
-  FrontIntake.spin(forward);
-  thread(task3).detach();
-  chassis.drive_distance(12);
-  MogoPneu.set(false);
-
-  chassis.turn_to_angle(77.5 - d + 360);
-  chassis.drive_distance(-22);
-  thread(ArmDown).detach();
-  chassis.drive_distance(-2);
-
-  chassis.turn_to_angle(-132 - d);
-  Intake.spin(forward);
-  chassis.drive_distance(21);
-  FrontIntake.spin(forward);
-
-  //MogoPneu.set(false);
-  chassis.drive_distance(32);
-  chassis.drive_distance(-60);
-  /* //16.5
-  chassis.right_swing_to_angle(0);
-  thread(task2).detach();
-
-  chassis.drive_distance(-9);
-  
-  /*
-  double d = 0;
-  thread(doinkerRush).detach();
-
-  chassis.set_heading_constants(6, .06, 0, 1, 0);
-  FrontIntake.spin(forward);
-  chassis.drive_distance(42, 45);
-  thread(doinkerInDelay).detach();
-
-  chassis.drive_distance(-22);/*
-  chassis.turn_to_angle(-4 + 180 - d);
-
-  chassis.drive_distance(-12);
-  thread(ArmDown).detach();
-  Intake.spin(forward);
-  chassis.drive_distance(-2);
-  /*
-  
-  chassis.set_turn_constants(6, .4, .03, 3, 15);
-  chassis.turn_to_angle(162 - d);
-  chassis.set_turn_constants(11, .4, .03, 3, 15);
-  chassis.drive_distance(-12);
-
-  thread(ArmDown).detach();
-  Intake.spin(forward);
-  chassis.drive_distance(-2);
-  chassis.turn_to_angle(90 + 162 - d);
-
-  FrontIntake.spin(forward);
-  chassis.drive_distance(12);
-
-
-
-
-  /*
-  chassis.turn_to_angle(140 - d + 77.5);
-  Intake.spin(forward);
-
-  FrontIntake.spin(forward);
-  thread(task3).detach();
-  chassis.drive_distance(12);
-  MogoPneu.set(false);
-
-  chassis.turn_to_angle(57.5 - d);
-  chassis.drive_distance(-30);
-  thread(ArmDown).detach();
-  chassis.drive_distance(-2);
-
-  chassis.turn_to_angle(77.5 - d + 90 + 45 + 30);
-  chassis.drive_distance(30);
-  chassis.set_turn_constants(6, .4, .03, 3, 15);
-  FrontIntake.spin(forward);
-  Intake.spin(forward);
-
-  chassis.drive_distance(14);
-  chassis.turn_to_angle(0 - d);
-  Intake.spin(forward);
-  chassis.drive_distance(-24);
-  /*
-  chassis.drive_distance(5);
-  chassis.turn_to_angle(52 - d);
-  /*
-  chassis.right_swing_to_angle(45);
-  //chassis.drive_distance(-12);
-
- // chassis.left_swing_to_angle(45 - d);
-  *//*thread(getWallStake).detach();
-  chassis.drive_distance(6);
-  wait(0.5, seconds);
-  thread(task1).detach();
-
-  chassis.drive_distance(-9);
-  chassis.turn_to_angle(-107.5 - d);
-  FrontIntake.spin(forward);
-  Intake.spin(forward);
-
-  chassis.drive_distance(10);
-  chassis.turn_to_angle(-195 - d);
-  chassis.drive_distance(60);
-  /*
   thread(task5).detach();
-  chassis.left_swing_to_angle(-90);
-  wait(1, seconds);
+  chassis.right_swing_to_angle(90);
+  wait(0.3, seconds);
   chassis.set_drive_constants(7, 1.5, 0, 10, 0);
 
   FrontIntake.spin(forward);
   thread(task4).detach();
-  chassis.drive_distance(34, -100);
+  chassis.drive_distance(34, 100);
   chassis.set_drive_constants(11, 1.5, 0, 10, 0);
 
-  chassis.turn_to_angle(-213);
-  chassis.set_drive_constants(7, 1.5, 0, 10, 0);
+  chassis.turn_to_angle(212.75);
+  chassis.set_drive_constants(6.5, 1.5, 0, 10, 0);
   FrontIntake.stop();
-  chassis.drive_distance(-36);
+  chassis.set_drive_constants(8, 1.5, 0, 10, 0); //11
 
+  chassis.drive_distance(-36);
   thread(ArmDown).detach();
-  chassis.drive_distance(-2);
   chassis.set_drive_constants(11, 1.5, 0, 10, 0);
-  chassis.turn_to_angle(0);
+  chassis.drive_distance(-2);
+
+  chassis.set_turn_exit_conditions(1, 300, 750);
+  chassis.turn_to_angle(-4);
+  chassis.set_turn_exit_conditions(1, 300, 1000);
+  Intake.spin(forward);
+  //inertial drift at this point is 4 degrees
+  
+  //Intake.spin(forward);
+  FrontIntake.spin(forward);
+  chassis.drive_distance(24);
+  
+  chassis.turn_to_angle(150);
+  thread(task1).detach();
+  chassis.set_drive_constants(8, 1.5, 0, 10, 0);
+  chassis.drive_distance(45);
+  /*
+  chassis.drive_distance(-24);
+
+  thread(task1).detach();
+  chassis.turn_to_angle(-135);
+  chassis.drive_distance(14);
+  wait(10, seconds);
+  */
+  double d = 90 - 69.4349488;
+  /*chassis.turn_to_angle(d);
+  chassis.drive_distance(36); 
+  FrontIntake.stop();*/
+  /*chassis.set_heading_constants(12, .8, 0, 2, 0);
+  chassis.drive_distance(-60, 60);
+  chassis.drive_distance(60, -30);
+
+
+  thread(doinkerOut).detach();
+  chassis.left_swing_to_angle(10 + d);
+  thread(delayDoinkerIn).detach();
+  chassis.turn_to_angle(64 + d); //64
   
   Intake.spin(forward);
   FrontIntake.spin(forward);
-  chassis.drive_distance(24);
-  chassis.turn_to_angle(63.4349488 + 6);
-  chassis.drive_distance(36);/* 
-  //Add corner items here
+  chassis.drive_distance(45, 100 + d);
+  thread(task1).detach();
+  chassis.drive_distance(60, 270);
+  /*
+  chassis.right_swing_to_angle(-64 + d);
 
+  chassis.set_drive_constants(8.5, 1.5, 0, 10, 0);
+  chassis.drive_distance(30);
+  chassis.drive_distance(15);
+  chassis.set_drive_constants(12, 1.5, 0, 10, 0);
+
+  thread(task1).detach();
+  chassis.drive_distance(-85, -25 + d);
+/*
   thread(task1).detach();
   thread(task4).detach();
   chassis.drive_distance(-78, 45);

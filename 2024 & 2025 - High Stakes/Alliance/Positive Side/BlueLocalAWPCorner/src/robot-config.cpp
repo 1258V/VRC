@@ -18,13 +18,13 @@ inertial Inertial13 = inertial(PORT21);
 digital_out DoinkerPneu = digital_out(Brain.ThreeWirePort.B);
 digital_out MogoPneu = digital_out(Brain.ThreeWirePort.A);
 digital_out HangPneu = digital_out(Brain.ThreeWirePort.D);
-motor Arm = motor(PORT12, ratio18_1, true);
-motor Conveyer = motor(PORT9, ratio6_1, false);
-motor Intake = motor(PORT11, ratio6_1, true);
+motor Arm = motor(PORT12, ratio18_1, false);
+motor Intake = motor(PORT9, ratio6_1, false);
+motor FrontIntake = motor(PORT11, ratio6_1, true);
 limit LimitSwitchC = limit(Brain.ThreeWirePort.C);
-distance DistSensor = distance(PORT11);
+distance DistSensor = distance(PORT8);
 rotation ArmRotation = rotation(PORT10, true);
-optical Opt = optical(PORT1);
+optical Optical6 = optical(PORT20);
 
 void vexcodeInit( void ) {
   

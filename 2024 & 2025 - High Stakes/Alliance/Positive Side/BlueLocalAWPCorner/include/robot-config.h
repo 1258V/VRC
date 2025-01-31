@@ -14,12 +14,12 @@ extern digital_out DoinkerPneu;
 extern digital_out MogoPneu;
 extern digital_out HangPneu;
 extern motor Arm;
-extern motor Conveyer;
 extern motor Intake;
+extern motor FrontIntake;
 extern limit LimitSwitchC;
 extern distance DistSensor;
 extern rotation ArmRotation;
-extern optical Opt;
+extern optical Optical6;
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.
  * 
