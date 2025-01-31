@@ -147,14 +147,17 @@ void auton_task(){
   
   //Intake.spin(forward);
   FrontIntake.spin(forward);
-  chassis.drive_distance(24);/*
+  chassis.drive_distance(24);
+  chassis.drive_distance(-24);
+  chassis.turn_to_angle(49);
+  /*
   chassis.drive_distance(-24);
 
   thread(task1).detach();
   chassis.turn_to_angle(-135);
   chassis.drive_distance(14);
   wait(10, seconds);
-  */
+  *//*
   double d = 69.4349488;
   chassis.turn_to_angle(d);
   chassis.drive_distance(36); 
