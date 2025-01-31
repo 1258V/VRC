@@ -61,9 +61,13 @@ void stopIntake() {
 }
 
 void loadArm() {
-  chassis.arm_to_angle(22);
-  Conveyer.setVelocity(90, percent);
-  Intake.setVelocity(100, percent);
+  Conveyer.spinFor(-20, degrees);
+  if (ArmRotation.angle() > 22) {
+    chassis.arm_to_angle(35);
+  }
+  else {
+    chassis.arm_to_angle(22);
+  }
   Conveyer.spin(forward);
   Intake.spin(forward);
 }
@@ -225,6 +229,7 @@ void auton() {
   wait(3, seconds);
   default_constants();
   pfm.stop();
+  stopIntake();
   chassis.drive_distance(-20);
   chassis.turn_to_angle(320);
   chassis.drive_distance(-100);

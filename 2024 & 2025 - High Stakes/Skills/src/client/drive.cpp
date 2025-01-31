@@ -64,15 +64,16 @@ int SidewaysTracker_port, float SidewaysTracker_diameter, float SidewaysTracker_
 }
 
 void Drive::arm_to_angle(double desiredValue){
-  if (ArmRotation.angle() > 300) {
-    Arm.spinFor(10, degrees);
+  if(desiredValue < ArmRotation.angle()){
+    Arm.spin(reverse);
+    waitUntil(desiredValue > ArmRotation.angle());
+    Arm.stop();
   }
-  if (desiredValue > ArmRotation.angle()) {
-    while(desiredValue > ArmRotation.angle()){
-      Arm.spin(forward);
-    }
+  else{  
+    Arm.spin(forward);
+    waitUntil(desiredValue < ArmRotation.angle());
+    Arm.stop();
   }
-  Arm.stop();
 }
 
 /**
