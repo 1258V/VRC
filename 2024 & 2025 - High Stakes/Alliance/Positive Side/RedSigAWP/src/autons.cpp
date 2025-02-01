@@ -211,6 +211,7 @@ void auton_task(){
 
   chassis.drive_distance(6);  
   chassis.turn_to_angle(47);
+  //Get corner
   corner();
   /*
 
