@@ -263,7 +263,7 @@ int DisplayToController() {
 }
 
 void loadArm(){
-  Arm.spinTo(156, degrees);
+  Arm.spinTo(145, degrees);
   Conveyer.spin(forward);
   Intake.spin(forward);
 }
