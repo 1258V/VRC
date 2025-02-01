@@ -100,7 +100,12 @@ void task3(){
 }
 
 void task4(){
-  wait(1.325, seconds);
+  wait(0.7, seconds);
+  while (true) {
+    if (DistSensor.objectDistance(inches) < 2) {
+      Intake.stop();
+    }
+  }
   Intake.stop();
 }
 

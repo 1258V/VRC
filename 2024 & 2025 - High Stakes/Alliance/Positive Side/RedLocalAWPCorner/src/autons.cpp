@@ -100,16 +100,12 @@ void task3(){
 }
 
 void task4(){
-  wait(1.365, seconds);
-  /*while (true) {
-    if (DistSensor.objectDistance(inches) < 2 && blue) {
-      wait(0.05, seconds);
-      Conveyer.stop();
-      blue = false;
-      wait(0.05, seconds);
-      spinIntake();
+  wait(0.8, seconds);
+  while (true) {
+    if (DistSensor.objectDistance(inches) < 2) {
+      Intake.stop();
     }
-  }*/
+  }
   Intake.stop();
 }
 
