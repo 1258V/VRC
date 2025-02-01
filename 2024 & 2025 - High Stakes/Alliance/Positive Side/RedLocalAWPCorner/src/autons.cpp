@@ -20,7 +20,7 @@ void default_constants(){
   chassis.set_turn_constants(11, .4, .03, 3, 15);
   chassis.set_swing_constants(11, .3, .001, 2, 15);
   chassis.set_drive_exit_conditions(0.3, 300, 1200);
-  chassis.set_turn_exit_conditions(1, 300, 750); //reduced from 1800 to 1000 to 750
+  chassis.set_turn_exit_conditions(1, 300, 1000); //reduced from 1800 to 1000
   chassis.set_swing_exit_conditions(1, 300, 1000);
 }
 
@@ -138,12 +138,15 @@ void corner(){
 
   chassis.drive_with_voltage(12, 12);
   wait(0.7, seconds);
-  chassis.drive_with_voltage(-12, -12);
+
+  //Commented out bottom due to not enough time
+  
+  /*chassis.drive_with_voltage(-12, -12);
   wait(0.3, seconds);
   chassis.drive_with_voltage(0, 0);
   wait(0.3, seconds);
   chassis.drive_with_voltage(12, 12);
-  wait(0.6, seconds);
+  wait(0.6, seconds);*/
   
 /*
   chassis.set_drive_constants(11, 10, 0, 10, 0);
