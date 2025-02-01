@@ -183,7 +183,6 @@ bool mobilePneu = false;
 void loadArm() {
   double ang = 29.8;
   double err = 5.6;
-  Brain.resetTimer();
   if(360-ArmRotation.angle() < (ang - err)){
     while(360-ArmRotation.angle() < (ang - err)){
       Arm.spin(reverse);
