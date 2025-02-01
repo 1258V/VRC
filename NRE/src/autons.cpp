@@ -1,5 +1,5 @@
 #include "vex.h"
-int matchloadangle = 167;
+int matchloadangle = 13;
 
 void default_constants(){
   chassis.set_drive_constants(11, 1.5, 0, 10, 0);

@@ -185,6 +185,20 @@ void spinIntakeForward() {
   Conveyer.setVelocity(100, percent);
   Conveyer.spin(forward);
 }
+void spinIntakeForwardSpec() {
+  Intake.setVelocity(100, percent);
+  Intake.spin(forward);
+  Conveyer.setVelocity(100, percent);
+  Conveyer.spin(forward);
+  wait(0.4, seconds);
+  while(true){
+    if(Conveyer.velocity(percent) < 5){
+      Conveyer.stop();
+      Intake.stop();
+      break;
+    }
+  }
+}
 
 void spinIntakeReverse() {
   Intake.setVelocity(100, percent);
@@ -277,8 +291,7 @@ void loadArm(){
     }
   }
   Arm.stop();
-  Conveyer.spin(forward);
-  Intake.spin(forward);
+  spinIntakeForwardSpec();
 }
 
 void usercontrol(void) {
