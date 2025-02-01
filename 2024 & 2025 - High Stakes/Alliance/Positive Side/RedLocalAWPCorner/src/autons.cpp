@@ -78,6 +78,23 @@ void ArmPick(){
   Intake.stop();
 }
 
+int expelDisc() {
+  bool blue = false;
+  while (true) {
+    if (Optical6.hue() > 100) {
+      blue = true;
+    }
+    if (DistSensor.objectDistance(inches) < 2 && blue) {
+      wait(0.05, seconds);
+      Intake.stop();
+      blue = false;
+      wait(0.05, seconds);
+      Intake.spin(forward);
+    }
+  }
+  return 0;
+}
+
 void ArmDown(){
   MogoPneu.set(true);
 }
