@@ -181,8 +181,22 @@ void autonomous(void) {
 bool mobilePneu = false;
 
 void loadArm() {
-  Arm.spinTo(-150, degrees);
-  /*while (true) {
+  double ang = 30.09;
+  double err = 5.811;
+  Brain.resetTimer();
+  if(360-ArmRotation.angle() < (ang - err)){
+    while(360-ArmRotation.angle() < (ang - err)){
+      Arm.spin(reverse);
+    }
+  }
+  else{
+    while(360-ArmRotation.angle() > (ang + err)){
+      Arm.spin(forward);
+    }
+  }
+  Arm.stop();
+  
+    /*while (true) {
     if (DistSensor.objectDistance(inches) < 1) {
       Intake.setVelocity(50, percent);
       Intake.spinFor(reverse, 12, turns);
@@ -289,7 +303,7 @@ void usercontrol(void) {
 
     MogoPneu.set(true);
 
-    Arm.setStopping(brake);
+    Arm.setStopping(hold);
     Drivetrain.setStopping(coast);
 
     controller(primary).ButtonL2.pressed(spinIntakeReverse); 
