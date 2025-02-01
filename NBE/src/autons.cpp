@@ -66,7 +66,7 @@ void BarTouch(){
   Arm.spinTo(630, degrees);
 }
 void ArmDown(){
-  wait(0.3, seconds);
+  wait(0.35, seconds);
   MogoPneu.set(true);
 }
 void ConveyerStop(){
@@ -115,13 +115,15 @@ void rushmid(){
   chassis.set_drive_exit_conditions(1.5, 300, 800);
   chassis.set_drive_constants(11, 1.2, 0, 10, 0);
   wait(0.4, seconds);
-  chassis.drive_distance(-12.7, -121+d); //19
-  chassis.set_drive_constants(5, 1.2, 0, 10, 0);
-  //chassis.right_swing_to_angle(-110+d);
-  chassis.set_drive_exit_conditions(1.5, 300, 500);
-  chassis.drive_distance(-12);
   thread(ArmDown).detach();
-  wait(0.3, seconds);
+  chassis.drive_distance(-24.7, -121+d); //12.7
+  //could put arm down here and add wait before turning
+  //chassis.set_drive_constants(5, 1.2, 0, 10, 0);
+  //chassis.right_swing_to_angle(-110+d);
+  //chassis.set_drive_exit_conditions(1.5, 300, 500);
+  //chassis.drive_distance(-12);
+  //thread(ArmDown).detach();
+  //wait(0.3, seconds);
   chassis.set_swing_exit_conditions(1, 100, 550);
   chassis.left_swing_to_angle(-87+d); //-70+d
   chassis.set_drive_constants(11, 1.2, 0, 10, 0);
