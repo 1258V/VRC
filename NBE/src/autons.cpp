@@ -30,7 +30,7 @@ void expelDiscBlue() {
       red = true;
     }
     if (DistSensor.objectDistance(inches) < 2 && red && counter!=1) {
-      wait(0.15, seconds);
+      wait(0.147, seconds);
       Conveyer.stop();
       red = false;
       wait(0.05, seconds);
