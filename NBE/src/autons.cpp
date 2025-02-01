@@ -23,17 +23,27 @@ void hs(){
   chassis.set_drive_exit_conditions(1.5, 300, 800);
 }
 void expelDiscBlue() {
+  int counter=0;
   bool red = false;
   while (true) {
     if (Opt.hue() <= 30 || Opt.hue() >= 330) {
       red = true;
     }
-    if (DistSensor.objectDistance(inches) < 2 && red) {
+    if (DistSensor.objectDistance(inches) < 2 && red && counter!=1) {
       wait(0.1625, seconds);
       Conveyer.stop();
       red = false;
       wait(0.05, seconds);
       Conveyer.spin(forward);
+      //counter+=1;
+    }
+    else if(DistSensor.objectDistance(inches) < 2 && red && counter==1) {
+      wait(0.165, seconds);
+      red=false;
+      MogoPneu.set(false);
+      wait(0.25, seconds);
+      MogoPneu.set(true);
+      counter+=1;
     }
   }
 }
@@ -66,7 +76,11 @@ void BarTouch(){
   Arm.spinTo(630, degrees);
 }
 void ArmDown(){
-  wait(0.35, seconds);
+  //wait(0.6, seconds);
+  MogoPneu.set(true);
+}
+void MogoDown(){
+  wait(0.1, seconds);
   MogoPneu.set(true);
 }
 void ConveyerStop(){
@@ -113,17 +127,16 @@ void rushmid(){
   //IntakeFront.stop();
   //chassis.left_swing_to_angle(-127+d); //-135
   chassis.set_drive_exit_conditions(1.5, 300, 800);
-  chassis.set_drive_constants(11, 1.2, 0, 10, 0);
+  chassis.set_drive_constants(9, 1.2, 0, 10, 0);
   wait(0.4, seconds);
-  thread(ArmDown).detach();
-  chassis.drive_distance(-24.7, -121+d); //12.7
+  chassis.drive_distance(-16.7, -120.8+d); //12.7
   //could put arm down here and add wait before turning
-  //chassis.set_drive_constants(5, 1.2, 0, 10, 0);
+  chassis.set_drive_constants(5, 1.2, 0, 10, 0);
   //chassis.right_swing_to_angle(-110+d);
-  //chassis.set_drive_exit_conditions(1.5, 300, 500);
-  //chassis.drive_distance(-12);
-  //thread(ArmDown).detach();
-  //wait(0.3, seconds);
+  chassis.set_drive_exit_conditions(1.5, 300, 300);
+  chassis.drive_distance(-8);
+  thread(ArmDown).detach();
+  wait(0.3, seconds);
   chassis.set_swing_exit_conditions(1, 100, 550);
   chassis.left_swing_to_angle(-87+d); //-70+d
   chassis.set_drive_constants(11, 1.2, 0, 10, 0);
@@ -133,7 +146,7 @@ void rushmid(){
   chassis.drive_distance(19.9, -87+d); // 14,-90+d
   //wait(0.5, seconds);
   // chassis.set_turn_exit_conditions(1, 100, 400);
-  // chassis.set_swing_exit_conditions(1, 100, 500);
+  chassis.set_swing_exit_conditions(1, 300, 300);
   //below is for going to corner
   // chassis.left_swing_to_angle(-23+d);
   // chassis.set_drive_constants(11, 3.5, 0, 10, 0);
@@ -158,9 +171,9 @@ void rushmid(){
   // chassis.drive_distance(15, -20+d);
   
   chassis.right_swing_to_angle(0+d);
-  chassis.drive_distance(16.8, 0+d);
+  chassis.drive_distance(20.8, 0+d);
   //wait(0.1, seconds);
-  chassis.set_swing_exit_conditions(1, 100, 380);
+  chassis.set_swing_exit_conditions(1, 100, 300);
   chassis.right_swing_to_angle(-41+d);
   thread(expelDiscBlue).detach();
   Conveyer.spin(forward);
@@ -195,7 +208,7 @@ void rushmid(){
   chassis.drive_distance(100, -49+d);
   wait(0.37, seconds);
   chassis.set_drive_exit_conditions(1.5, 300, 700);
-  //chassis.drive_distance(-10, -49+d);
+  chassis.drive_distance(-10, -49+d);
   wait(15, seconds);
   //chassis.drive_distance(-10);
   // DoinkerPneu.set(true);
