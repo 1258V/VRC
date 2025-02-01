@@ -265,8 +265,20 @@ int DisplayToController() {
 }
 
 void loadArm(){
-  Arm.setVelocity(100, percent);
-  Arm.spinTo(156, degrees);
+  double ang = 29.8;
+  double err = 5.6;
+  Brain.resetTimer();
+  if(360-ArmRotation.angle() < (ang - err)){
+    while(360-ArmRotation.angle() < (ang - err)){
+      Arm.spin(reverse);
+    }
+  }
+  else{
+    while(360-ArmRotation.angle() > (ang + err)){
+      Arm.spin(forward);
+    }
+  }
+  Arm.stop();
   Conveyer.spin(forward);
   Intake.spin(forward);
 }
