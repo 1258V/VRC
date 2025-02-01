@@ -181,8 +181,8 @@ void autonomous(void) {
 bool mobilePneu = false;
 
 void loadArm() {
-  double ang = 30.09;
-  double err = 5.811;
+  double ang = 29.8;
+  double err = 5.6;
   Brain.resetTimer();
   if(360-ArmRotation.angle() < (ang - err)){
     while(360-ArmRotation.angle() < (ang - err)){
