@@ -2,7 +2,7 @@
 bool runningSkills = false;
 //Part of the code below (mainly the drivetrain constrictors) is used from the LemLib drive template, which is why you will notice a unique drivetrain setup
 //This drivetrain setup is specifically made to allow the most efficient drive possible, using LemLib's battery saving technique while still providing high strength
-//The drivetrain will stay on Eco mode for most of the High Stakes challenge
+//The drivetrain will stay on Ecos mode for most of the High Stakes challenge
 
 // ---- START VEXCODE CONFIGURED DEVICES ----
 // Robot Configuration:
@@ -162,6 +162,7 @@ void pre_auton(void) {
     ArmRotation.setReversed(true);
     ArmRotation.resetPosition();
 
+    Optical6.setLightPower(100, percent);
   }
 
 void autonomous(void) {
@@ -179,9 +180,40 @@ void autonomous(void) {
 /*---------------------------------------------------------------------------*/
 bool mobilePneu = false;
 
+
+void spinIntakeForwardSpec() {
+  Intake.setVelocity(100, percent);
+  Intake.spin(forward);
+  FrontIntake.setVelocity(100, percent);
+  FrontIntake.spin(forward);
+  wait(0.4, seconds);
+  while(true){
+    if(Intake.velocity(percent) < 5){
+      Intake.stop();
+      FrontIntake.stop();
+      break;
+    }
+  }
+}
+
 void loadArm() {
-  Arm.spinTo(-150, degrees);
-  /*while (true) {
+
+  double ang = 29.8;
+  double err = 5.6;
+  if(360-ArmRotation.angle() < (ang - err)){
+    while(360-ArmRotation.angle() < (ang - err)){
+      Arm.spin(reverse);
+    }
+  }
+  else{
+    while(360-ArmRotation.angle() > (ang + err)){
+      Arm.spin(forward);
+    }
+  }
+  Arm.stop();
+  spinIntakeForwardSpec();
+  
+    /*while (true) {
     if (DistSensor.objectDistance(inches) < 1) {
       Intake.setVelocity(50, percent);
       Intake.spinFor(reverse, 12, turns);
@@ -288,7 +320,7 @@ void usercontrol(void) {
 
     MogoPneu.set(true);
 
-    Arm.setStopping(brake);
+    Arm.setStopping(hold);
     Drivetrain.setStopping(coast);
 
     controller(primary).ButtonL2.pressed(spinIntakeReverse); 
@@ -305,7 +337,7 @@ void usercontrol(void) {
     controller(primary).ButtonRight.pressed(moveArmDown);
     controller(primary).ButtonRight.released(stopArm);
 
-    controller(primary).ButtonB.pressed(triggerDoinkerMech);    
+    controller(primary).ButtonDown.pressed(triggerDoinkerMech);    
 
   // User control code here, inside the loop
   while (1) {

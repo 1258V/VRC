@@ -100,7 +100,7 @@ void task3(){
 }
 
 void task4(){
-  wait(1.325, seconds);
+  wait(0.7, seconds);
   Intake.stop();
 }
 
@@ -182,7 +182,7 @@ void awpcode(){
   thread(task5).detach();
   chassis.left_swing_to_angle(-90);
   wait(0.3, seconds);
-  chassis.set_drive_constants(7, 1.5, 0, 10, 0);
+  chassis.set_drive_constants(5, 1.5, 0, 10, 0);
 
   FrontIntake.spin(forward);
   thread(task4).detach();
