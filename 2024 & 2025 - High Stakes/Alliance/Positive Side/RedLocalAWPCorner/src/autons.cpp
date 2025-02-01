@@ -100,7 +100,16 @@ void task3(){
 }
 
 void task4(){
-  wait(0.7, seconds);
+  wait(1.365, seconds);
+  /*while (true) {
+    if (DistSensor.objectDistance(inches) < 2 && blue) {
+      wait(0.05, seconds);
+      Conveyer.stop();
+      blue = false;
+      wait(0.05, seconds);
+      spinIntake();
+    }
+  }*/
   Intake.stop();
 }
 
@@ -176,6 +185,34 @@ void corner(){
   wait(15, seconds);
 }
 
+void tenKauton(){
+  chassis.set_drive_constants(7, 1.5, 0, 10, 0);
+  chassis.drive_distance(-40, 0);
+  chassis.set_drive_constants(11, 1.5, 0, 10, 0);
+  thread(ArmDown).detach();
+
+  chassis.drive_distance(-2);
+  Intake.spin(forward);
+  FrontIntake.spin(forward);
+  chassis.turn_to_angle(45);
+
+  Intake.stop();
+  chassis.drive_distance(25);
+  chassis.drive_distance(-25);
+  chassis.turn_to_angle(-90);
+
+  Intake.spin(forward);
+  chassis.set_drive_exit_conditions(1.5, 300, 1200);
+  chassis.drive_distance(24);
+  Intake.stop();
+  chassis.drive_distance(-24);
+  
+  chassis.turn_to_angle(-135 - 90);
+  Intake.spin(forward);
+  thread(task1).detach();
+  chassis.drive_distance(10);
+}
+
 void awpcode(){
   Intake.setVelocity(100, percent);
 
@@ -205,10 +242,16 @@ void awpcode(){
   thread(task3).detach();
   //inertial drift at this point is 4 degrees
   
-  //Intake.spin(forward);
+  Intake.spin(forward);
   FrontIntake.spin(forward);
   chassis.set_drive_exit_conditions(1.5, 300, 1200);
   chassis.drive_distance(24);
+  
+  chassis.turn_to_angle(180);
+  chassis.drive_with_voltage(12, 12);
+  wait(1.5, seconds);
+  chassis.drive_with_voltage(0, 0);
+  /*
   chassis.drive_distance(-24);
   
   chassis.turn_to_angle(-135);

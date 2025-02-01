@@ -205,10 +205,16 @@ void awpcode(){
   thread(task3).detach();
   //inertial drift at this point is 4 degrees
   
-  //Intake.spin(forward);
+  Intake.spin(forward);
   FrontIntake.spin(forward);
   chassis.set_drive_exit_conditions(1.5, 300, 1200);
   chassis.drive_distance(24);
+  
+  chassis.turn_to_angle(180);
+  chassis.drive_with_voltage(12, 12);
+  wait(1.5, seconds);
+  chassis.drive_with_voltage(0, 0);
+  /*
   chassis.drive_distance(-24);
   
   chassis.turn_to_angle(135);
