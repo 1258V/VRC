@@ -205,10 +205,11 @@ void auton_task(){
   MogoPneu.set(false);
 
   chassis.turn_to_angle(77.5 - d + 360);
-  chassis.drive_distance(-22);
+  chassis.drive_distance(-28);
   thread(ArmDown).detach();
   chassis.drive_distance(-2);
-  
+
+  chassis.drive_distance(6);  
   chassis.turn_to_angle(47);
   corner();
   /*
