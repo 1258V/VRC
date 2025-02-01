@@ -181,6 +181,8 @@ void autonomous(void) {
 bool mobilePneu = false;
 
 void loadArm() {
+  spinIntakeForward();
+  
   double ang = 29.8;
   double err = 5.6;
   if(360-ArmRotation.angle() < (ang - err)){
@@ -319,7 +321,7 @@ void usercontrol(void) {
     controller(primary).ButtonRight.pressed(moveArmDown);
     controller(primary).ButtonRight.released(stopArm);
 
-    controller(primary).ButtonB.pressed(triggerDoinkerMech);    
+    controller(primary).ButtonDown.pressed(triggerDoinkerMech);    
 
   // User control code here, inside the loop
   while (1) {
