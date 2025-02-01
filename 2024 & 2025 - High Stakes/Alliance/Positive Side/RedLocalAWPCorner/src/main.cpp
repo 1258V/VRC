@@ -180,9 +180,24 @@ void autonomous(void) {
 /*---------------------------------------------------------------------------*/
 bool mobilePneu = false;
 
+
+void spinIntakeForwardSpec() {
+  Intake.setVelocity(100, percent);
+  Intake.spin(forward);
+  FrontIntake.setVelocity(100, percent);
+  FrontIntake.spin(forward);
+  wait(0.4, seconds);
+  while(true){
+    if(Intake.velocity(percent) < 5){
+      Intake.stop();
+      FrontIntake.stop();
+      break;
+    }
+  }
+}
+
 void loadArm() {
-  spinIntakeForward();
-  
+
   double ang = 29.8;
   double err = 5.6;
   if(360-ArmRotation.angle() < (ang - err)){
@@ -196,6 +211,7 @@ void loadArm() {
     }
   }
   Arm.stop();
+  spinIntakeForwardSpec();
   
     /*while (true) {
     if (DistSensor.objectDistance(inches) < 1) {
