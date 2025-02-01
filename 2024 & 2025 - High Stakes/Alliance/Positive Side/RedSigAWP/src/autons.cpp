@@ -124,63 +124,6 @@ void getWallStake(){
   Arm.spinTo(-680, degrees);
 }
 
-void corner(){
-  Intake.spin(forward);
-  FrontIntake.spin(forward);
-  
-  chassis.set_drive_exit_conditions(1.5, 300, 1200);
-  chassis.drive_distance(1000, 47);
-  chassis.drive_with_voltage(-12, -12);
-  wait(0.3, seconds);
-  chassis.drive_with_voltage(0, 0);
-  wait(0.3, seconds);
-
-  repeat(8){
-    chassis.drive_with_voltage(12, 12);
-    wait(0.7, seconds);
-    chassis.drive_with_voltage(-12, -12);
-    wait(0.3, seconds);
-    chassis.drive_with_voltage(0, 0);
-    wait(0.3, seconds);
-  }
-
-  //Commented out bottom due to not enough time
-  
-  /*chassis.drive_with_voltage(-12, -12);
-  wait(0.3, seconds);
-  chassis.drive_with_voltage(0, 0);
-  wait(0.3, seconds);
-  chassis.drive_with_voltage(12, 12);
-  wait(0.6, seconds);*/
-  
-/*
-  chassis.set_drive_constants(11, 10, 0, 10, 0);
-  chassis.set_drive_exit_conditions(1.5, 300, 1200);
-  chassis.drive_distance(1000, d);
-  wait(0.5, seconds);
-  chassis.set_drive_exit_conditions(1.5, 300, 300);
-  chassis.drive_distance(-1000, d);
-  //wait(1, seconds);
-  chassis.set_drive_exit_conditions(1.5, 300, 400);
-  chassis.drive_distance(1000, d);
-  wait(0.5, seconds);
-  chassis.set_drive_exit_conditions(1.5, 300, 300);
-  chassis.drive_distance(-1000, d);
-  //wait(1, seconds);
-  chassis.set_drive_exit_conditions(1.5, 300, 400);
-  chassis.drive_distance(1000, d);/*
-  wait(0.5, seconds);
-  chassis.set_drive_exit_conditions(1.5, 300, 500);
-  chassis.drive_distance(-10, d);
-  chassis.set_drive_exit_conditions(1.5, 300, 500);
-  chassis.drive_distance(100, d);
-  wait(0.5, seconds);/*
-  chassis.set_drive_exit_conditions(1.5, 300, 1200);
-  thread(task1).detach();
-  chassis.drive_distance(-10000, 47);
-  wait(15, seconds);*/
-}
-
 void auton_task(){
   double d = -5;
 
@@ -205,14 +148,9 @@ void auton_task(){
   MogoPneu.set(false);
 
   chassis.turn_to_angle(77.5 - d + 360);
-  chassis.drive_distance(-28);
+  chassis.drive_distance(-22);
   thread(ArmDown).detach();
   chassis.drive_distance(-2);
-
-  chassis.drive_distance(6);  
-  chassis.turn_to_angle(47);
-  corner();
-  /*
 
   chassis.turn_to_angle(-132 - d);
   Intake.spin(forward);

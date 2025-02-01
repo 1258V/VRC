@@ -120,6 +120,10 @@ Discarded input sections
                 0x00000000       0xf0 build/src/autons.o
  .ARM.exidx.text._Z7ArmPickv
                 0x00000000        0x8 build/src/autons.o
+ .text._Z9expelDiscv
+                0x00000000       0xf0 build/src/autons.o
+ .ARM.exidx.text._Z9expelDiscv
+                0x00000000        0x8 build/src/autons.o
  .text._Z5ArmUpv
                 0x00000000       0x48 build/src/autons.o
  .ARM.exidx.text._Z5ArmUpv
