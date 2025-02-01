@@ -30,7 +30,7 @@ void expelDiscBlue() {
       red = true;
     }
     if (DistSensor.objectDistance(inches) < 2 && red && counter!=1) {
-      wait(0.1625, seconds);
+      wait(0.15, seconds);
       Conveyer.stop();
       red = false;
       wait(0.05, seconds);
@@ -76,6 +76,7 @@ void BarTouch(){
   Arm.spinTo(630, degrees);
 }
 void ArmDown(){
+  wait(0.05, seconds);
   //wait(0.6, seconds);
   MogoPneu.set(true);
 }
@@ -136,7 +137,7 @@ void rushmid(){
   chassis.set_drive_exit_conditions(1.5, 300, 300);
   chassis.drive_distance(-8);
   thread(ArmDown).detach();
-  wait(0.3, seconds);
+  wait(0.35, seconds);
   chassis.set_swing_exit_conditions(1, 100, 550);
   chassis.left_swing_to_angle(-87+d); //-70+d
   chassis.set_drive_constants(11, 1.2, 0, 10, 0);
