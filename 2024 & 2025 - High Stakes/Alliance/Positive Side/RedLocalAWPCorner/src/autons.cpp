@@ -20,7 +20,7 @@ void default_constants(){
   chassis.set_turn_constants(11, .4, .03, 3, 15);
   chassis.set_swing_constants(11, .3, .001, 2, 15);
   chassis.set_drive_exit_conditions(0.3, 300, 1200);
-  chassis.set_turn_exit_conditions(1, 300, 1000); //reduced from 1800
+  chassis.set_turn_exit_conditions(1, 300, 750); //reduced from 1800 to 1000 to 750
   chassis.set_swing_exit_conditions(1, 300, 1000);
 }
 
@@ -118,7 +118,62 @@ void delayDoinkerIn(){
   DoinkerPneu.set(false);
 }
 
-void auton_task(){
+void corner(){
+  Intake.spin(forward);
+  FrontIntake.spin(forward);
+  
+  chassis.set_drive_exit_conditions(1.5, 300, 1200);
+  chassis.drive_distance(1000, 47);
+  chassis.drive_with_voltage(-12, -12);
+  wait(0.3, seconds);
+  chassis.drive_with_voltage(0, 0);
+  wait(0.3, seconds);
+
+  chassis.drive_with_voltage(12, 12);
+  wait(0.7, seconds);
+  chassis.drive_with_voltage(-12, -12);
+  wait(0.3, seconds);
+  chassis.drive_with_voltage(0, 0);
+  wait(0.3, seconds);
+
+  chassis.drive_with_voltage(12, 12);
+  wait(0.7, seconds);
+  chassis.drive_with_voltage(-12, -12);
+  wait(0.3, seconds);
+  chassis.drive_with_voltage(0, 0);
+  wait(0.3, seconds);
+  chassis.drive_with_voltage(12, 12);
+  wait(0.6, seconds);
+  
+/*
+  chassis.set_drive_constants(11, 10, 0, 10, 0);
+  chassis.set_drive_exit_conditions(1.5, 300, 1200);
+  chassis.drive_distance(1000, d);
+  wait(0.5, seconds);
+  chassis.set_drive_exit_conditions(1.5, 300, 300);
+  chassis.drive_distance(-1000, d);
+  //wait(1, seconds);
+  chassis.set_drive_exit_conditions(1.5, 300, 400);
+  chassis.drive_distance(1000, d);
+  wait(0.5, seconds);
+  chassis.set_drive_exit_conditions(1.5, 300, 300);
+  chassis.drive_distance(-1000, d);
+  //wait(1, seconds);
+  chassis.set_drive_exit_conditions(1.5, 300, 400);
+  chassis.drive_distance(1000, d);/*
+  wait(0.5, seconds);
+  chassis.set_drive_exit_conditions(1.5, 300, 500);
+  chassis.drive_distance(-10, d);
+  chassis.set_drive_exit_conditions(1.5, 300, 500);
+  chassis.drive_distance(100, d);
+  wait(0.5, seconds);/**/
+  chassis.set_drive_exit_conditions(1.5, 300, 1200);
+  thread(task1).detach();
+  chassis.drive_distance(-10000, 47);
+  wait(15, seconds);
+}
+
+void awpcode(){
   Intake.setVelocity(100, percent);
 
   thread(task5).detach();
@@ -143,46 +198,18 @@ void auton_task(){
   chassis.set_turn_exit_conditions(1, 300, 750);
 
   chassis.turn_to_angle(4);
-  chassis.set_turn_exit_conditions(1, 300, 1000);
   Intake.spin(forward);
   thread(task3).detach();
   //inertial drift at this point is 4 degrees
   
   //Intake.spin(forward);
   FrontIntake.spin(forward);
+  chassis.set_drive_exit_conditions(1.5, 300, 1200);
   chassis.drive_distance(24);
   chassis.drive_distance(-24);
-  double d = 45;
-
-  chassis.turn_to_angle(d);
-  Intake.spin(forward);
-
-  chassis.set_drive_constants(11, 10, 0, 10, 0);
-  chassis.set_drive_exit_conditions(1.5, 300, 1200);
-  chassis.drive_distance(1000, d);
-  wait(0.5, seconds);
-  chassis.set_drive_exit_conditions(1.5, 300, 300);
-  chassis.drive_distance(-1000, d);
-  //wait(1, seconds);
-  chassis.set_drive_exit_conditions(1.5, 300, 400);
-  chassis.drive_distance(1000, d);
-  wait(0.5, seconds);
-  chassis.set_drive_exit_conditions(1.5, 300, 300);
-  chassis.drive_distance(-1000, d);
-  //wait(1, seconds);
-  chassis.set_drive_exit_conditions(1.5, 300, 400);
-  chassis.drive_distance(1000, d);/*
-  wait(0.5, seconds);
-  chassis.set_drive_exit_conditions(1.5, 300, 500);
-  chassis.drive_distance(-10, d);
-  chassis.set_drive_exit_conditions(1.5, 300, 500);
-  chassis.drive_distance(100, d);
-  wait(0.5, seconds);/**/
-  chassis.set_drive_exit_conditions(1.5, 300, 1200);
-  thread(task1).detach();
-  chassis.drive_with_voltage(-12, -12);
-  wait(15, seconds);
-
+  chassis.turn_to_angle(47);
+  
+  corner();
   /*
   chassis.drive_distance(-24);
 
@@ -585,6 +612,10 @@ void auton_task(){
   chassis.set_drive_constants(11, 0.7, 0, 10, 0);  
   chassis.drive_distance(-22);/**/
 }
+void auton_task(){
+  awpcode();
+}
+
 void regular(){
   chassis.regulate();
   auton_task();
