@@ -160,7 +160,7 @@ void pre_auton(void) {
 
     ArmRotation.setReversed(true);
     ArmRotation.resetPosition();
-
+    Opt.setLightPower(100, percent);
   }
 
 void autonomous(void) {
@@ -199,6 +199,7 @@ void spinIntakeForwardSpec() {
     }
   }
 }
+
 void spinIntakeReverse() {
   Intake.setVelocity(100, percent);
   Intake.spin(reverse);
@@ -247,7 +248,7 @@ void triggerDoinkerMech() {
   DoinkerPneu.set(DoinkerPneuPos);
 }
 
-void moveArmUp() {
+void moveArmDown() {
   if(Arm.position(degrees)<=760){
     Arm.spin(forward);
     wait(0.2, seconds);
@@ -256,7 +257,7 @@ void moveArmUp() {
   }
 }
 
-void moveArmDown() {
+void moveArmUp() {
   Arm.spin(reverse);
 }
 

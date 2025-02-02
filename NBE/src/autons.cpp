@@ -30,19 +30,19 @@ void expelDiscBlue() {
       red = true;
     }
     if (DistSensor.objectDistance(inches) < 2 && red && counter!=1) {
-      wait(0.147, seconds);
+      wait(0.138, seconds);
       Conveyer.stop();
       red = false;
       wait(0.05, seconds);
       Conveyer.spin(forward);
-      //counter+=1;
+      counter+=1;
     }
     else if(DistSensor.objectDistance(inches) < 2 && red && counter==1) {
-      wait(0.165, seconds);
-      red=false;
-      MogoPneu.set(false);
-      wait(0.25, seconds);
-      MogoPneu.set(true);
+      wait(0.13, seconds);
+      Conveyer.stop();
+      red = false;
+      wait(0.05, seconds);
+      Conveyer.spin(forward);
       counter+=1;
     }
   }
@@ -85,7 +85,7 @@ void MogoDown(){
   MogoPneu.set(true);
 }
 void ConveyerStop(){
-  wait(0.25, seconds);
+  wait(0.2, seconds);
   Conveyer.stop();
 }
 void rushmid(){
@@ -172,7 +172,7 @@ void rushmid(){
   // chassis.drive_distance(15, -20+d);
   
   chassis.right_swing_to_angle(0+d);
-  chassis.drive_distance(20.8, 0+d);
+  chassis.drive_distance(21.8, 0+d);
   //wait(0.1, seconds);
   chassis.set_swing_exit_conditions(1, 100, 300);
   chassis.right_swing_to_angle(-41+d);

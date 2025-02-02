@@ -248,7 +248,7 @@ void triggerDoinkerMech() {
   DoinkerPneu.set(DoinkerPneuPos);
 }
 
-void moveArmUp() {
+void moveArmDown() {
   if(Arm.position(degrees)<=760){
     Arm.spin(forward);
     wait(0.2, seconds);
@@ -257,7 +257,7 @@ void moveArmUp() {
   }
 }
 
-void moveArmDown() {
+void moveArmUp() {
   Arm.spin(reverse);
 }
 
