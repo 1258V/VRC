@@ -172,7 +172,7 @@ void rushmid(){
   // chassis.drive_distance(15, -20+d);
   
   chassis.right_swing_to_angle(0+d);
-  chassis.drive_distance(20.8, 0+d);
+  chassis.drive_distance(21.8, 0+d);
   //wait(0.1, seconds);
   chassis.set_swing_exit_conditions(1, 100, 300);
   chassis.right_swing_to_angle(-41+d);
