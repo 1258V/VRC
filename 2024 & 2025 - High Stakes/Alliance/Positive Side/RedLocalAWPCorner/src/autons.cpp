@@ -100,12 +100,12 @@ void task3(){
 }
 
 void task4(){
-  wait(0.8, seconds);
-  while (true) {
+  wait(1.365, seconds);
+  /*while (true) {
     if (DistSensor.objectDistance(inches) < 2) {
       Intake.stop();
     }
-  }
+  }*/
   Intake.stop();
 }
 
@@ -223,19 +223,20 @@ void awpcode(){
   chassis.set_drive_constants(11, 1.5, 0, 10, 0);
 
   chassis.turn_to_angle(-212.75);
-  chassis.set_drive_constants(6.5, 1.5, 0, 10, 0);
+  chassis.set_drive_constants(6, 1.5, 0, 10, 0);
   FrontIntake.stop();
   //chassis.set_drive_constants(11, 1.5, 0, 10, 0);
 
-  chassis.drive_distance(-36);
-  chassis.set_drive_constants(11, 1.5, 0, 10, 0);
+  chassis.drive_distance(-28);
+  chassis.set_drive_constants(3, 1.5, 0, 10, 0);
+  chassis.drive_distance(-8);
   thread(ArmDown).detach();
-  wait(0.3, seconds);
+  chassis.drive_distance(-4);
   chassis.set_turn_exit_conditions(1, 300, 750);
 
   chassis.turn_to_angle(4);
   Intake.spin(forward);
-  thread(task3).detach();
+  //thread(task3).detach();
   //inertial drift at this point is 4 degrees
   
   Intake.spin(forward);
