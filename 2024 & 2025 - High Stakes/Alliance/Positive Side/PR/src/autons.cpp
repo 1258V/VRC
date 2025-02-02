@@ -124,6 +124,7 @@ void delayDoinkerIn(){
 }
 
 void corner(){
+  
   Intake.spin(forward);
   FrontIntake.spin(forward);
   
@@ -179,34 +180,6 @@ void corner(){
   thread(task1).detach();
   chassis.drive_distance(-10000, 47);
   wait(15, seconds);
-}
-
-void tenKauton(){
-  chassis.set_drive_constants(7, 1.5, 0, 10, 0);
-  chassis.drive_distance(-40, 0);
-  chassis.set_drive_constants(11, 1.5, 0, 10, 0);
-  thread(ArmDown).detach();
-
-  chassis.drive_distance(-2);
-  Intake.spin(forward);
-  FrontIntake.spin(forward);
-  chassis.turn_to_angle(45);
-
-  Intake.stop();
-  chassis.drive_distance(25);
-  chassis.drive_distance(-25);
-  chassis.turn_to_angle(-90);
-
-  Intake.spin(forward);
-  chassis.set_drive_exit_conditions(1.5, 300, 1200);
-  chassis.drive_distance(24);
-  Intake.stop();
-  chassis.drive_distance(-24);
-  
-  chassis.turn_to_angle(-135 - 90);
-  Intake.spin(forward);
-  thread(task1).detach();
-  chassis.drive_distance(10);
 }
 
 void awpcode(){
