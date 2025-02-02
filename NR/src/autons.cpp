@@ -57,10 +57,10 @@ void ArmUp(){
   Arm.spinTo(667, degrees);
 }
 void IntakeStop(){
-  wait(0.24, seconds);
+  wait(0.18, seconds);
   Intake.stop();
   Conveyer.stop();
-  wait(0.15, seconds);
+  wait(0.18, seconds);
   MogoPneu.set(false);
 }
 void IntakeStop1(){
@@ -71,7 +71,7 @@ void MogoDown(){
   MogoPneu.set(true);
 }
 void ConveyerStop(){
-  wait(0.3, seconds);
+  wait(0.24, seconds);
   Conveyer.stop();
 }
 void rushmid(){
@@ -163,8 +163,8 @@ void rushmid(){
 
   thread(IntakeStop).detach();
   chassis.set_drive_exit_conditions(1.5, 400, 1100);
-  chassis.drive_distance(35);
-  thread(MogoDown).detach();
+  chassis.drive_distance(37);
+  //thread(MogoDown).detach();
   chassis.turn_to_angle(-2.6+d);
   chassis.set_drive_exit_conditions(1.5, 300, 600);
   chassis.drive_distance(-13.3);

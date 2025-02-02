@@ -30,19 +30,19 @@ void expelDiscBlue() {
       red = true;
     }
     if (DistSensor.objectDistance(inches) < 2 && red && counter!=1) {
-      wait(0.147, seconds);
+      wait(0.138, seconds);
       Conveyer.stop();
       red = false;
       wait(0.05, seconds);
       Conveyer.spin(forward);
-      //counter+=1;
+      counter+=1;
     }
     else if(DistSensor.objectDistance(inches) < 2 && red && counter==1) {
-      wait(0.165, seconds);
-      red=false;
-      MogoPneu.set(false);
-      wait(0.25, seconds);
-      MogoPneu.set(true);
+      wait(0.13, seconds);
+      Conveyer.stop();
+      red = false;
+      wait(0.05, seconds);
+      Conveyer.spin(forward);
       counter+=1;
     }
   }
@@ -85,7 +85,7 @@ void MogoDown(){
   MogoPneu.set(true);
 }
 void ConveyerStop(){
-  wait(0.25, seconds);
+  wait(0.2, seconds);
   Conveyer.stop();
 }
 void rushmid(){
