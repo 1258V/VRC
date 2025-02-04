@@ -154,7 +154,7 @@ void corner(){
   FrontIntake.spin(forward);
   
   chassis.set_drive_exit_conditions(1.5, 300, 1200);
-  chassis.drive_distance(1000, 47);
+  chassis.drive_distance(1000, -67);
   chassis.drive_with_voltage(-12, -12);
   wait(0.3, seconds);
   chassis.drive_with_voltage(0, 0);
@@ -208,6 +208,25 @@ void corner(){
 }
 
 void awpcode(){
+  chassis.set_drive_constants(7, 1.5, 0, 10, 0);
+  chassis.drive_distance(-40, 0);
+  chassis.set_drive_constants(11, 1.5, 0, 10, 0);
+  thread(ArmDown).detach();
+
+  chassis.drive_distance(-2);
+  Intake.spin(forward);
+  FrontIntake.spin(forward);
+  chassis.turn_to_angle(-90);
+
+  Intake.spin(forward);
+  chassis.set_drive_exit_conditions(1.5, 300, 1200);
+  chassis.drive_distance(24);
+  Intake.stop();
+
+  chassis.drive_distance(-24);
+  corner();
+  
+  /*
   FrontIntake.spin(forward);
   thread(firstSet).detach();
   thread(task1).detach();
