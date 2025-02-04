@@ -49,6 +49,13 @@ void Drive::set_turn_constants(float turn_max_voltage, float turn_kp, float turn
   this->turn_starti = turn_starti;
 } 
 
+void Drive::set_arm_constants(float arm_kp, float arm_ki, float arm_kd, float arm_starti){
+  this->arm_kp = arm_kp;
+  this->arm_ki = arm_ki;
+  this->arm_kd = arm_kd;
+  this->arm_starti = arm_starti;
+} 
+
 void Drive::set_drive_constants(float drive_max_voltage, float drive_kp, float drive_ki, float drive_kd, float drive_starti){
   this->drive_max_voltage = drive_max_voltage;
   this->drive_kp = drive_kp;
@@ -95,6 +102,10 @@ float Drive::get_absolute_heading(){
   return( reduce_0_to_360( Gyro.rotation()*360.0/gyro_scale ) ); 
 }
 
+float Drive::get_absolute_arm_heading(){
+  return( reduce_0_to_360(ArmRotation.angle())); 
+}
+
 float Drive::get_left_position_in(){
   return( DriveL.position(deg)*drive_in_to_deg_ratio );
 }
@@ -139,6 +150,24 @@ void Drive::turn_to_angle(float cor_angle, float turn_max_voltage, float turn_se
   }
   DriveL.stop(hold);
   DriveR.stop(hold);
+}
+
+void Drive::arm_to_angle(float desiredAngle){
+  arm_to_angle(desiredAngle, 11.0);
+}
+
+void Drive::arm_to_angle(float desiredAngle, float arm_voltage){
+  float angle = desiredAngle;
+  //desired_heading = angle;
+  PID armPID(reduce_negative_180_to_180(angle - get_absolute_arm_heading()), arm_kp, arm_ki, arm_kd, arm_starti, arm_settle_error, arm_settle_time, arm_timeout);
+  while(armPID.is_settled() == false){
+    float error = reduce_negative_180_to_180(angle - get_absolute_arm_heading());
+    float output = armPID.compute(error);
+    output = clamp(output, -arm_voltage, arm_voltage);
+    Arm.spin(forward, output, volt);
+    task::sleep(10);
+  }
+  Arm.stop(hold);
 }
 
 void Drive::drive_distance(float distance){

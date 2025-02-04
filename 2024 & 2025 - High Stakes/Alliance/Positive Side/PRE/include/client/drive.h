@@ -42,6 +42,11 @@ public:
   float turn_settle_time;
   float turn_timeout;
 
+  float arm_kp;
+  float arm_ki;
+  float arm_kd;
+  float arm_starti;
+
   float drive_max_voltage;
   float drive_kp;
   float drive_ki;
@@ -75,6 +80,8 @@ public:
   void drive_with_voltage(float leftVoltage, float rightVoltage);
 
   float get_absolute_heading();
+  
+  float get_absolute_arm_heading();
 
   float get_left_position_in();
 
@@ -84,6 +91,7 @@ public:
   void mirror();
 
   void set_turn_constants(float turn_max_voltage, float turn_kp, float turn_ki, float turn_kd, float turn_starti); 
+  void set_arm_constants(float arm_kp, float arm_ki, float arm_kd, float arm_starti); 
   void set_drive_constants(float drive_max_voltage, float drive_kp, float drive_ki, float drive_kd, float drive_starti);
   void set_heading_constants(float heading_max_voltage, float heading_kp, float heading_ki, float heading_kd, float heading_starti);
   void set_swing_constants(float swing_max_voltage, float swing_kp, float swing_ki, float swing_kd, float swing_starti);
@@ -100,6 +108,9 @@ public:
   void turn_to_angle(float angle, float turn_max_voltage, float turn_settle_error, float turn_settle_time, float turn_timeout);
   void turn_to_angle(float cor_angle, float turn_max_voltage, float turn_settle_error, float turn_settle_time, float turn_timeout, float turn_kp, float turn_ki, float turn_kd, float turn_starti);
 
+  void arm_to_angle(float desiredAngle);
+  void arm_to_angle(float desiredAngle, float arm_voltage);
+
   void drive_distance(float distance);
   void drive_distance(float distance, float heading);
   void drive_distance(float distance, float heading, float drive_max_voltage, float heading_max_voltage);
@@ -108,7 +119,6 @@ public:
 
   void turn_right(int desiredValue, double timeout);
   void turn_left(int desiredValue, double timeout);
-  void arm_to_angle(double desiredAngle);
   void left_swing_to_angle(float angle);
   void left_swing_to_angle(float angle, float swing_max_voltage, float swing_settle_error, float swing_settle_time, float swing_timeout, float swing_kp, float swing_ki, float swing_kd, float swing_starti);
   void right_swing_to_angle(float angle);
