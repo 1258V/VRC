@@ -208,6 +208,9 @@ void corner(){
 }
 
 void awpcode(){
+  
+  
+  /*
   FrontIntake.spin(forward);
   thread(firstSet).detach();
   thread(task1).detach();
