@@ -158,6 +158,38 @@ void firstMogo(){
   ArmDown();
 }
 
+void colorSorter(){
+  //int counter=0;
+  bool blue = false;
+  while (true) {
+    if (Optical6.hue() > 100) {
+      blue = true;
+    }
+    if (DistSensor.objectDistance(inches) < 2 && blue) {
+      wait(0.1, seconds);
+      Intake.stop();
+      blue = false;
+      wait(0.05, seconds);
+      Intake.spin(forward);
+      /*red = false;
+      wait(0.05, seconds);
+      Intake.spin(forward);
+      /*wait(0.05, seconds);
+      Intake.spinFor(reverse, 50, degrees);
+      red = false;
+      Intake.spin(forward);*/
+      //counter+=1;
+    }
+    /*else if(DistSensor.objectDistance(inches) < 2 && red && counter==1) {
+      wait(0.05, seconds);
+      Intake.stop();
+      red = false;
+      wait(0.05, seconds);
+      Intake.spin(forward);
+      counter+=1;
+    }*/
+  }
+}
 void corner(){
   
   Intake.spin(forward);
@@ -210,11 +242,11 @@ void corner(){
   chassis.drive_distance(-10, d);
   chassis.set_drive_exit_conditions(1.5, 300, 500);
   chassis.drive_distance(100, d);
-  wait(0.5, seconds);/**/
+  wait(0.5, seconds);/*
   chassis.set_drive_exit_conditions(1.5, 300, 1200);
   thread(task1).detach();
   chassis.drive_distance(-10000, 47);
-  wait(15, seconds);
+  wait(15, seconds);*/
 }
 
 void doinkerRush(){
@@ -232,6 +264,15 @@ void doinkerInDelay(){
 }
 
 void awpcode(){
+  Intake.setVelocity(100, percent);
+  thread(colorSorter).detach();
+  /*
+  MogoPneu.set(true);
+  Intake.setVelocity(100, percent);
+  Intake.spin(forward);
+  FrontIntake.spin(forward);
+  colorSorter();
+  */
   thread(scoreFirstDisc).detach();
   FrontIntake.spin(forward);
   chassis.set_heading_constants(6, .08, 0, 1, 0);
@@ -245,6 +286,7 @@ void awpcode(){
   chassis.set_heading_constants(6, .82, 0, 9, 0);
   corner();
   chassis.set_heading_constants(6, .4, 0, 1, 0);
+  chassis.drive_distance(-50, 145);
   
   /*
   FrontIntake.spin(forward);
