@@ -24,7 +24,7 @@ motor FrontIntake = motor(PORT11, ratio6_1, true);
 limit LimitSwitchC = limit(Brain.ThreeWirePort.C);
 distance DistSensor = distance(PORT8);
 rotation ArmRotation = rotation(PORT19, true);
-optical Optical6 = optical(PORT20);
+optical Optical6 = optical(PORT1);
 
 void vexcodeInit( void ) {
   
