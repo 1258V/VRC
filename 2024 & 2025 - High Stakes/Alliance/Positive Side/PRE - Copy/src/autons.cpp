@@ -292,13 +292,13 @@ void mirroredawpcode(){
 
   wait(0.3, seconds);
   chassis.set_drive_constants(5, 1.5, 0, 10, 0);
-  FrontIntake.spin(forward);
   thread(task4).detach();
+  FrontIntake.spin(forward);
 
   chassis.drive_distance(24, 90);
   chassis.drive_distance(-8, 90);
   chassis.set_drive_constants(8, 1.5, 0, 10, 0);
-  chassis.turn_to_angle(225);
+  chassis.turn_to_angle(220);
   chassis.drive_distance(-34);
 
   MogoPneu.set(true);
@@ -898,7 +898,7 @@ void awpcode(){
   chassis.drive_distance(-22);/**/
 }
 void auton_task(){
-  mirrored();
+  mirroredawpcode();
 }
 
 void regular(){
