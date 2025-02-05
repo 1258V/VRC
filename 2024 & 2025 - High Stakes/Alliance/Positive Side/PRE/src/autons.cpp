@@ -18,10 +18,12 @@ void default_constants(){
   chassis.set_drive_constants(11, 1.5, 0, 10, 0);
   chassis.set_heading_constants(6, .4, 0, 1, 0);
   chassis.set_turn_constants(11, .4, .03, 3, 15);
+  chassis.set_arm_constants(.4, 0, 2, 0);
   chassis.set_swing_constants(11, .3, .001, 2, 15);
   chassis.set_drive_exit_conditions(0.3, 300, 1200);
   chassis.set_turn_exit_conditions(1, 300, 1000); //reduced from 1800 to 1000
   chassis.set_swing_exit_conditions(1, 300, 1000);
+  chassis.set_arm_exit_conditions(1, 100, 400);
 }
 
 void odom_constants(){
@@ -269,6 +271,8 @@ void mogoDelay(){
 }
 
 void awpcode(){
+  chassis.arm_to_angle(-30);
+  /*
   Intake.setVelocity(100, percent);
   thread(colorSorter).detach();
   /*
@@ -277,7 +281,7 @@ void awpcode(){
   Intake.spin(forward);
   FrontIntake.spin(forward);
   colorSorter();
-  */
+  *//*
   thread(scoreFirstDisc).detach();
   FrontIntake.spin(forward);
   chassis.set_heading_constants(6, .08, 0, 1, 0);
