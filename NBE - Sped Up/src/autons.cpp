@@ -30,7 +30,7 @@ void expelDiscBlue() {
       red = true;
     }
     if (DistSensor.objectDistance(inches) < 2 && red && counter!=1) {
-      wait(0.138, seconds);
+      wait(0.143, seconds);
       Conveyer.stop();
       red = false;
       wait(0.05, seconds);
@@ -38,7 +38,7 @@ void expelDiscBlue() {
       counter+=1;
     }
     else if(DistSensor.objectDistance(inches) < 2 && red && counter==1) {
-      wait(0.13, seconds);
+      wait(0.143, seconds);
       Conveyer.stop();
       red = false;
       wait(0.05, seconds);
@@ -85,8 +85,17 @@ void MogoDown(){
   MogoPneu.set(true);
 }
 void ConveyerStop(){
-  wait(0.2, seconds);
-  Conveyer.stop();
+  int counter=0;
+  bool red = false;
+  while (true) {
+    if (Opt.hue() >= 100) {
+      red = true;
+    }
+    if (DistSensor.objectDistance(inches) < 2 && red && counter==0) {
+      Conveyer.stop();
+      counter+=1;
+    }
+  }
 }
 void rushmid(){
   //wait(2, seconds);
@@ -122,8 +131,8 @@ void rushmid(){
   //new try
   chassis.set_turn_exit_conditions(1, 300, 700);
   Conveyer.spin(forward);
-  chassis.turn_to_angle(-87+d);
   thread(ConveyerStop).detach();
+  chassis.turn_to_angle(-87+d);
   //   chassis.set_swing_exit_conditions(1, 300, 700);
   //   chassis.left_swing_to_angle(-119.2+d);
   //   chassis.set_swing_exit_conditions(1, 300, 1000);
@@ -134,14 +143,15 @@ void rushmid(){
   //chassis.left_swing_to_angle(-127+d); //-135
   chassis.set_drive_exit_conditions(1.5, 300, 550); //800
   chassis.set_drive_constants(9, 1.2, 0, 10, 0);
-  chassis.drive_distance(12);
-  wait(0.25, seconds); //0.4
-  chassis.turn_to_angle(-126.8+d);
-  chassis.drive_distance(-16.7, -122.8+d); //-120.8
+  chassis.drive_distance(12.5);
+  wait(0.3, seconds); //0.4
+  //IF THIS CROSSES, MAKE THIS LEFT SWING
+  chassis.turn_to_angle(-106.8+d);
+  chassis.drive_distance(-16.7, -106.8+d); //-120.8
   //could put arm down here and add wait before turning
   chassis.set_drive_constants(5, 1.2, 0, 10, 0);
   //chassis.right_swing_to_angle(-110+d);
-  chassis.set_drive_exit_conditions(1.5, 300, 300);
+  chassis.set_drive_exit_conditions(1.5, 300, 350);
   chassis.drive_distance(-10);
   thread(ArmDown).detach();
   wait(0.35, seconds);
