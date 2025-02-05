@@ -30,7 +30,7 @@ void expelDiscBlue() {
       red = true;
     }
     if (DistSensor.objectDistance(inches) < 2 && red && counter!=1) {
-      wait(0.138, seconds);
+      wait(0.143, seconds);
       Conveyer.stop();
       red = false;
       wait(0.05, seconds);
@@ -38,7 +38,7 @@ void expelDiscBlue() {
       counter+=1;
     }
     else if(DistSensor.objectDistance(inches) < 2 && red && counter==1) {
-      wait(0.13, seconds);
+      wait(0.143, seconds);
       Conveyer.stop();
       red = false;
       wait(0.05, seconds);
@@ -85,19 +85,29 @@ void MogoDown(){
   MogoPneu.set(true);
 }
 void ConveyerStop(){
-  wait(0.2, seconds);
-  Conveyer.stop();
+  int counter=0;
+  bool red = false;
+  while (true) {
+    if (Opt.hue() >= 100) {
+      red = true;
+    }
+    if (DistSensor.objectDistance(inches) < 2 && red && counter==0) {
+      Conveyer.stop();
+      counter+=1;
+    }
+  }
 }
 void rushmid(){
   //wait(2, seconds);
   int d = matchloadangle;
-  chassis.drive_distance(43, -167+d);
+  chassis.drive_distance(40, -167+d); //43
   chassis.set_drive_constants(11, 1, 0, 10, 0);
   Intake.spin(forward);
   //IntakeBack.spin(forward);
   //wait(0.1, seconds);
   //IntakeFront.stop();
-  chassis.drive_distance(8, -167+d);
+  //usual next line
+  //      chassis.drive_distance(8, -167+d);
   //IntakeBack.spin(forward);
   //wait(0.4, seconds);
   //IntakeBack.stop();
@@ -114,26 +124,35 @@ void rushmid(){
   //chassis.drive_distance(-6, -103+d);
   //this is normal pickup on far side
   //chassis.drive_distance(-8, -160+d);
-  chassis.set_drive_exit_conditions(1.5, 300, 400); //800
-  wait(0.2, seconds);
-  chassis.drive_distance(-12, -167+d);
+  //old things have extra spaces
+  //   chassis.set_drive_exit_conditions(1.5, 300, 400); //800
+  //   wait(0.2, seconds);
+  //   chassis.drive_distance(-12, -167+d);
+  //new try
+  chassis.set_turn_exit_conditions(1, 300, 700);
   Conveyer.spin(forward);
   thread(ConveyerStop).detach();
-  chassis.set_swing_exit_conditions(1, 300, 700);
-  chassis.left_swing_to_angle(-119.2+d);
-  chassis.set_swing_exit_conditions(1, 300, 1000);
+  chassis.turn_to_angle(-87+d);
+  //   chassis.set_swing_exit_conditions(1, 300, 700);
+  //   chassis.left_swing_to_angle(-119.2+d);
+  //   chassis.set_swing_exit_conditions(1, 300, 1000);
   //thi sis for pickup on closer side to middle
-  chassis.set_drive_constants(11, 1, 0, 10, 0);
-  chassis.drive_distance(7.7);
+  //   chassis.set_drive_constants(11, 1, 0, 10, 0);
+  //   chassis.drive_distance(7.7);
   //IntakeFront.stop();
   //chassis.left_swing_to_angle(-127+d); //-135
-  wait(0.4, seconds); //0.4
-  chassis.drive_distance(-16.7, -120.8+d); //-120.8
+  chassis.set_drive_exit_conditions(1.5, 300, 550); //800
+  chassis.set_drive_constants(9, 1.2, 0, 10, 0);
+  chassis.drive_distance(12.5);
+  wait(0.3, seconds); //0.4
+  //IF THIS CROSSES, MAKE THIS LEFT SWING
+  chassis.turn_to_angle(-106.8+d);
+  chassis.drive_distance(-16.7, -106.8+d); //-120.8
   //could put arm down here and add wait before turning
   chassis.set_drive_constants(5, 1.2, 0, 10, 0);
   //chassis.right_swing_to_angle(-110+d);
-  chassis.set_drive_exit_conditions(1.5, 300, 300);
-  chassis.drive_distance(-8);
+  chassis.set_drive_exit_conditions(1.5, 300, 350);
+  chassis.drive_distance(-10);
   thread(ArmDown).detach();
   wait(0.35, seconds);
   chassis.set_swing_exit_conditions(1, 100, 550);

@@ -28,6 +28,19 @@ void pickRedMid() {
     }
   }
 }
+void expelBlue() {
+  int counter=0;
+  bool blue = false;
+  while (true) {
+    if (Opt.hue() >= 100) {
+      blue = true;
+    }
+    if (DistSensor.objectDistance(inches) < 2 && blue && counter==0) {
+      MogoPneu.set(true);
+      counter+=1;
+    }
+  }
+}
 void byebyemogo() {
   int counter=0;
   bool red = false;
@@ -36,12 +49,17 @@ void byebyemogo() {
       red = true;
     }
     if (DistSensor.objectDistance(inches) < 2 && red && counter!=1) {
-      wait(0.22, seconds);
+      wait(1, seconds);
       MogoPneu.set(false);
       red = false;
       counter+=1;
     }
   }
+}
+
+void byemogo(){
+  wait(1, seconds);
+  MogoPneu.set(false);
 }
 
 void odom_constants(){
@@ -56,24 +74,10 @@ void hs(){
 }
 
 void wallstake(){
-  chassis.drive_distance(38);
-  chassis.set_swing_exit_conditions(1, 300, 500);
-  chassis.right_swing_to_angle(-39);
-  chassis.set_swing_exit_conditions(1, 300, 1000);
-  //thread(hs).detach();
-  Arm.spinTo(590, degrees); //585
-  //thread(hs).detach();
-  wait(0.4, seconds);
-  Arm.spinTo(-100, degrees);
-  chassis.right_swing_to_angle(36);
+  MogoPneu.set(true);
   Intake.spin(forward);
   Conveyer.spin(forward);
-  chassis.drive_distance(11);
-  wait(0.2, seconds);
-  Conveyer.stop();
-  chassis.drive_distance(-10);
-  chassis.left_swing_to_angle(60);
-  chassis.drive_distance(13);
+  thread(expelBlue).detach();
   
 }
 void BarTouch(){
@@ -216,25 +220,50 @@ void rushmid(){
 
 
 void solosig(){
-  int d=-90;
-  chassis.set_drive_constants(11, 1.2, 0, 10, 0);
-  chassis.drive_distance(-12, 178+d);
-  chassis.set_drive_exit_conditions(1.5, 300, 950);
-  chassis.drive_distance(-16, 178+d);
-  chassis.set_drive_constants(6, 1.2, 0, 10, 0);
-  chassis.set_drive_exit_conditions(1.5, 300, 700);
-  chassis.drive_distance(-12.5);
+  int d=90; //-90
+  Conveyer.setVelocity(100, percent);
+  chassis.set_swing_exit_conditions(1, 300, 600);
+  chassis.right_swing_to_angle(90);
+  Conveyer.spin(forward);
+  wait(0.3, seconds);
+  chassis.set_drive_constants(5, 1.5, 0, 10, 0);
+  thread(pickRedMid).detach();
+  Intake.spin(forward);
+
+  chassis.drive_distance(15, 90);
+  wait(0.2, seconds);
+  chassis.drive_distance(5.5, 90);
+  chassis.set_drive_constants(11, 1.5, 0, 10, 0);
+  chassis.set_turn_exit_conditions(1, 300, 800);
+  chassis.turn_to_angle(214);
+  chassis.set_drive_constants(11, 1.5, 0, 10, 0);
+  chassis.set_drive_exit_conditions(1.5, 300, 650);
+  chassis.drive_distance(-18.5);
+  chassis.set_drive_constants(6.5, 1.5, 0, 10, 0);
+  chassis.set_drive_exit_conditions(1.5, 300, 450);
+  chassis.drive_distance(-8);
+  chassis.set_drive_constants(11, 1.5, 0, 10, 0);
   thread(ArmDown).detach();
   wait(0.4, seconds);
+  // chassis.set_turn_exit_conditions(1, 300, 750);
+  // chassis.set_drive_constants(11, 1.2, 0, 10, 0);
+  // chassis.drive_distance(-12, 178+d);
+  // chassis.set_drive_exit_conditions(1.5, 300, 950);
+  // chassis.drive_distance(-16, 178+d);
+  // chassis.set_drive_constants(6, 1.2, 0, 10, 0);
+  // chassis.set_drive_exit_conditions(1.5, 300, 700);
+  // chassis.drive_distance(-12.5);
+  // thread(ArmDown).detach();
+  // wait(0.4, seconds);
   chassis.set_swing_exit_conditions(1, 100, 500);
   chassis.set_turn_exit_conditions(1, 100, 500);
-  chassis.turn_to_angle(-75+d); //-70+d
+  chassis.turn_to_angle(-92+d); //-75+d
   chassis.set_drive_constants(11, 1.2, 0, 10, 0);
   chassis.set_drive_exit_conditions(1.5, 300, 800);
   Intake.spin(forward);
   Conveyer.spin(forward);
   //IntakeFront.spin(forward);
-  chassis.drive_distance(23.2, -75+d); // 14,-90+d
+  chassis.drive_distance(20.2, -92+d); // 23.2,-75+d
   //wait(0.2, seconds);
   //wait(0.5, seconds);
   //below is for going to corner
@@ -259,40 +288,42 @@ void solosig(){
   // wait(0.1, seconds);
   // Intake.spin(forward);
   // chassis.drive_distance(15, -20+d);
-  wait(0.15, seconds);
-  //Conveyer.stop();
+  wait(0.09, seconds);
+  Conveyer.stop();
   chassis.turn_to_angle(140+d);
-  //Conveyer.spin(forward);
-  chassis.set_drive_exit_conditions(1.5, 300, 1100);
-  thread(byebyemogo).detach();
-  chassis.drive_distance(22.5);
-  chassis.right_swing_to_angle(90+d);
-  thread(pickRedMid).detach();
-  chassis.set_drive_exit_conditions(1.5, 300, 1370);
-  chassis.drive_distance(52.5);
-  chassis.turn_to_angle(180+d);
-  chassis.set_drive_exit_conditions(1.5, 300, 550);
-  chassis.drive_distance(-12, 180+d);
-  chassis.set_drive_constants(6, 1.2, 0, 10, 0);
-  chassis.set_drive_exit_conditions(1.5, 300, 550);
-  chassis.drive_distance(-9);
+  thread(expelBlue).detach();
+  Conveyer.spin(forward);
+  chassis.set_drive_exit_conditions(1.5, 300, 1000);
+  chassis.drive_distance(18.5, 140+d); //22.5
+  thread(byemogo).detach();
+  chassis.right_swing_to_angle(88+d);
+  chassis.set_drive_exit_conditions(1.5, 300, 1220);
+
+  chassis.drive_distance(47.9);
+  chassis.turn_to_angle(178.6+d);
+  //chassis.set_drive_exit_conditions(1.5, 300, 550);
+  //chassis.drive_distance(-12, 180+d);
+  chassis.set_drive_constants(6.5, 1.2, 0, 10, 0);
+  chassis.set_drive_exit_conditions(1.5, 300, 650);
+  chassis.drive_distance(-14);
   thread(ArmDown).detach();
+  wait(0.4, seconds);
   Intake.spin(forward);
   Conveyer.spin(forward);
   chassis.set_turn_exit_conditions(1, 100, 550);
-  chassis.turn_to_angle(73+d); //-70+d
+  chassis.turn_to_angle(78+d); //-70+d
   chassis.set_drive_constants(11, 1.2, 0, 10, 0);
   chassis.set_drive_exit_conditions(1.5, 300, 800);
   //IntakeFront.spin(forward);
-  chassis.drive_distance(22, 73+d); // 14,-90+d
-  wait(0.15, seconds);
+  chassis.drive_distance(22, 78+d); // 14,-90+d
+  wait(0.09, seconds);
   Conveyer.stop();
   Intake.stop();
   chassis.set_turn_exit_conditions(1, 100, 750);
-  chassis.turn_to_angle(-87+d);
+  chassis.turn_to_angle(-93+d);
   Conveyer.spin(forward);
   Intake.spin(forward);
-  chassis.drive_distance(44);
+  chassis.drive_distance(46);
   Intake.stop();
   Conveyer.stop();
   wait(15, seconds);
