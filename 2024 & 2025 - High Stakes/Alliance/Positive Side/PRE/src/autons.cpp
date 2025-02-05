@@ -252,7 +252,7 @@ void corner(){
 }
 
 void doinkerRush(){
-  wait(1.15, seconds);
+  wait(1.05, seconds);
   DoinkerPneu.set(true);
 }
 
@@ -266,7 +266,7 @@ void doinkerInDelay(){
 }
 
 void mogoDelay(){
-  wait(1, seconds);
+  wait(0.6, seconds);
   MogoPneu.set(true);
 }
 
@@ -279,20 +279,29 @@ void awpcode(){
   Intake.spin(forward);
   FrontIntake.spin(forward);
   colorSorter();
-  */
+  *//*
   thread(scoreFirstDisc).detach();
   FrontIntake.spin(forward);
   chassis.set_heading_constants(6, .08, 0, 1, 0);
   thread(doinkerRush).detach();
 
-  chassis.drive_distance(51, 35);
+  chassis.drive_distance(51, 30);
   chassis.set_drive_constants(8, 1.5, 0, 10, 0);
-  chassis.set_heading_constants(6, .1, 0, 8, 0);
+  chassis.set_heading_constants(6, .24, 0, 8, 0);
   thread(doinkerInDelay).detach();
 
   chassis.drive_distance(-26.5, 88);
   chassis.set_drive_constants(11, 1.5, 0, 10, 0);
-  chassis.set_heading_constants(6, .82, 0, 9, 0);/*
+  chassis.set_heading_constants(6, .82, 0, 9, 0);
+  wait(1, seconds);
+
+  MogoPneu.set(false);
+  chassis.turn_to_angle(-112.5 - 15);
+  chassis.set_drive_constants(8, 1.5, 0, 10, 0);
+  thread(mogoDelay).detach();
+
+  chassis.drive_distance(-16);
+  /*
   corner();
   MogoPneu.set(false);
   chassis.set_heading_constants(6, .4, 0, 1, 0);
