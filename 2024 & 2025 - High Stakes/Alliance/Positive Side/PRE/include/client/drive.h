@@ -46,6 +46,10 @@ public:
   float arm_ki;
   float arm_kd;
   float arm_starti;
+  
+  float arm_settle_error;
+  float arm_settle_time;
+  float arm_timeout;
 
   float drive_max_voltage;
   float drive_kp;
@@ -97,6 +101,7 @@ public:
   void set_swing_constants(float swing_max_voltage, float swing_kp, float swing_ki, float swing_kd, float swing_starti);
 
   void set_turn_exit_conditions(float turn_settle_error, float turn_settle_time, float turn_timeout);
+  void set_arm_exit_conditions(float arm_settle_error, float arm_settle_time, float arm_timeout);
   void set_drive_exit_conditions(float drive_settle_error, float drive_settle_time, float drive_timeout);
   void set_swing_exit_conditions(float swing_settle_error, float swing_settle_time, float swing_timeout);
 

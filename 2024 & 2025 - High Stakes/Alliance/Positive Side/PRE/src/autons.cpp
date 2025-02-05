@@ -18,10 +18,12 @@ void default_constants(){
   chassis.set_drive_constants(11, 1.5, 0, 10, 0);
   chassis.set_heading_constants(6, .4, 0, 1, 0);
   chassis.set_turn_constants(11, .4, .03, 3, 15);
+  chassis.set_arm_constants(.4, 0, 2, 0);
   chassis.set_swing_constants(11, .3, .001, 2, 15);
   chassis.set_drive_exit_conditions(0.3, 300, 1200);
   chassis.set_turn_exit_conditions(1, 300, 1000); //reduced from 1800 to 1000
   chassis.set_swing_exit_conditions(1, 300, 1000);
+  chassis.set_arm_exit_conditions(1, 100, 400);
 }
 
 void odom_constants(){
@@ -250,12 +252,12 @@ void corner(){
 }
 
 void doinkerRush(){
-  wait(0.85, seconds);
+  wait(1.15, seconds);
   DoinkerPneu.set(true);
 }
 
 void doinkerInDelay(){
-  wait(0.6, seconds);
+  wait(0.9, seconds);
   DoinkerPneu.set(false);
 
   MogoPneu.set(true);
@@ -284,11 +286,13 @@ void awpcode(){
   thread(doinkerRush).detach();
 
   chassis.drive_distance(51, 35);
-  chassis.set_heading_constants(6, .78, 0, 8, 0);
+  chassis.set_drive_constants(8, 1.5, 0, 10, 0);
+  chassis.set_heading_constants(6, .1, 0, 8, 0);
   thread(doinkerInDelay).detach();
-  chassis.drive_distance(-26.5, 90);
 
-  chassis.set_heading_constants(6, .82, 0, 9, 0);
+  chassis.drive_distance(-26.5, 88);
+  chassis.set_drive_constants(11, 1.5, 0, 10, 0);
+  chassis.set_heading_constants(6, .82, 0, 9, 0);/*
   corner();
   MogoPneu.set(false);
   chassis.set_heading_constants(6, .4, 0, 1, 0);

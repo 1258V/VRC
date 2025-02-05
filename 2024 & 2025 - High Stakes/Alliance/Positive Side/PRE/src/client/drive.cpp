@@ -86,6 +86,12 @@ void Drive::set_turn_exit_conditions(float turn_settle_error, float turn_settle_
   this->turn_timeout = turn_timeout;
 }
 
+void Drive::set_arm_exit_conditions(float arm_settle_error, float arm_settle_time, float arm_timeout){
+  this->arm_settle_error = arm_settle_error;
+  this->arm_settle_time = arm_settle_time;
+  this->arm_timeout = arm_timeout;
+}
+
 void Drive::set_drive_exit_conditions(float drive_settle_error, float drive_settle_time, float drive_timeout){
   this->drive_settle_error = drive_settle_error;
   this->drive_settle_time = drive_settle_time;
@@ -525,19 +531,6 @@ void Drive::turn_left(int desiredValue, double timeOut = 1.0) {
   Brain.Screen.print(360-Gyro.heading());
   DriveL.stop();
   DriveR.stop();
-}
-
-void Drive::arm_to_angle(double desiredValue){
-  if(desiredValue < ArmRotation.angle()){
-    Arm.spin(reverse);
-    waitUntil(desiredValue > ArmRotation.angle());
-    Arm.stop();
-  }
-  else{  
-    Arm.spin(forward);
-    waitUntil(desiredValue < ArmRotation.angle());
-    Arm.stop();
-  }
 }
 
 void Drive::control_arcade(){

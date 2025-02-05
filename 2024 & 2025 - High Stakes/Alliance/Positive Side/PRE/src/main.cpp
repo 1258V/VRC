@@ -198,20 +198,7 @@ void spinIntakeForwardSpec() {
 }
 
 void loadArm() {
-
-  double ang = 29.8;
-  double err = 5.6;
-  if(360-ArmRotation.angle() < (ang - err)){
-    while(360-ArmRotation.angle() < (ang - err)){
-      Arm.spin(reverse);
-    }
-  }
-  else{
-    while(360-ArmRotation.angle() > (ang + err)){
-      Arm.spin(forward);
-    }
-  }
-  Arm.stop();
+  chassis.arm_to_angle(-30);
   spinIntakeForwardSpec();
   
     /*while (true) {
