@@ -36,7 +36,7 @@ void expelRed() {
       blue = true;
     }
     if (DistSensor.objectDistance(inches) < 2 && blue && counter==0) {
-      MogoPneu.set(true);
+      MogoPneu.set(false);
       counter+=1;
     }
   }
@@ -83,7 +83,7 @@ void ArmDown(){
 }
 void ArmUp(){
   Arm.setVelocity(40, percent);
-  Arm.spinTo(667, degrees);
+  Arm.spinTo(-620, degrees);
 }
 void IntakeStop(){
   wait(0.18, seconds);
@@ -225,7 +225,7 @@ void solosig(){
 
   chassis.drive_distance(15, -90);
   wait(0.2, seconds);
-  chassis.drive_distance(5.5, -90);
+  chassis.drive_distance(8, -90);
   chassis.set_drive_constants(11, 1.5, 0, 10, 0);
   chassis.set_turn_exit_conditions(1, 300, 800);
   chassis.turn_to_angle(-214);
@@ -250,13 +250,13 @@ void solosig(){
   // wait(0.4, seconds);
   chassis.set_swing_exit_conditions(1, 100, 500);
   chassis.set_turn_exit_conditions(1, 100, 500);
-  chassis.turn_to_angle(272+d); //-75+d
+  chassis.turn_to_angle(92+d); //-75+d
   chassis.set_drive_constants(11, 1.2, 0, 10, 0);
   chassis.set_drive_exit_conditions(1.5, 300, 800);
   Intake.spin(forward);
   Conveyer.spin(forward);
   //IntakeFront.spin(forward);
-  chassis.drive_distance(20.2, 272+d); // 23.2,-75+d
+  chassis.drive_distance(20.2, 92+d); // 23.2,-75+d
   //wait(0.2, seconds);
   //wait(0.5, seconds);
   //below is for going to corner
@@ -283,40 +283,42 @@ void solosig(){
   // chassis.drive_distance(15, -20+d);
   wait(0.09, seconds);
   Conveyer.stop();
-  chassis.turn_to_angle(40+d);
+  chassis.turn_to_angle(-140+d);
   thread(expelRed).detach();
   Conveyer.spin(forward);
   chassis.set_drive_exit_conditions(1.5, 300, 1000);
-  chassis.drive_distance(18.5, 10+d); //22.5
+  chassis.drive_distance(18.5, -140+d); //22.5
   thread(byemogo).detach();
-  chassis.left_swing_to_angle(92+d);
-  chassis.set_drive_exit_conditions(1.5, 300, 1220);
+  chassis.left_swing_to_angle(-88+d);
+  chassis.set_drive_exit_conditions(1.5, 300, 980);
 
-  chassis.drive_distance(47.9);
-  chassis.turn_to_angle(1.4+d);
+  chassis.drive_distance(36.9);
+  chassis.turn_to_angle(-207+d);
   //chassis.set_drive_exit_conditions(1.5, 300, 550);
   //chassis.drive_distance(-12, 180+d);
-  chassis.set_drive_constants(6.5, 1.2, 0, 10, 0);
-  chassis.set_drive_exit_conditions(1.5, 300, 650);
+  chassis.set_drive_constants(6, 1.2, 0, 10, 0);
+  chassis.set_drive_exit_conditions(1.5, 300, 600);
+  thread(ArmUp).detach();
+  MogoPneu.set(false);
   chassis.drive_distance(-14);
   thread(ArmDown).detach();
   wait(0.4, seconds);
   Intake.spin(forward);
   Conveyer.spin(forward);
   chassis.set_turn_exit_conditions(1, 100, 550);
-  chassis.turn_to_angle(102+d); //-70+d
+  chassis.turn_to_angle(-72+d); //-70+d
   chassis.set_drive_constants(11, 1.2, 0, 10, 0);
   chassis.set_drive_exit_conditions(1.5, 300, 800);
   //IntakeFront.spin(forward);
-  chassis.drive_distance(22, 102+d); // 14,-90+d
+  chassis.drive_distance(22.5, -72+d); // 14,-90+d
   wait(0.09, seconds);
   Conveyer.stop();
   Intake.stop();
   chassis.set_turn_exit_conditions(1, 100, 750);
-  chassis.turn_to_angle(273+d);
+  chassis.turn_to_angle(63+d);
   Conveyer.spin(forward);
   Intake.spin(forward);
-  chassis.drive_distance(46);
+  chassis.drive_distance(27.5);
   Intake.stop();
   Conveyer.stop();
   wait(15, seconds);
