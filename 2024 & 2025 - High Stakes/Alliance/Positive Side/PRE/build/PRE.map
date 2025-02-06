@@ -3077,29 +3077,28 @@ Linker script and memory map
                 0x03801008       0x40 build/src/autons.o
                 0x03801008                mogoLetGo()
  .text._Z7awpcodev
-                0x03801048      0x2ac build/src/autons.o
+                0x03801048      0x2b0 build/src/autons.o
                 0x03801048                awpcode()
  .text._Z7regularv
-                0x038012f4       0x1c build/src/autons.o
-                0x038012f4                regular()
+                0x038012f8       0x1c build/src/autons.o
+                0x038012f8                regular()
  .text._Z11vexcodeInitv
-                0x03801310        0x4 build/src/robot-config.o
-                0x03801310                vexcodeInit()
+                0x03801314        0x4 build/src/robot-config.o
+                0x03801314                vexcodeInit()
  .text._GLOBAL__sub_I_robot_config.cpp
-                0x03801314      0x390 build/src/robot-config.o
+                0x03801318      0x390 build/src/robot-config.o
  .text._Z15reduce_0_to_360f
-                0x038016a4       0x7c build/src/client/util.o
-                0x038016a4                reduce_0_to_360(float)
+                0x038016a8       0x7c build/src/client/util.o
+                0x038016a8                reduce_0_to_360(float)
  .text._Z26reduce_negative_180_to_180f
-                0x03801720       0x90 build/src/client/util.o
-                0x03801720                reduce_negative_180_to_180(float)
+                0x03801724       0x90 build/src/client/util.o
+                0x03801724                reduce_negative_180_to_180(float)
  .text._Z5clampfff
-                0x038017b0       0x2c build/src/client/util.o
-                0x038017b0                clamp(float, float, float)
+                0x038017b4       0x2c build/src/client/util.o
+                0x038017b4                clamp(float, float, float)
  .text._Z11is_reversedd
-                0x038017dc       0x18 build/src/client/util.o
-                0x038017dc                is_reversed(double)
- *fill*         0x038017f4        0x4 
+                0x038017e0       0x18 build/src/client/util.o
+                0x038017e0                is_reversed(double)
  .text._Z7to_voltf
                 0x038017f8       0x30 build/src/client/util.o
                 0x038017f8                to_volt(float)

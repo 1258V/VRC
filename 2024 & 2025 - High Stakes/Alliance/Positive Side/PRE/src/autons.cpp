@@ -283,7 +283,7 @@ void doinkerRush(){
 }
 
 void doinkerInDelay(){
-  wait(0.6, seconds);
+  wait(0.2, seconds);
   DoinkerPneu.set(false);
 }
 
@@ -302,10 +302,10 @@ void awpcode(){
   thread(doinkerRush).detach();
   chassis.drive_distance(42);
   thread(doinkerInDelay).detach();
-  chassis.drive_distance(-32);
+  chassis.drive_distance(-12);
   
   chassis.set_turn_constants(11, .4, .03, 3, 15);
-  chassis.turn_to_angle(162 - d);
+  chassis.turn_to_angle(158 - d - 360);
   chassis.set_turn_constants(11, .4, .03, 3, 15);
   chassis.set_drive_constants(8, 1.5, 0, 10, 0);
 
@@ -314,7 +314,7 @@ void awpcode(){
 
   thread(ArmDown).detach();
   chassis.drive_distance(-2);
-  chassis.turn_to_angle(-114 - d);
+  chassis.turn_to_angle(140 - d + 97.5);
   thread(stopAtRed).detach();
 
   FrontIntake.spin(forward);
