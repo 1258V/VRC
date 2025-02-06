@@ -268,7 +268,7 @@ void stopAtRedDelay(){
   Intake.spin(forward);
   wait(0.6, seconds);
   while (true) {
-    if (Optical6.hue() <= 30) {
+    if (Optical6.hue() > 100) {
       red = true;
       Intake.stop();
       break;
@@ -315,8 +315,8 @@ void awpcode(){
   chassis.drive_distance(-14);
 
   DoinkerPneu.set(false);
-  chassis.turn_to_angle(90);
-  chassis.drive_distance(-18);
+  chassis.turn_to_angle(-90);
+  chassis.drive_distance(-24);
   thread(ArmDown).detach();
 
   wait(0.15, seconds);
@@ -324,16 +324,16 @@ void awpcode(){
   wait(0.4, seconds);
   MogoPneu.set(false);
 
-  chassis.turn_to_angle(-128);
+  chassis.turn_to_angle(128);
   chassis.set_drive_constants(8, 1.5, 0, 10, 0);
   chassis.drive_distance(-28);
   thread(ArmDown).detach();
 
   Intake.spin(forward);
   wait(0.15, seconds);
-  chassis.turn_to_angle(-131);
+  chassis.turn_to_angle(131);
   chassis.set_drive_constants(11, 1.5, 0, 10, 0);
-  chassis.drive_distance(46, -131);
+  chassis.drive_distance(46, 131);
 
   MogoPneu.set(false);
   chassis.set_drive_constants(8, 1.5, 0, 10, 0);
