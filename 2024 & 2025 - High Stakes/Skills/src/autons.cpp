@@ -122,7 +122,9 @@ int bringArmDown() {
 }
 
 int placeWallStakeDisk() {
-  chassis.arm_to_angle(125);
+  Arm.setVelocity(100, percent);
+  Arm.setMaxTorque(100, percent);
+  chassis.arm_to_angle(135);
   wait(1, seconds);
   return 0;
 }
@@ -154,6 +156,12 @@ int pushMogoForward() {
   return 0;
 }
 
+int lineUpForFirstWallStake() {
+  chassis.drive_distance(17);
+  wait(3, seconds);
+  return 1;
+}
+
 void auton() {
   default_constants();
   spinIntake();
@@ -166,21 +174,25 @@ void auton() {
   chassis.turn_to_angle(0);
   loadArm();
   //vex::task loadForStake1(loadForWallStake);
-  chassis.drive_distance(20.5);
+  chassis.drive_distance(20);
   chassis.turn_to_angle(35);
   stopIntake();
   allowDisksThrough();
-  chassis.drive_distance(35);
-  chassis.turn_to_angle(90);
+  chassis.drive_distance(33.5);
+  chassis.turn_to_angle(88);
   spinIntake();
-  chassis.drive_distance(18);
+  vex::task lineUp(lineUpForFirstWallStake);
+  wait(1, seconds);
+  lineUp.stop();
   vex::task scoreFirstWallStake(placeWallStakeDisk);
   wait(1, seconds);
-  chassis.drive_distance(-14);
+  chassis.drive_distance(-13);
+  scoreFirstWallStake.stop();
   chassis.turn_to_angle(178);
   chassis.set_heading(180);
   //loadForStake1.stop();
   scoreFirstWallStake.stop();
+  spinIntake();
   vex::task resetArm(bringArmDown);
   chassis.drive_distance(61);
   chassis.drive_distance(-23);
@@ -227,15 +239,15 @@ void auton() {
   wait(1.75, seconds);
   ptm.stop();
   chassis.drive_distance(30);
-  chassis.turn_to_angle(285);
+  chassis.turn_to_angle(290);
   vex::task pfm(pushMogoForward);
   wait(3, seconds);
   default_constants();
   pfm.stop();
   stopIntake();
   chassis.drive_distance(-20);
-  chassis.turn_to_angle(325);
-  chassis.drive_distance(-100);
+  //chassis.turn_to_angle(335);
+  //chassis.drive_distance(-100);
 }
 
 void Auton43Points(){
@@ -261,7 +273,7 @@ void Auton43Points(){
   chassis.drive_distance(25);
   wait(0.3, seconds);
   chassis.turn_to_angle(38);
-  chassis.drive_distance(30.5);
+  chassis.drive_distance(29.5);
   chassis.turn_to_angle(90);
   vex::task t4(moveArmFullyUp);
   //t.stop();
