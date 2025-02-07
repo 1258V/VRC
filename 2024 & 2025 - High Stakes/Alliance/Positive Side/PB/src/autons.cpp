@@ -309,14 +309,15 @@ void mirroredawpcode(){
   thread(spinIntake).detach();
   FrontIntake.spin(forward);
   chassis.drive_distance(24);
-  chassis.turn_to_angle(180);
+  wait(0.8, seconds);
 
-  chassis.drive_distance(38);
+  chassis.turn_to_angle(180);
+  chassis.drive_distance(45);
 }
 
 void awpcode(){
   Intake.setVelocity(100, percent);
-  thread(colorSorter).detach();
+  //thread(colorSorter).detach();
   thread(task5).detach();
   chassis.left_swing_to_angle(-90);
 
@@ -339,9 +340,10 @@ void awpcode(){
   thread(spinIntake).detach();
   FrontIntake.spin(forward);
   chassis.drive_distance(24);
-  chassis.turn_to_angle(-180);
+  wait(0.8, seconds);
 
-  chassis.drive_distance(38);
+  chassis.turn_to_angle(-180);
+  chassis.drive_distance(45);
 
 
 /*

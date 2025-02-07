@@ -183,7 +183,6 @@ bool mobilePneu = false;
 
 
 void spinIntakeForwardSpec() {
-  wait(0.4, seconds);
   Intake.setVelocity(100, percent);
   Intake.spin(forward);
   FrontIntake.setVelocity(100, percent);
@@ -199,8 +198,8 @@ void spinIntakeForwardSpec() {
 }
 
 void loadArm() {
-  thread(spinIntakeForwardSpec).detach();
-  chassis.arm_to_angle(-30.3);
+  chassis.arm_to_angle(-30);
+  spinIntakeForwardSpec();
   
     /*while (true) {
     if (DistSensor.objectDistance(inches) < 1) {
