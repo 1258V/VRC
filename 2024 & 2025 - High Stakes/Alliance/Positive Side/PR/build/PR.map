@@ -176,9 +176,9 @@ Discarded input sections
                 0x00000000       0x40 build/src/autons.o
  .ARM.exidx.text._Z9mogoDelayv
                 0x00000000        0x8 build/src/autons.o
- .text._Z7awpcodev
+ .text._Z15mirroredawpcodev
                 0x00000000      0x208 build/src/autons.o
- .ARM.exidx.text._Z7awpcodev
+ .ARM.exidx.text._Z15mirroredawpcodev
                 0x00000000        0x8 build/src/autons.o
  .text._Z10auton_taskv
                 0x00000000        0x4 build/src/autons.o
@@ -281,9 +281,9 @@ Discarded input sections
                 0x00000000       0x78 build/src/client/drive.o
  .ARM.exidx.text._ZN5Drive14drive_distanceEfffffff
                 0x00000000        0x8 build/src/client/drive.o
- .text._ZN5Drive19left_swing_to_angleEf
+ .text._ZN5Drive20right_swing_to_angleEf
                 0x00000000       0x50 build/src/client/drive.o
- .ARM.exidx.text._ZN5Drive19left_swing_to_angleEf
+ .ARM.exidx.text._ZN5Drive20right_swing_to_angleEf
                 0x00000000        0x8 build/src/client/drive.o
  .text._ZN5Drive27get_ForwardTracker_positionEv
                 0x00000000       0xa8 build/src/client/drive.o
@@ -3071,9 +3071,9 @@ Linker script and memory map
  .text._Z5task5v
                 0x03800f60       0x58 build/src/autons.o
                 0x03800f60                task5()
- .text._Z15mirroredawpcodev
+ .text._Z7awpcodev
                 0x03800fb8      0x208 build/src/autons.o
-                0x03800fb8                mirroredawpcode()
+                0x03800fb8                awpcode()
  .text._Z7regularv
                 0x038011c0       0x1c build/src/autons.o
                 0x038011c0                regular()
@@ -3166,16 +3166,16 @@ Linker script and memory map
  .text._ZN5Drive14drive_distanceEff
                 0x038021d0       0x7c build/src/client/drive.o
                 0x038021d0                Drive::drive_distance(float, float)
- *fill*         0x0380224c        0x4 
+ .text._ZN5Drive19left_swing_to_angleEf
+                0x0380224c       0x50 build/src/client/drive.o
+                0x0380224c                Drive::left_swing_to_angle(float)
+ *fill*         0x0380229c        0x4 
  .text._ZN5Drive19left_swing_to_angleEfffffffff
-                0x03802250      0x1f0 build/src/client/drive.o
-                0x03802250                Drive::left_swing_to_angle(float, float, float, float, float, float, float, float, float)
+                0x038022a0      0x1f0 build/src/client/drive.o
+                0x038022a0                Drive::left_swing_to_angle(float, float, float, float, float, float, float, float, float)
  .text._ZN5Drive20right_swing_to_angleEfffffffff
-                0x03802440      0x1f0 build/src/client/drive.o
-                0x03802440                Drive::right_swing_to_angle(float, float, float, float, float, float, float, float, float)
- .text._ZN5Drive20right_swing_to_angleEf
-                0x03802630       0x50 build/src/client/drive.o
-                0x03802630                Drive::right_swing_to_angle(float)
+                0x03802490      0x1f0 build/src/client/drive.o
+                0x03802490                Drive::right_swing_to_angle(float, float, float, float, float, float, float, float, float)
  .text._ZN5Drive12control_tankEv
                 0x03802680       0xfc build/src/client/drive.o
                 0x03802680                Drive::control_tank()
@@ -4343,7 +4343,7 @@ Linker script and memory map
  .ARM.exidx.text._Z5task5v
                 0x03805e5c        0x0 build/src/autons.o
                                   0x8 (size before relaxing)
- .ARM.exidx.text._Z15mirroredawpcodev
+ .ARM.exidx.text._Z7awpcodev
                 0x03805e5c        0x0 build/src/autons.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text._Z7regularv
@@ -4436,13 +4436,13 @@ Linker script and memory map
  .ARM.exidx.text._ZN5Drive14drive_distanceEff
                 0x03805e5c        0x0 build/src/client/drive.o
                                   0x8 (size before relaxing)
+ .ARM.exidx.text._ZN5Drive19left_swing_to_angleEf
+                0x03805e5c        0x0 build/src/client/drive.o
+                                  0x8 (size before relaxing)
  .ARM.exidx.text._ZN5Drive19left_swing_to_angleEfffffffff
                 0x03805e5c        0x0 build/src/client/drive.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text._ZN5Drive20right_swing_to_angleEfffffffff
-                0x03805e5c        0x0 build/src/client/drive.o
-                                  0x8 (size before relaxing)
- .ARM.exidx.text._ZN5Drive20right_swing_to_angleEf
                 0x03805e5c        0x0 build/src/client/drive.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text._ZN5Drive12control_tankEv

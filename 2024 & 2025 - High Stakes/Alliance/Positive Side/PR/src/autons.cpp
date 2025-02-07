@@ -898,7 +898,7 @@ void awpcode(){
   chassis.drive_distance(-22);/**/
 }
 void auton_task(){
-  mirroredawpcode();
+  awpcode();
 }
 
 void regular(){
