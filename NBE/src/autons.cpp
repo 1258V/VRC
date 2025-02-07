@@ -125,7 +125,7 @@ void ConveyerStop(){
       red = true;
     }
     if (DistSensor.objectDistance(inches) < 2 && red && counter!=1) {
-      wait(0.36, seconds);
+      wait(0.05, seconds);
       Conveyer.stop();
       counter+=1;
     }
@@ -166,22 +166,22 @@ void rushmid(){
   //old was swing exit conditions
   chassis.set_swing_exit_conditions(1, 300, 400);
   //old was left
-  chassis.right_swing_to_angle(-119.2+d);
+  chassis.right_swing_to_angle(-119.6+d); //-119.2 in safe code
   chassis.set_swing_exit_conditions(1, 300, 1000);
   //thi sis for pickup on closer side to middle
   chassis.set_drive_constants(11, 4, 0, 10, 0);
   chassis.drive_distance(8.8);
   //IntakeFront.stop();
   //chassis.left_swing_to_angle(-127+d); //-135
-  wait(0.35, seconds); //0.4
-  chassis.drive_distance(-12.7, -120.3+d); //-120.8, -120.3; -120.8, -16.7 were the safe values
+  wait(0.4, seconds); //0.4
+  chassis.drive_distance(-6.7, -120.3+d); //-120.8, -120.3; -120.8, -16.7 were the safe values
   //could put arm down here and add wait before turning
   chassis.set_drive_constants(5, 1.2, 0, 10, 0);
   //chassis.right_swing_to_angle(-110+d);
-  chassis.set_drive_exit_conditions(1.5, 300, 300);
+  chassis.set_drive_exit_conditions(1.5, 300, 600);
   //this wait was NOT in the safe code
   //wait(0.02, seconds);
-  chassis.drive_distance(-8);
+  chassis.drive_distance(-12);
   thread(ArmDown).detach();
   wait(0.35, seconds);
   chassis.set_swing_exit_conditions(1, 100, 550);
@@ -218,15 +218,15 @@ void rushmid(){
   // chassis.drive_distance(15, -20+d);
   
   chassis.right_swing_to_angle(0+d);
-  chassis.drive_distance(23.8, 0+d);
+  chassis.drive_distance(24.3, 0+d);
   //wait(0.1, seconds);
   chassis.set_swing_exit_conditions(1, 100, 350);
-  chassis.right_swing_to_angle(-41+d);
+  chassis.right_swing_to_angle(-39+d);
   thread(expelDiscBlue).detach();
   Conveyer.spin(forward);
   Intake.spin(forward);
   chassis.set_drive_exit_conditions(1.5, 300, 300);
-  chassis.drive_distance(100, -41+d);
+  chassis.drive_distance(100, -39+d);
   wait(0.37, seconds);
   chassis.set_drive_exit_conditions(1.5, 300, 600);
   chassis.drive_distance(-15, -45+d);
@@ -258,11 +258,16 @@ void rushmid(){
   chassis.set_drive_constants(12, 20, 0, 10, 0);
   chassis.set_drive_exit_conditions(1.5, 300, 3000);
   //good partners
-  chassis.drive_distance(-120, -90+d);
+  //chassis.drive_distance(-120, -90+d);
   // bad partners
-  chassis.turn_to_angle(100+d);
-  chassis.drive_distance(70, 90+d);
+  Intake.spin(forward);
+  Conveyer.spin(forward);
+  chassis.turn_to_angle(104+d);
+  chassis.drive_distance(40, 100+d);
+  wait(0.1, seconds);
+  chassis.set_drive_constants(8, 1, 0, 10, 0);
   thread(getBlueArm).detach();
+  chassis.drive_distance(40, 100+d);
   wait(15, seconds);
   //chassis.drive_distance(-10);
   // DoinkerPneu.set(true);
