@@ -29,7 +29,7 @@ void expelDiscBlue() {
     if (Opt.hue() <= 30 || Opt.hue() >= 330) {
       red = true;
     }
-    if (DistSensor.objectDistance(inches) < 2 && red && counter!=1) {
+    if (DistSensor.objectDistance(inches) < 2 && red && counter==0) {
       wait(0.154, seconds);
       Conveyer.stop();
       red = false;
@@ -221,12 +221,13 @@ void rushmid(){
   chassis.drive_distance(24.3, 0+d);
   //wait(0.1, seconds);
   chassis.set_swing_exit_conditions(1, 100, 350);
-  chassis.right_swing_to_angle(-39+d);
+  //in safe code
+  //chassis.right_swing_to_angle(-39+d);
   thread(expelDiscBlue).detach();
   Conveyer.spin(forward);
   Intake.spin(forward);
-  chassis.set_drive_exit_conditions(1.5, 300, 300);
-  chassis.drive_distance(100, -39+d);
+  chassis.set_drive_exit_conditions(1.5, 300, 450); //300 in safe
+  chassis.drive_distance(100, -36+d); //-39 in safe
   wait(0.37, seconds);
   chassis.set_drive_exit_conditions(1.5, 300, 600);
   chassis.drive_distance(-15, -45+d);
@@ -256,12 +257,15 @@ void rushmid(){
   // chassis.drive_distance(100, -49+d);
   // wait(0.37, seconds);
   chassis.set_drive_constants(12, 20, 0, 10, 0);
-  chassis.set_drive_exit_conditions(1.5, 300, 3000);
+  chassis.set_drive_exit_conditions(1.5, 300, 1500);
   //good partners
-  //chassis.drive_distance(-120, -90+d);
+  //chassis.set_drive_exit_conditions(1.5, 300, 1200);
+  //chassis.drive_distance(-60, -90+d);
+  //chassis.drive_distance(-60,-70+d);
   // bad partners
   Intake.spin(forward);
   Conveyer.spin(forward);
+  chassis.set_turn_exit_conditions(1, 300, 800);
   chassis.turn_to_angle(104+d);
   chassis.drive_distance(40, 100+d);
   wait(0.1, seconds);
