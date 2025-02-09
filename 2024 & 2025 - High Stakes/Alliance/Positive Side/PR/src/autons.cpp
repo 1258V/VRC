@@ -342,7 +342,7 @@ void awpcode(){
   wait(0.8, seconds);
 
   chassis.turn_to_angle(-180);
-  chassis.drive_with_voltage(9, 9);
+  chassis.drive_distance(50);
 
 
 /*
