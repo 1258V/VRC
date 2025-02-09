@@ -155,6 +155,16 @@ void firstMogo(){
   ArmDown();
 }
 
+void spinToRed(){
+  Intake.spin(forward);
+  while (true) {
+    if (Optical6.hue() <= 30 || Optical6.hue() >= 330) {
+      Intake.stop();
+      break;
+    }
+  }
+}
+
 void colorSorter(){
   //int counter=0;
   bool blue = false;
@@ -281,7 +291,12 @@ void spinIntake(){
 
 void task5(){
   wait(0.54, seconds);
-  spinIntake();
+  spinToRed();
+}
+
+void task6(){
+  wait(0.6, seconds);
+  Intake.spin(forward);
 }
 
 void mirroredawpcode(){
@@ -306,7 +321,7 @@ void mirroredawpcode(){
   chassis.set_drive_constants(11, 1.5, 0, 10, 0);
   chassis.turn_to_angle(360);
 
-  thread(spinIntake).detach();
+  thread(task6).detach();
   FrontIntake.spin(forward);
   chassis.drive_distance(24);
   chassis.turn_to_angle(180);
@@ -316,7 +331,7 @@ void mirroredawpcode(){
 
 void awpcode(){
   Intake.setVelocity(100, percent);
-  thread(colorSorter).detach();
+  //thread(colorSorter).detach();
   thread(task5).detach();
   chassis.left_swing_to_angle(-90);
 

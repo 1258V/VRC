@@ -279,14 +279,29 @@ void spinIntake(){
   }*/
 }
 
+void spinToBlue(){
+  Intake.spin(forward);
+  while (true) {
+    if (Optical6.hue() > 100) {
+      Intake.stop();
+      break;
+    }
+  }
+}
+
 void task5(){
   wait(0.54, seconds);
-  spinIntake();
+  spinToBlue();
+}
+
+void task6(){
+  wait(0.6, seconds);
+  Intake.spin(forward);
 }
 
 void mirroredawpcode(){
   Intake.setVelocity(100, percent);
-  thread(colorSorter).detach();
+  //thread(colorSorter).detach();
   thread(task5).detach();
   chassis.right_swing_to_angle(90);
 
@@ -306,13 +321,13 @@ void mirroredawpcode(){
   chassis.set_drive_constants(11, 1.5, 0, 10, 0);
   chassis.turn_to_angle(360);
 
-  thread(spinIntake).detach();
+  thread(task6).detach();
   FrontIntake.spin(forward);
   chassis.drive_distance(24);
   wait(0.8, seconds);
 
   chassis.turn_to_angle(180);
-  chassis.drive_distance(45);
+  chassis.drive_distance(50);
 }
 
 void awpcode(){
