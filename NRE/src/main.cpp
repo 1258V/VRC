@@ -296,7 +296,7 @@ void loadArm(){
 
 void usercontrol(void) {
 
-    MogoPneu.set(true);
+    //MogoPneu.set(true);
     Arm.setVelocity(100, percent);
     Arm.setStopping(hold);
     Drivetrain.setStopping(coast);

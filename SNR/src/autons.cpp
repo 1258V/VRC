@@ -312,12 +312,12 @@ void solosig(){
   Intake.spin(forward);
   Conveyer.spin(forward);
   chassis.set_turn_exit_conditions(1, 100, 550);
-  chassis.turn_to_angle(75+d); //-70+d
+  chassis.turn_to_angle(77+d); //-70+d
   thread(ArmUp).detach();
   chassis.set_drive_constants(11, 1.2, 0, 10, 0);
   chassis.set_drive_exit_conditions(1.5, 300, 800);
   //IntakeFront.spin(forward);
-  chassis.drive_distance(22, 75+d); // 14,-90+d
+  chassis.drive_distance(22, 81+d); // 14,-90+d
   wait(0.09, seconds);
   Conveyer.stop();
   Intake.stop();
@@ -326,7 +326,7 @@ void solosig(){
   Conveyer.spin(forward);
   Intake.spin(forward);
   chassis.set_drive_constants(7, 1, 0, 10, 0);
-  chassis.drive_distance(24);
+  chassis.drive_distance(25);
   Intake.stop();
   Conveyer.stop();
   wait(15, seconds);
