@@ -180,14 +180,14 @@ bool mobilePneu = false;
 void spinIntakeForward() {
   Intake.setVelocity(100, percent);
   Intake.spin(forward);
-  Conveyer.setVelocity(100, percent);
+  Conveyer.setVelocity(80, percent);
   Conveyer.spin(forward);
 }
 
 void spinIntakeReverse() {
   Intake.setVelocity(100, percent);
   Intake.spin(reverse);
-  Conveyer.setVelocity(100, percent);
+  Conveyer.setVelocity(70, percent);
   Conveyer.spin(reverse);
 }
 
