@@ -131,14 +131,14 @@ void pre_auton(void) {
     
     Arm.setStopping(hold);
     Arm.setMaxTorque(100, percent);
-    Arm.setVelocity(70, percent);
+    Arm.setVelocity(60, percent);
 
     DoinkerPneu.set(false);
     HangPneu.set(false);
 
     Conveyer.setStopping(coast);
     Conveyer.setMaxTorque(100, percent);
-    Conveyer.setVelocity(100, percent);
+    Conveyer.setVelocity(70, percent);
 
     LeftFront.setMaxTorque(100, percent);
     LeftBack.setMaxTorque(100, percent);
@@ -153,7 +153,7 @@ void pre_auton(void) {
     RightFront.setVelocity(100, percent);
     RightBack.setVelocity(100, percent);
     Right6th.setVelocity(100, percent);
-    Conveyer.setVelocity(100.0, percent);
+    Conveyer.setVelocity(70, percent);
 
     ArmRotation.setReversed(false);
     ArmRotation.resetPosition();
@@ -180,7 +180,7 @@ bool mobilePneu = false;
 void spinIntakeForward() {
   Intake.setVelocity(100, percent);
   Intake.spin(forward);
-  Conveyer.setVelocity(80, percent);
+  Conveyer.setVelocity(70, percent);
   Conveyer.spin(forward);
 }
 
@@ -245,8 +245,9 @@ int DisplayToController() {
 
   while (true) {
     //controller(primary).Screen.print(Intake.velocity(rpm));
-    controller(primary).Screen.print(chassis.get_absolute_heading());
-    //controller(primary).Screen.print(ArmRotation.angle(degrees));
+    //controller(primary).Screen.print(chassis.get_absolute_heading());
+    //controller(primary).Screen.print(Inertial13.rotation());
+    controller(primary).Screen.print(ArmRotation.angle(degrees));
     //controller(primary).Screen.print(DistSensor.objectDistance(inches));
     vex::this_thread::sleep_for(1000);
   }
@@ -260,10 +261,10 @@ void usercontrol(void) {
     MogoPneu.set(true);
 
     Intake.setVelocity(100, percent);
-    Conveyer.setVelocity(100, percent);
+    Conveyer.setVelocity(70, percent);
     Drivetrain.setStopping(coast);
     
-    Arm.setVelocity(100, percent);
+    Arm.setVelocity(60, percent);
 
     controller(primary).ButtonL2.pressed(spinIntakeReverse); 
     controller(primary).ButtonL2.released(stopIntake); 

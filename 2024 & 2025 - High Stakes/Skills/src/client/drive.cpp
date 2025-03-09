@@ -63,15 +63,25 @@ int SidewaysTracker_port, float SidewaysTracker_diameter, float SidewaysTracker_
     }
 }
 
+double Drive::keep_below_zero(double desiredValue){
+  desiredValue -= 10;
+  if (desiredValue < 0) {
+    desiredValue += 360;
+  }
+  return desiredValue;
+}
+
 void Drive::arm_to_angle(double desiredValue){
-  if(desiredValue < ArmRotation.angle()){
-    Arm.spin(reverse);
-    waitUntil(desiredValue > ArmRotation.angle());
+  Arm.setVelocity(100, percent);
+  desiredValue = keep_below_zero(desiredValue);
+  if(desiredValue < keep_below_zero(ArmRotation.angle())){
+    Arm.spin(forward);
+    waitUntil(desiredValue > keep_below_zero(ArmRotation.angle()));
     Arm.stop();
   }
   else{  
-    Arm.spin(forward);
-    waitUntil(desiredValue < ArmRotation.angle());
+    Arm.spin(reverse);
+    waitUntil(desiredValue < keep_below_zero(ArmRotation.angle()));
     Arm.stop();
   }
 }
@@ -223,7 +233,7 @@ void Drive::set_swing_exit_conditions(float swing_settle_error, float swing_sett
  */
 
 float Drive::get_absolute_heading(){ 
-  return( reduce_0_to_360( Gyro.rotation()*360.0/gyro_scale ) ); 
+  return( reduce_0_to_360( Inertial13.rotation()*360.0/gyro_scale ) ); 
 }
 
 /**
