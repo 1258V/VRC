@@ -280,22 +280,10 @@ int DisplayToController() {
 }
 
 void loadArm(){
-  double ang = 29.8;
-  double err = 5.6;
-  Brain.resetTimer();
-  if(360-ArmRotation.angle() < (ang - err)){
-    while(360-ArmRotation.angle() < (ang - err)){
-      Arm.spin(reverse);
-    }
-  }
-  else{
-    while(360-ArmRotation.angle() > (ang + err)){
-      Arm.spin(forward);
-    }
-  }
-  Arm.stop();
+  chassis.arm_to_angle(-29.8);
   spinIntakeForwardSpec();
 }
+
 
 void usercontrol(void) {
 
