@@ -306,11 +306,11 @@ void awpcode(){
   DoinkerPneu.set(true);
 
   chassis.set_drive_constants(9, 1.5, 0, 10, 0);
-  chassis.set_heading_constants(9, .28, 0, 1, 0);
+  chassis.set_heading_constants(11, .28, 0, 4.5, 0);
   chassis.set_turn_constants(9, .4, .03, 3, 15);
   chassis.set_swing_constants(9, .3, .001, 2, 15);
 
-  chassis.drive_distance(-25, 90 - d);
+  chassis.drive_distance(-25, 93 - d);
   Arm.spinTo(400, degrees, false);
   DoinkerPneu.set(false);
   chassis.right_swing_to_angle(60 - d);
@@ -328,6 +328,11 @@ void awpcode(){
   chassis.drive_with_voltage(12, 12);
   wait(0.7, seconds);
   chassis.drive_distance(-36, 135);
+  chassis.turn_to_angle(235);
+
+  chassis.drive_distance()
+
+
   /*
   Intake.setVelocity(100, percent);
   //thread(colorSorter).detach();
