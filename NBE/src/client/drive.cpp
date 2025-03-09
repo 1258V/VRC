@@ -64,18 +64,14 @@ int SidewaysTracker_port, float SidewaysTracker_diameter, float SidewaysTracker_
 }
 
 void Drive::arm_to_angle(double desiredValue){
-  if(desiredValue < 360-ArmRotation.angle()){
-    while(360-ArmRotation.angle() > desiredValue+22.8){
-      Arm.spin(reverse);
-      controller(primary).Screen.print(360-ArmRotation.angle());
-    }
+  if(desiredValue < ArmRotation.angle()){
+    Arm.spin(reverse);
+    waitUntil(desiredValue > ArmRotation.angle());
     Arm.stop();
   }
-  else{
-    while(360-ArmRotation.angle() < desiredValue-2.2){
-      Arm.spin(forward);
-      controller(primary).Screen.print(360-ArmRotation.angle());
-    }
+  else{  
+    Arm.spin(forward);
+    waitUntil(desiredValue < ArmRotation.angle());
     Arm.stop();
   }
 }
