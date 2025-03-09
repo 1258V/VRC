@@ -60,10 +60,10 @@ motor_group(LeftFront, LeftBack, Left6th),
 motor_group(RightFront, RightBack, Right6th),
 
 //Specify the PORT NUMBER of your inertial sensor, in PORT format (i.e. "PORT1", not simply "1"):
-PORT21,
+PORT14,
 
 //Input your wheel diameter. (4" omnis are actually closer to 4.125"):
-2.75,
+3.25,
 
 //External ratio, must be in decimal, in the format of input teeth/output teeth.
 //If your motor has an 84-tooth gear and your wheel has a 60-tooth gear, this value will be 1.4.
