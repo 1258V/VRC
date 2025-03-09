@@ -300,9 +300,34 @@ void task6(){
 }
 
 void awpcode(){
+  double d = 16.2602047;
   FrontIntake.spin(forward);
+  chassis.drive_distance(37);
+  DoinkerPneu.set(true);
+
+  chassis.set_drive_constants(9, 1.5, 0, 10, 0);
+  chassis.set_heading_constants(9, .28, 0, 1, 0);
+  chassis.set_turn_constants(9, .4, .03, 3, 15);
+  chassis.set_swing_constants(9, .3, .001, 2, 15);
+
+  chassis.drive_distance(-25, 90 - d);
+  Arm.spinTo(400, degrees, false);
+  DoinkerPneu.set(false);
+  chassis.right_swing_to_angle(60 - d);
+
   Intake.spin(forward);
-  chassis.drive_distance(36.5, 0);
+  FrontIntake.spin(forward);  
+  chassis.set_drive_exit_conditions(1.5, 300, 1200);
+  chassis.drive_distance(1000, 142);
+
+  chassis.drive_with_voltage(-12, -12);
+  wait(0.3, seconds);
+  chassis.drive_with_voltage(0, 0);
+  wait(0.3, seconds);
+
+  chassis.drive_with_voltage(12, 12);
+  wait(0.7, seconds);
+  chassis.drive_distance(-36, 135);
   /*
   Intake.setVelocity(100, percent);
   //thread(colorSorter).detach();
