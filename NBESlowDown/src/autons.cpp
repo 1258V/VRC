@@ -2,15 +2,15 @@
 int matchloadangle = 167;
 
 void default_constants(){
-  chassis.set_drive_constants(11, 1.5, 0, 10, 0);
-  chassis.set_heading_constants(6, .4, 0, 1, 0);
-  chassis.set_turn_constants(11, .4, .03, 3, 15);
+  chassis.set_drive_constants(7, 1.5, 0, 10, 0);
+  chassis.set_heading_constants(3, .4, 0, 1, 0);
+  chassis.set_turn_constants(7, .4, .03, 3, 15);
   chassis.set_arm_constants(.4, 0, 2, 0);
-  chassis.set_swing_constants(11, .3, .001, 2, 15);
+  chassis.set_swing_constants(7, .3, .001, 2, 15);
   chassis.set_drive_exit_conditions(0.3, 300, 1200);
   chassis.set_turn_exit_conditions(1, 300, 1000); //reduced from 1800 to 1000
   chassis.set_swing_exit_conditions(1, 300, 1000);
-  chassis.set_arm_exit_conditions(1, 100, 1000);
+  chassis.set_arm_exit_conditions(1, 300, 700);
 }
 
 void odom_constants(){
@@ -69,9 +69,8 @@ void wallstake(){
   // chassis.drive_distance(-10);
   // chassis.left_swing_to_angle(60);
   // chassis.drive_distance(13);
-  Intake.spin(forward);
-  Conveyer.spin(forward);
-  thread(expelDiscBlue).detach();
+  chassis.turn_to_angle(90);
+  wait(15, seconds);
 }
 void BarTouch(){
   Arm.setVelocity(50, percent);

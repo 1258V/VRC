@@ -130,6 +130,38 @@ void Drive::mirror(){
   cdm = -1;
 }
 
+void Drive::turn(float angle, float volt, float timeout){
+  turn(angle, volt, timeout, .4, .03, 3, 15);
+}
+
+void Drive::turn(float angle, float volt, float timeout, float serror, float stime){
+  turn(angle, volt, timeout, .4, .03, 3, 15, serror, stime);
+}
+
+void Drive::turn(float angle, float volt, float timeout, float tkp, float tki, float tkd, float tstarti){
+  turn(angle, volt, timeout, tkp, tki, tkd, tstarti, 1, 300);
+}
+
+void Drive::turn(float angle, float volt, float timeout, float tkp, float tki, float tkd, float tstarti, float serror, float stime){
+  set_turn_constants(volt, tkp, tki, tkd, tstarti);
+  set_turn_exit_conditions(serror, stime, timeout);
+  turn_to_angle(angle);
+}
+
+void Drive::drive(float dist, float angle, float volt, float timeout){
+  set_drive_constants(volt, 1.5, 0, 10, 0);
+  set_drive_exit_conditions(0.3, 300, timeout);
+  set_heading_constants(3, .4, 0, 1, 0);
+  drive_distance(dist, angle);
+}
+
+void Drive::curve(float dist, float angle, float volt, float timeout, float kp, float kd){
+  set_drive_constants(volt, 1.5, 0, 10, 0);
+  set_drive_exit_conditions(0.3, 300, timeout);
+  set_heading_constants(3, kp, 0, kd, 0);
+  drive_distance(dist, angle);
+}
+
 void Drive::turn_to_angle(float angle){
   turn_to_angle(angle, turn_max_voltage, turn_settle_error, turn_settle_time, turn_timeout, turn_kp, turn_ki, turn_kd, turn_starti);
 }
