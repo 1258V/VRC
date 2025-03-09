@@ -108,13 +108,6 @@ public:
   void point(float X_pos, float Y_pos);
   void point(float X_pos, float Y_pos, bool allowTurn);
 
-  void turn(float angle, float volt, float timeout);
-  void turn(float angle, float volt, float timeout, float serror, float stime);
-  void turn(float angle, float volt, float timeout, float tkp, float tki, float tkd, float tstarti);
-  void turn(float angle, float volt, float timeout, float tkp, float tki, float tkd, float tstarti, float serror, float stime);
-  void drive(float dist, float angle, float volt, float timeout);
-  void curve(float dist, float angle, float volt, float timeout, float kp, float kd);
-
   void turn_to_angle(float angle);
   void turn_to_angle(float angle, float turn_max_voltage);
   void turn_to_angle(float angle, float turn_max_voltage, float turn_settle_error, float turn_settle_time, float turn_timeout);

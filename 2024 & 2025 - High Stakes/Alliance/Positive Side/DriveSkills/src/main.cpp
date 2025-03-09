@@ -2,7 +2,7 @@
 bool runningSkills = false;
 //Part of the code below (mainly the drivetrain constrictors) is used from the LemLib drive template, which is why you will notice a unique drivetrain setup
 //This drivetrain setup is specifically made to allow the most efficient drive possible, using LemLib's battery saving technique while still providing high strength
-//The drivetrain will stay on Eco mode for most of the High Stakes challenge
+//The drivetrain will stay on Ecos mode for most of the High Stakes challenge
 
 // ---- START VEXCODE CONFIGURED DEVICES ----
 // Robot Configuration:
@@ -128,17 +128,22 @@ void pre_auton(void) {
 
     Drivetrain.setStopping(coast);
     Inertial13.calibrate();
+    Optical6.setLightPower(100, percent);
     
     Arm.setStopping(hold);
     Arm.setMaxTorque(100, percent);
-    Arm.setVelocity(70, percent);
+    Arm.setVelocity(100, percent);
 
     DoinkerPneu.set(false);
     HangPneu.set(false);
 
-    Conveyer.setStopping(coast);
-    Conveyer.setMaxTorque(100, percent);
-    Conveyer.setVelocity(100, percent);
+    Intake.setStopping(coast);
+    Intake.setMaxTorque(100, percent);
+    Intake.setVelocity(70, percent);
+    
+    FrontIntake.setStopping(coast);
+    FrontIntake.setMaxTorque(100, percent);
+    FrontIntake.setVelocity(100, percent);
 
     LeftFront.setMaxTorque(100, percent);
     LeftBack.setMaxTorque(100, percent);
@@ -153,17 +158,16 @@ void pre_auton(void) {
     RightFront.setVelocity(100, percent);
     RightBack.setVelocity(100, percent);
     Right6th.setVelocity(100, percent);
-    Conveyer.setVelocity(100.0, percent);
+    Intake.setVelocity(100.0, percent);
 
-    ArmRotation.setReversed(false);
+    ArmRotation.setReversed(true);
     ArmRotation.resetPosition();
 
-    Opt.setLightPower(75, percent);
+    Optical6.setLightPower(100, percent);
   }
 
 void autonomous(void) {
-  auton();
-  //Auton43Points();
+  regular();
 }
 
 /*---------------------------------------------------------------------------*/
@@ -177,20 +181,70 @@ void autonomous(void) {
 /*---------------------------------------------------------------------------*/
 bool mobilePneu = false;
 
+
+void spinIntakeForwardSpec() {
+  wait(0.4, seconds);
+  Intake.setVelocity(100, percent);
+  Intake.spin(forward);
+  FrontIntake.setVelocity(100, percent);
+  FrontIntake.spin(forward);
+  wait(0.4, seconds);
+  while(true){
+    if(Intake.velocity(percent) < 5){
+      Intake.stop();
+      FrontIntake.stop();
+      break;
+    }
+  }
+}
+
+void loadArm() {
+  thread(spinIntakeForwardSpec).detach();
+  chassis.arm_to_angle(-30.3);
+  
+    /*while (true) {
+    if (DistSensor.objectDistance(inches) < 1) {
+      Intake.setVelocity(50, percent);
+      Intake.spinFor(reverse, 12, turns);
+      Intake.setVelocity(100, percent);
+      break;
+    }
+    else  {
+      Intake.setVelocity(100, percent);
+      Intake.spin(forward);
+    }
+
+    wait(0.02, seconds);
+  }*/
+}
+
 void spinIntakeForward() {
   Intake.setVelocity(100, percent);
   Intake.spin(forward);
-  Conveyer.setVelocity(80, percent);
-  Conveyer.spin(forward);
+  FrontIntake.setVelocity(100, percent);
+  FrontIntake.spin(forward);
+  /*while(true){
+    if(DistSensor.objectDistance(inches) < 1.5){
+      Intake.stop();
+    }
+    else if(Optical6.hue() > 200 && Optical6.hue() < 300){
+      //Intake.stop();
+    }
+    wait(10, msec);
+  }*/
 }
 
 void spinIntakeReverse() {
   Intake.setVelocity(100, percent);
   Intake.spin(reverse);
-  Conveyer.setVelocity(70, percent);
-  Conveyer.spin(reverse);
+  FrontIntake.setVelocity(100, percent);
+  FrontIntake.spin(reverse);
 }
 
+void stopIntake() {
+  Intake.stop();
+  FrontIntake.stop();
+}
 
 void toggleDoinkerPneuPos() {
   if (DoinkerPneu) {
@@ -229,12 +283,11 @@ void triggerDoinkerMech() {
 }
 
 void moveArmUp() {
-  stopIntake();
-  Arm.spin(forward);
+  Arm.spin(reverse);
 }
 
 void moveArmDown() {
-  Arm.spin(reverse);
+  Arm.spin(forward);
 }
 
 void stopArm() {
@@ -245,9 +298,8 @@ int DisplayToController() {
 
   while (true) {
     //controller(primary).Screen.print(Intake.velocity(rpm));
-    controller(primary).Screen.print(chassis.get_absolute_heading());
-    //controller(primary).Screen.print(ArmRotation.angle(degrees));
-    //controller(primary).Screen.print(DistSensor.objectDistance(inches));
+    //controller(primary).Screen.print(chassis.get_absolute_heading());
+    controller(primary).Screen.print(ArmRotation.angle(degrees));
     vex::this_thread::sleep_for(1000);
   }
 
@@ -255,15 +307,10 @@ int DisplayToController() {
 
 void usercontrol(void) {
 
-    //vex::task expel(expelDisc);
+    //MogoPneu.set(true);
 
-    MogoPneu.set(true);
-
-    Intake.setVelocity(100, percent);
-    Conveyer.setVelocity(100, percent);
+    Arm.setStopping(hold);
     Drivetrain.setStopping(coast);
-    
-    Arm.setVelocity(100, percent);
 
     controller(primary).ButtonL2.pressed(spinIntakeReverse); 
     controller(primary).ButtonL2.released(stopIntake); 
@@ -279,7 +326,7 @@ void usercontrol(void) {
     controller(primary).ButtonRight.pressed(moveArmDown);
     controller(primary).ButtonRight.released(stopArm);
 
-    controller(primary).ButtonB.pressed(triggerDoinkerMech);    
+    controller(primary).ButtonDown.pressed(triggerDoinkerMech);    
 
   // User control code here, inside the loop
   while (1) {
