@@ -219,7 +219,7 @@ void loadArm() {
 }
 
 void spinIntakeForward() {
-  Conveyer.setVelocity(100, percent);
+  Conveyer.setVelocity(70, percent);
   Conveyer.spin(forward);
   Intake.setVelocity(100, percent);
   Intake.spin(forward);
@@ -235,7 +235,7 @@ void spinIntakeForward() {
 }
 
 void spinIntakeReverse() {
-  Conveyer.setVelocity(100, percent);
+  Conveyer.setVelocity(70, percent);
   Conveyer.spin(reverse);
   Intake.setVelocity(100, percent);
   Intake.spin(reverse);
