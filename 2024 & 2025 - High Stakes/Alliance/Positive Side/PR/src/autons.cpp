@@ -5,11 +5,11 @@ int m = 1;
 void alter(){
   m = 0 - m;
   if(m < 0){
-    controller(primary).Screen.setCursor(0, 0);
+    controller(primary).Screen.setCursor(1, 0);
     controller(primary).Screen.print("Blue - Mirrored");
   }
   else{
-    controller(primary).Screen.setCursor(0, 0);
+    controller(primary).Screen.setCursor(1, 0);
     controller(primary).Screen.print("Red - Regulated");
   }
 }
