@@ -60,7 +60,7 @@ motor_group(LeftFront, LeftBack, Left6th),
 motor_group(RightFront, RightBack, Right6th),
 
 //Specify the PORT NUMBER of your inertial sensor, in PORT format (i.e. "PORT1", not simply "1"):
-PORT14,
+PORT2,
 
 //Input your wheel diameter. (4" omnis are actually closer to 4.125"):
 3.25,
@@ -135,11 +135,12 @@ void pre_auton(void) {
     Arm.setVelocity(100, percent);
 
     DoinkerPneu.set(false);
+    MogoPneu.set(false);
     HangPneu.set(false);
 
     Intake.setStopping(coast);
     Intake.setMaxTorque(100, percent);
-    Intake.setVelocity(70, percent);
+    Intake.setVelocity(50, percent);
     
     FrontIntake.setStopping(coast);
     FrontIntake.setMaxTorque(100, percent);
