@@ -271,7 +271,7 @@ void doinkerInDelay(){
 }
 
 void mogoDelay(){
-  wait(0.9, seconds);
+  wait(0.7, seconds);
   MogoPneu.set(true);
   Intake.spin(forward);
 }
@@ -309,11 +309,11 @@ void delayIntakeStop(){
 
 void awpcode(){
   Intake.setVelocity(80, percent);
-  chassis.set_drive_exit_conditions(0.3, 300, 900);
-  Arm.spinTo(360, degrees, false);
+  chassis.set_drive_exit_conditions(0.3, 300, 1200);
+  Arm.spinTo(200, degrees, false);
   thread(delayIntakeStop).detach();
 
-  chassis.set_drive_constants(12, 1.5, 0, 10, 0);
+  chassis.set_drive_constants(11, 1.5, 0, 10, 0);
   chassis.set_heading_constants(11, .28, 0, 4.5, 0);
   chassis.set_turn_constants(9, .4, .03, 3, 15);
   chassis.set_swing_constants(9, .3, .001, 2, 15);
