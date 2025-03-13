@@ -257,17 +257,19 @@ void corner(){
 }
 
 void doinkerRush(){
-  wait(0.7, seconds);
+  wait(0.7, seconds); //0.5
+  //Arm.spinTo(900, degrees);
   DoinkerPneu.set(true);
 }
 
 void doinkerInDelay(){
   wait(0.9, seconds);
+  /*
   DoinkerPneu.set(false);
 
   MogoPneu.set(true);
   wait(0.15, seconds);
-  Intake.spin(forward);
+  Intake.spin(forward);*/
 }
 
 void mogoDelay(){
@@ -307,10 +309,14 @@ void delayIntakeStop(){
   Intake.stop();
 }
 
+void delayArm(){
+  Arm.spinTo(900, degrees, false);
+}
+
 void awpcode(){
   Intake.setVelocity(80, percent);
   chassis.set_drive_exit_conditions(0.3, 300, 1200);
-  Arm.spinTo(200, degrees, false);
+  Arm.spinTo(100, degrees, false);
   thread(delayIntakeStop).detach();
 
   chassis.set_drive_constants(11, 1.5, 0, 10, 0);
@@ -321,15 +327,27 @@ void awpcode(){
   double d = 16.2602047;
   FrontIntake.spin(forward);
   thread(doinkerRush).detach();
-  chassis.drive_distance(36.5, 8);
+  chassis.drive_distance(36.5);
 
   chassis.set_drive_constants(9, 1.5, 0, 10, 0);
   chassis.set_heading_constants(7, .18, 0, 4.5, 0);
   chassis.set_turn_constants(9, .4, .03, 3, 15);
-  chassis.set_drive_exit_conditions(0.3, 300, 1200);
+  chassis.set_drive_exit_conditions(0.3, 0, 1000);
   
-  thread(mogoDelay).detach();
-  chassis.drive_distance(-32, 120 - d);
+  chassis.drive_distance(-10.5);
+  DoinkerPneu.set(false);
+
+  chassis.right_swing_to_angle(-5-d);
+  chassis.drive_distance(-4);
+
+  chassis.turn_to_angle(90 - d);
+  chassis.set_drive_exit_conditions(0.3, 300, 1200);
+  chassis.drive_distance(-24, 90 - d);
+
+  MogoPneu.set(true);
+  Intake.spin(forward);
+  /*
+
   DoinkerPneu.set(false);
   chassis.right_swing_to_angle(75 - d);
 
