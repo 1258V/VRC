@@ -18,7 +18,7 @@ void default_constants(){
   chassis.set_drive_constants(7, 1.5, 0, 10, 0);
   chassis.set_heading_constants(3, .4, 0, 1, 0);
   chassis.set_turn_constants(7, .4, .03, 3, 15);
-  chassis.set_arm_constants(.4, 0, 2, 0);
+  chassis.set_arm_constants(.1, 0, 2, 0);
   chassis.set_swing_constants(7, .3, .001, 2, 15);
   chassis.set_drive_exit_conditions(0.3, 300, 1200);
   chassis.set_turn_exit_conditions(1, 300, 1000); //reduced from 1800 to 1000
@@ -165,38 +165,35 @@ void spinToRed(){
   }
 }
 
+
 void colorSorter(){
-  //int counter=0;
-  bool blue = false;
-  while (true) {
-    if (Optical6.hue() > 100) {
-      blue = true;
+  Intake.spin(forward);
+  FrontIntake.spin(forward);
+
+  int redDiscs = 0;
+  while(true){
+    if(Optical6.hue() < 30){
+      if(redDiscs > 0){
+        break;
+      }
+      redDiscs++;
+      wait(0.6, seconds);
     }
-    if (DistSensor.objectDistance(inches) < 2 && blue) {
+    else if(Optical6.hue() > 100){
       wait(0.1, seconds);
       Intake.stop();
-      blue = false;
       wait(0.05, seconds);
       Intake.spin(forward);
-      /*red = false;
-      wait(0.05, seconds);
-      Intake.spin(forward);
-      /*wait(0.05, seconds);
-      Intake.spinFor(reverse, 50, degrees);
-      red = false;
-      Intake.spin(forward);*/
-      //counter+=1;
     }
-    /*else if(DistSensor.objectDistance(inches) < 2 && red && counter==1) {
-      wait(0.05, seconds);
-      Intake.stop();
-      red = false;
-      wait(0.05, seconds);
-      Intake.spin(forward);
-      counter+=1;
-    }*/
   }
+  Intake.stop();
+  chassis.arm_to_angle(0);
+  Intake.spin(forward);
+  wait(0.3, seconds);
+  Intake.stop();
 }
+
+
 void corner(){
   
   Intake.spin(forward);
@@ -314,10 +311,19 @@ void delayArm(){
   Arm.spinTo(900, degrees, false);
 }
 
+void AllianceStake(){
+  wait(0.8, seconds);
+  Arm.spinTo(450, degrees);
+}
+
+void startArm(){
+  chassis.arm_to_angle(30);
+}
+
 void awpcode(){
   Intake.setVelocity(80, percent);
   chassis.set_drive_exit_conditions(0.3, 300, 1200);
-  Arm.spinTo(100, degrees, false);
+  thread(startArm).detach();
   thread(delayIntakeStop).detach();
 
   chassis.set_drive_constants(11, 1.5, 0, 10, 0);
@@ -339,14 +345,16 @@ void awpcode(){
   DoinkerPneu.set(false);
   thread(delayArm).detach();
   chassis.right_swing_to_angle(-5-d);
-  chassis.drive_distance(-2);
+  chassis.drive_distance(-2);/*
 
-  chassis.turn_to_angle(89 - d);
+  chassis.turn_to_angle(88 - d);
   chassis.set_drive_exit_conditions(0.3, 300, 1200);
-  chassis.set_drive_constants(6, 1.5, 0, 10, 0);
+  chassis.set_drive_constants(5, 1.5, 0, 10, 0);
   thread(mogoDelay).detach();
 
-  chassis.drive_distance(-24, 89 - d);
+  chassis.drive_distance(-24, 88 - d);
+  wait(0.3, seconds);
+  chassis.turn_to_angle(140 - d);
 /*
 
   DoinkerPneu.set(false);
@@ -356,22 +364,37 @@ void awpcode(){
   chassis.right_swing_to_angle(60 - d);
 
   Intake.spin(forward);
-  FrontIntake.spin(forward);  */
+  FrontIntake.spin(forward);  *//*
+  Intake.setVelocity(70, percent);
   chassis.set_drive_constants(11, 1.5, 0, 10, 0);
   chassis.set_drive_exit_conditions(1.5, 300, 1200);
-  chassis.drive_distance(1000, 147);
+  thread(colorSorter).detach();
+  chassis.drive_distance(1000, 140);
 
-  chassis.drive_with_voltage(-12, -12);
+  chassis.set_drive_constants(11, 1.5, 0, 10, 0);
+  chassis.set_drive_exit_conditions(0.3, 300, 400);
+  chassis.drive_distance(-1000, 135);
   wait(0.3, seconds);
-  chassis.drive_with_voltage(0, 0);
+
+  chassis.set_drive_exit_conditions(0.3, 300, 700);
+  chassis.drive_distance(1000, 135);
+  chassis.set_drive_exit_conditions(0.3, 300, 400);
+  chassis.drive_distance(-1000, 135);
   wait(0.3, seconds);
 
-  chassis.drive_with_voltage(12, 12);
-  wait(0.7, seconds);
-  chassis.set_drive_constants(9, 1.5, 0, 10, 0);
-  chassis.drive_distance(-36, 135);
-  chassis.turn_to_angle(222.5);
+  chassis.set_drive_exit_conditions(0.3, 300, 700);
+  chassis.drive_distance(1000, 135);
+  chassis.set_drive_exit_conditions(0.3, 300, 400);
+  chassis.drive_distance(-1000, 135);
 
+  wait(0.3, seconds);
+  chassis.set_drive_exit_conditions(0.3, 300, 700);
+  chassis.drive_distance(1000, 135);
+  chassis.set_drive_exit_conditions(0.3, 300, 1200);
+
+  chassis.drive_distance(-59, 135);
+  chassis.turn_to_angle(206.5);
+  thread(AllianceStake).detach();
   chassis.drive_distance(50);
 
 
@@ -959,8 +982,11 @@ void awpcode(){
   chassis.set_drive_constants(11, 0.7, 0, 10, 0);  
   chassis.drive_distance(-22);/**/
 }
+
 void auton_task(){
-  awpcode();
+  //awpcode();
+  MogoPneu.set(true);
+  colorSorter();
 }
 
 void regular(){
