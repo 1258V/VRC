@@ -173,7 +173,7 @@ void colorSorter(){
 
   int redDiscs = 0;
   while(true){
-    if(Optical6.hue() < 30){
+    if(Optical6.hue() > 100){
       if(redDiscs > 0){
         wait(0.5, seconds);
         Intake.stop();
@@ -182,7 +182,7 @@ void colorSorter(){
       redDiscs++;
       wait(0.6, seconds);
     }
-    else if(Optical6.hue() > 100){
+    else if(Optical6.hue() < 30){
       wait(0.1, seconds);
       Intake.stop();
       wait(0.05, seconds);

@@ -173,7 +173,7 @@ void colorSorter(){
 
   int redDiscs = 0;
   while(true){
-    if(Optical6.hue() < 30){
+    if(Optical6.hue() > 100){
       if(redDiscs > 0){
         wait(0.5, seconds);
         Intake.stop();
@@ -182,7 +182,7 @@ void colorSorter(){
       redDiscs++;
       wait(0.6, seconds);
     }
-    else if(Optical6.hue() > 100){
+    else if(Optical6.hue() < 30){
       wait(0.1, seconds);
       Intake.stop();
       wait(0.05, seconds);
@@ -325,7 +325,7 @@ void startArm(){
 
 void awpcode(){
   Intake.setVelocity(80, percent);
-  chassis.set_drive_exit_conditions(0.3, 300, 1200);
+  chassis.set_drive_exit_conditions(0.3, 300, 5000);
   thread(startArm).detach();
   thread(delayIntakeStop).detach();
 
@@ -334,7 +334,7 @@ void awpcode(){
   chassis.set_turn_constants(9, .4, .03, 3, 15);
   chassis.set_swing_constants(9, .3, .001, 2, 15);
 
-  double d = 16.2602047;
+  double d = -16.2602047;
   FrontIntake.spin(forward);
   thread(doinkerRush).detach();
   chassis.drive_distance(37);
@@ -347,15 +347,15 @@ void awpcode(){
   chassis.drive_distance(-11);
   DoinkerPneu.set(false);
   thread(delayArm).detach();
-  chassis.right_swing_to_angle(-5-d);
+  chassis.left_swing_to_angle(5 - d);
   chassis.drive_distance(-15);
 
-  chassis.turn_to_angle(118 - d);
+  chassis.turn_to_angle(-119 - d);
   chassis.set_drive_exit_conditions(0.3, 300, 1200);
   chassis.set_drive_constants(5, 1.5, 0, 10, 0);
   thread(mogoDelay).detach();
 
-  chassis.drive_distance(-28, 118 - d);
+  chassis.drive_distance(-28, -119 - d);
 /*
 
   DoinkerPneu.set(false);
@@ -370,30 +370,30 @@ void awpcode(){
   chassis.set_drive_constants(11, 1.5, 0, 10, 0);
   chassis.set_drive_exit_conditions(1.5, 300, 1200);
   thread(colorSorter).detach();
-  chassis.drive_distance(1000, 121);
+  chassis.drive_distance(1000, -121);
 
   chassis.set_drive_constants(11, 1.5, 0, 10, 0);
   chassis.set_drive_exit_conditions(0.3, 300, 400);
-  chassis.drive_distance(-1000, 121);
+  chassis.drive_distance(-1000, -121);
   wait(0.3, seconds);
 
   chassis.set_drive_exit_conditions(0.3, 300, 700);
-  chassis.drive_distance(1000, 121);
+  chassis.drive_distance(1000, -121);
   chassis.set_drive_exit_conditions(0.3, 300, 400);
-  chassis.drive_distance(-1000, 121);
+  chassis.drive_distance(-1000, -121);
   wait(0.3, seconds);
 
   chassis.set_drive_exit_conditions(0.3, 300, 700);
-  chassis.drive_distance(1000, 121);
+  chassis.drive_distance(1000, -121);
   chassis.set_drive_exit_conditions(0.3, 300, 400);
-  chassis.drive_distance(-1000, 121);
+  chassis.drive_distance(-1000, -121);
 
   wait(0.3, seconds);
   chassis.set_drive_exit_conditions(0.3, 300, 700);
-  chassis.drive_distance(1000, 121);
+  chassis.drive_distance(1000, -121);
   chassis.set_drive_exit_conditions(0.3, 300, 1200);
 
-  chassis.drive_distance(-30, 121);/*
+  chassis.drive_distance(-30, -121);/*
   chassis.turn_to_angle(225);
   thread(AllianceStake).detach();
   chassis.drive_distance(50);
