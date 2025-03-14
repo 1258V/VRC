@@ -60,7 +60,7 @@ motor_group(LeftFront, LeftBack, Left6th),
 motor_group(RightFront, RightBack, Right6th),
 
 //Specify the PORT NUMBER of your inertial sensor, in PORT format (i.e. "PORT1", not simply "1"):
-PORT14,
+PORT2,
 
 //Input your wheel diameter. (4" omnis are actually closer to 4.125"):
 3.25,
@@ -133,8 +133,6 @@ void pre_auton(void) {
     Arm.setStopping(hold);
     Arm.setMaxTorque(100, percent);
     Arm.setVelocity(100, percent);
-
-    DoinkerPneu.set(false);
     HangPneu.set(false);
 
     Conveyer.setStopping(coast);
@@ -246,14 +244,24 @@ void stopIntake() {
   Intake.stop();
 }
 
-void toggleDoinkerPneuPos() {
-  if (DoinkerPneu) {
-    DoinkerPneu.set(false);
-    DoinkerPneu = false;
+void toggleLeftDoinkerPneuPos() {
+  if (LeftDoinkerPneu) {
+    LeftDoinkerPneu.set(false);
+    LeftDoinkerPneu = false;
   }
   else {
-    DoinkerPneu.set(true);
-    DoinkerPneu = true;
+    LeftDoinkerPneu.set(true);
+    LeftDoinkerPneu = true;
+  }  
+}
+void toggleRightDoinkerPneuPos() {
+  if (RightDoinkerPneu) {
+    RightDoinkerPneu.set(false);
+    RightDoinkerPneu = false;
+  }
+  else {
+    RightDoinkerPneu.set(true);
+    RightDoinkerPneu = true;
   }  
 }
 
@@ -275,11 +283,18 @@ void triggerHangMech() {
   HangPneu.set(hangPneuPos);
 }
 
-bool DoinkerPneuPos = false;
+bool LeftDoinkerPneuPos = false;
 
-void triggerDoinkerMech() {
-  DoinkerPneuPos = !DoinkerPneuPos;
-  DoinkerPneu.set(DoinkerPneuPos);
+void triggerLeftDoinkerMech() {
+  LeftDoinkerPneuPos = !LeftDoinkerPneuPos;
+  LeftDoinkerPneu.set(LeftDoinkerPneuPos);
+}
+
+bool RightDoinkerPneuPos = false;
+
+void triggerRightDoinkerMech() {
+  RightDoinkerPneuPos = !RightDoinkerPneuPos;
+  RightDoinkerPneu.set(RightDoinkerPneuPos);
 }
 
 void moveArmUp() {
@@ -326,7 +341,8 @@ void usercontrol(void) {
     controller(primary).ButtonRight.pressed(moveArmDown);
     controller(primary).ButtonRight.released(stopArm);
 
-    controller(primary).ButtonDown.pressed(triggerDoinkerMech);    
+    controller(primary).ButtonDown.pressed(triggerLeftDoinkerMech);    
+    controller(primary).ButtonB.pressed(triggerRightDoinkerMech);  
 
   // User control code here, inside the loop
   while (1) {

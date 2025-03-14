@@ -54,10 +54,10 @@ ZERO_TRACKER_NO_ODOM,
 
 
 //Left Motors:
-motor_group(LeftFront, LeftBack, Left6th),
+motor_group(LeftFront, LeftBack, StackedLeft),
 
 //Right Motors:
-motor_group(RightFront, RightBack, Right6th),
+motor_group(RightFront, RightBack, StackedRight),
 
 //Specify the PORT NUMBER of your inertial sensor, in PORT format (i.e. "PORT1", not simply "1"):
 PORT21,
@@ -116,7 +116,7 @@ PORT3,     -PORT4,
 );
 
 //Automatic Drivetrain Selector
-motor_group Drivetrain = motor_group(LeftBack, LeftFront, RightFront, RightBack, Right6th, Left6th);
+motor_group Drivetrain = motor_group(LeftBack, LeftFront, RightFront, RightBack, StackedRight, StackedLeft);
 
 int current_auton_selection = 0;
 bool auto_started = false;
@@ -129,31 +129,31 @@ void pre_auton(void) {
     Drivetrain.setStopping(coast);
     Inertial13.calibrate();
     
-    Arm.setStopping(hold);
+    Arm.setStopping(brake);
     Arm.setMaxTorque(100, percent);
-    Arm.setVelocity(60, percent);
+    Arm.setVelocity(100, percent);
 
     DoinkerPneu.set(false);
     HangPneu.set(false);
 
     Conveyer.setStopping(coast);
     Conveyer.setMaxTorque(100, percent);
-    Conveyer.setVelocity(70, percent);
+    Conveyer.setVelocity(80, percent);
 
     LeftFront.setMaxTorque(100, percent);
     LeftBack.setMaxTorque(100, percent);
-    Left6th.setMaxTorque(100, percent);
+    StackedLeft.setMaxTorque(100, percent);
     RightBack.setMaxTorque(100, percent);
     RightFront.setMaxTorque(100, percent);
-    Right6th.setMaxTorque(100, percent);
+    StackedRight.setMaxTorque(100, percent);
 
     LeftFront.setVelocity(100, percent);
     LeftBack.setVelocity(100, percent);
-    Left6th.setVelocity(100, percent);
+    StackedLeft.setVelocity(100, percent);
     RightFront.setVelocity(100, percent);
     RightBack.setVelocity(100, percent);
-    Right6th.setVelocity(100, percent);
-    Conveyer.setVelocity(70, percent);
+    StackedRight.setVelocity(100, percent);
+    Conveyer.setVelocity(80, percent);
 
     ArmRotation.setReversed(false);
     ArmRotation.resetPosition();
@@ -180,14 +180,14 @@ bool mobilePneu = false;
 void spinIntakeForward() {
   Intake.setVelocity(100, percent);
   Intake.spin(forward);
-  Conveyer.setVelocity(70, percent);
+  Conveyer.setVelocity(80, percent);
   Conveyer.spin(forward);
 }
 
 void spinIntakeReverse() {
   Intake.setVelocity(100, percent);
   Intake.spin(reverse);
-  Conveyer.setVelocity(70, percent);
+  Conveyer.setVelocity(80, percent);
   Conveyer.spin(reverse);
 }
 
@@ -261,10 +261,10 @@ void usercontrol(void) {
     MogoPneu.set(true);
 
     Intake.setVelocity(100, percent);
-    Conveyer.setVelocity(70, percent);
+    Conveyer.setVelocity(80, percent);
     Drivetrain.setStopping(coast);
     
-    Arm.setVelocity(60, percent);
+    Arm.setVelocity(100, percent);
 
     controller(primary).ButtonL2.pressed(spinIntakeReverse); 
     controller(primary).ButtonL2.released(stopIntake); 
@@ -295,7 +295,7 @@ void usercontrol(void) {
 
     //Replace this line with chassis.control_tank(); for tank drive 
     //or chassis.control_holonomic(); for holo drive.
-    chassis.control_tank();
+    chassis.control_arcade();
 
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
