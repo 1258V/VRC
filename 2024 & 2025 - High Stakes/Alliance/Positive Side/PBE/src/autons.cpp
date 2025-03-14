@@ -175,6 +175,7 @@ void colorSorter(){
   while(true){
     if(Optical6.hue() < 30){
       if(redDiscs > 0){
+        wait(0.5, seconds);
         Intake.stop();
         break;
       }
@@ -392,7 +393,7 @@ void awpcode(){
   chassis.drive_distance(1000, 121);
   chassis.set_drive_exit_conditions(0.3, 300, 1200);
 
-  chassis.drive_distance(-30, 121);
+  chassis.drive_distance(-30, 121);/*
   chassis.turn_to_angle(225);
   thread(AllianceStake).detach();
   chassis.drive_distance(50);
