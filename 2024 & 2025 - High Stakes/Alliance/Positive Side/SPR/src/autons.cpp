@@ -1004,7 +1004,8 @@ void spinArmR(){
 }
 
 void auton_task(){
-  chassis.arm_to_angle(50);
+  
+  //chassis.arm_to_angle(50);
   //awpcode(); 
   /*thread(spinArmF).detach();
   chassis.drive_distance(4.5);

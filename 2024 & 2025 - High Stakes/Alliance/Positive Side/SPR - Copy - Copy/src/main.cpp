@@ -119,12 +119,14 @@ PORT3,     -PORT4,
 motor_group Drivetrain = motor_group(LeftBack, LeftFront, RightFront, RightBack, Right6th, Left6th);
 
 int current_auton_selection = 0;
+float trueAngle = 0;
 bool auto_started = false;
 
 void pre_auton(void) {
     //DO NOT REMOVE THE FOLLOWING TWO FUNCTIONS! The entire code will break!
     vexcodeInit();
     default_constants();
+    trueAngle = ArmRotation.angle();
 
     Drivetrain.setStopping(coast);
     Inertial13.calibrate();
@@ -168,7 +170,7 @@ void pre_auton(void) {
   }
 
 void autonomous(void) {
-  regular();
+  wallstake();
 }
 
 /*---------------------------------------------------------------------------*/
@@ -201,7 +203,12 @@ void spinIntakeForwardSpec() {
 
 void loadArm() {
   //thread(spinIntakeForwardSpec).detach();
-  chassis.arm_to_angle(18);
+  Arm.spinTo(0, degrees);
+  Arm.spinTo(0, degrees);
+  Arm.spinTo(0, degrees);
+  /*Arm.spinFor(forward, 0 - Arm.position(degrees), degrees);
+  Arm.spinFor(forward, 0 - Arm.position(degrees), degrees);
+  Arm.spinFor(forward, 0 - Arm.position(degrees), degrees);
   
     /*while (true) {
     if (DistSensor.objectDistance(inches) < 1) {

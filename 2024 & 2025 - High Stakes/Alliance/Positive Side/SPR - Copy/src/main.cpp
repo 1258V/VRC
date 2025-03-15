@@ -168,7 +168,7 @@ void pre_auton(void) {
   }
 
 void autonomous(void) {
-  regular();
+  wallstake();
 }
 
 /*---------------------------------------------------------------------------*/
@@ -201,7 +201,9 @@ void spinIntakeForwardSpec() {
 
 void loadArm() {
   //thread(spinIntakeForwardSpec).detach();
-  chassis.arm_to_angle(18);
+  Arm.spinTo(0, degrees);
+  Arm.spinTo(0, degrees);
+  Arm.spinTo(0, degrees);
   
     /*while (true) {
     if (DistSensor.objectDistance(inches) < 1) {
