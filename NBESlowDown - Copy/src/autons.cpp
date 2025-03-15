@@ -79,56 +79,28 @@ void DoinkersDown(){
 }
 
 void wallstake(){
-  int d=45;
+  int d=-45;
   thread(ArmUp).detach();
   wait(0.75, seconds);
   chassis.set_drive_exit_conditions(0.3, 300, 170);
   chassis.drive_distance(-5);
   thread(ArmDown1).detach();
-  chassis.set_turn_exit_conditions(1, 300, 500);
-  chassis.turn_to_angle(1+d);
+  chassis.set_turn_exit_conditions(1, 300, 900);
+  chassis.turn_to_angle(-1+d);
   chassis.set_drive_exit_conditions(0.3, 300, 1000);
   //chassis.drive_distance(-14);
   chassis.set_drive_constants(12, 0.5, 0, 10, 0);
-  chassis.drive_distance(-39); //-15
+  chassis.drive_distance(-41); //-15
   MogoPneu.set(true);
   wait(0.45, seconds);
-  chassis.turn_to_angle(-129+d);
-  Intake.setVelocity(50, percent);
-  Intake.spin(reverse);
-  chassis.set_drive_exit_conditions(0.3, 300, 800);
-  chassis.drive_distance(23);
-  chassis.set_swing_exit_conditions(1, 300, 500);
-  chassis.left_swing_to_angle(-80+d);
-  chassis.set_drive_exit_conditions(0.3, 300, 250);
-  chassis.set_drive_constants(12, 5, 0, 10, 0);
-  chassis.drive_distance(16);
-  chassis.drive_distance(-3);
-  chassis.set_drive_exit_conditions(0.3, 300, 250);
-  wait(0.1, seconds);
-  //chassis.drive_distance(-2);
-  chassis.set_drive_exit_conditions(0.3, 300, 250);
-  //chassis.drive_distance(3);
-  //wait(0.2, seconds);
-  chassis.turn_to_angle(-165+d);
-  RightDoinkerPneu.set(true);
-  wait(0.2, seconds);
-  chassis.right_swing_to_angle(-140+d);
-  LeftDoinkerPneu.set(true);
-  wait(0.2, seconds);
-  //chassis.drive_distance(6.7, -130+d);
-  chassis.turn_to_angle(60+d);
-  Intake.setVelocity(100, percent);
   Intake.spin(forward);
   Conveyer.spin(forward);
-  LeftDoinkerPneu.set(false);
-  wait(0.2, seconds);
-  thread(LeftDoinker).detach();
-  chassis.set_drive_exit_conditions(0.3, 300, 800);
-  chassis.set_drive_constants(9, 1, 0, 10, 0);
-  chassis.drive_distance(33, 60+d);
-  chassis.drive_distance(20, -280+d);
-
+  chassis.turn_to_angle(-105+d);
+  chassis.drive_distance(26);
+  wait(3, seconds);
+  chassis.turn_to_angle(80+d);
+  chassis.drive_distance(50);
+  
 }
 void BarTouch(){
   Arm.setVelocity(50, percent);
