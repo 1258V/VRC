@@ -16,6 +16,7 @@ motor Left6th = motor(PORT13, ratio6_1, false);
 motor Right6th = motor(PORT19, ratio6_1, true);
 inertial Inertial13 = inertial(PORT2);
 digital_out DoinkerPneu = digital_out(Brain.ThreeWirePort.D);
+digital_out DoinkerPneu2 = digital_out(Brain.ThreeWirePort.B);
 digital_out MogoPneu = digital_out(Brain.ThreeWirePort.A);
 digital_out HangPneu = digital_out(Brain.ThreeWirePort.H);
 motor Arm = motor(PORT20, ratio18_1, true);

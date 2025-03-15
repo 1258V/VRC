@@ -195,7 +195,14 @@ void Drive::arm_to_angle(float desiredAngle){
 }
 
 void Drive::arm_to_angle(float desiredAngle, float arm_voltage){
+  float oldkp = arm_kp;
+  float oldki = arm_ki;
+  float oldkd = arm_kd;
+  float ostarti = arm_starti;
   float angle = desiredAngle;
+  if(angle - get_absolute_arm_heading() < 30){
+    set_arm_constants(0.1, 0, 10000, 0);
+  }
   //desired_heading = angle;
   PID armPID(reduce_negative_180_to_180(angle - get_absolute_arm_heading()), arm_kp, arm_ki, arm_kd, arm_starti, arm_settle_error, arm_settle_time, arm_timeout);
   while(armPID.is_settled() == false){
@@ -206,6 +213,7 @@ void Drive::arm_to_angle(float desiredAngle, float arm_voltage){
     task::sleep(10);
   }
   Arm.stop(hold);
+  set_arm_constants(oldkp, oldki, oldkd, ostarti);
 }
 
 void Drive::drive_distance(float distance){

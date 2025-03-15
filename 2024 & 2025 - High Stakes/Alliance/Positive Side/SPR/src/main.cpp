@@ -200,8 +200,8 @@ void spinIntakeForwardSpec() {
 }
 
 void loadArm() {
-  thread(spinIntakeForwardSpec).detach();
-  chassis.arm_to_angle(-30.3);
+  //thread(spinIntakeForwardSpec).detach();
+  chassis.arm_to_angle(15);
   
     /*while (true) {
     if (DistSensor.objectDistance(inches) < 1) {
@@ -277,10 +277,16 @@ void triggerHangMech() {
 }
 
 bool DoinkerPneuPos = false;
+bool DoinkerPneuPos2 = false;
 
 void triggerDoinkerMech() {
   DoinkerPneuPos = !DoinkerPneuPos;
   DoinkerPneu.set(DoinkerPneuPos);
+}
+
+void triggerDoinkerMech2() {
+  DoinkerPneuPos2 = !DoinkerPneuPos2;
+  DoinkerPneu2.set(DoinkerPneuPos2);
 }
 
 void moveArmUp() {
@@ -322,12 +328,13 @@ void usercontrol(void) {
     controller(primary).ButtonR1.pressed(triggerMogoMech);
     controller(primary).ButtonR2.pressed(loadArm);
 
-    controller(primary).ButtonY.pressed(moveArmUp);
-    controller(primary).ButtonY.released(stopArm);
-    controller(primary).ButtonRight.pressed(moveArmDown);
+    controller(primary).ButtonRight.pressed(moveArmUp);
     controller(primary).ButtonRight.released(stopArm);
+    controller(primary).ButtonY.pressed(moveArmDown);
+    controller(primary).ButtonY.released(stopArm);
 
     controller(primary).ButtonDown.pressed(triggerDoinkerMech);    
+    controller(primary).ButtonB.pressed(triggerDoinkerMech2);
 
   // User control code here, inside the loop
   while (1) {

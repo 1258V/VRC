@@ -18,12 +18,12 @@ void default_constants(){
   chassis.set_drive_constants(7, 1.5, 0, 10, 0);
   chassis.set_heading_constants(3, .4, 0, 1, 0);
   chassis.set_turn_constants(7, .4, .03, 3, 15);
-  chassis.set_arm_constants(.225, 0, 6, 0);
+  chassis.set_arm_constants(.4, 0, 1, 0);
   chassis.set_swing_constants(7, .3, .001, 2, 15);
   chassis.set_drive_exit_conditions(0.3, 300, 1200);
   chassis.set_turn_exit_conditions(1, 300, 1000); //reduced from 1800 to 1000
   chassis.set_swing_exit_conditions(1, 300, 1000);
-  chassis.set_arm_exit_conditions(1, 300, 700);
+  chassis.set_arm_exit_conditions(1, 300, 850);
 }
 
 void odom_constants(){
@@ -174,11 +174,11 @@ void colorSorter(){
   int redDiscs = 0;
   while(true){
     if(Optical6.hue() < 30){
-      if(redDiscs > 0){
+      /*if(redDiscs > 0){
         wait(0.5, seconds);
         Intake.stop();
         break;
-      }
+      }*/
       redDiscs++;
       wait(0.6, seconds);
     }
@@ -1004,8 +1004,9 @@ void spinArmR(){
 }
 
 void auton_task(){
+  chassis.arm_to_angle(50);
   //awpcode(); 
-  thread(spinArmF).detach();
+  /*thread(spinArmF).detach();
   chassis.drive_distance(4.5);
   //wait(0.6, seconds);
 
@@ -1050,7 +1051,7 @@ void auton_task(){
   chassis.drive_distance(-30, c);
   chassis.turn_to_angle(75);
   chassis.set_drive_constants(8, 1.5, 0, 10, 0);
-  chassis.drive_distance(40, 75);
+  chassis.drive_distance(40, 75);*/
 }
 
 void regular(){
