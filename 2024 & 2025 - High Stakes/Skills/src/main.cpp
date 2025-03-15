@@ -129,16 +129,17 @@ void pre_auton(void) {
     Drivetrain.setStopping(coast);
     Inertial13.calibrate();
     
-    Arm.setStopping(brake);
+    Arm.setStopping(hold);
     Arm.setMaxTorque(100, percent);
     Arm.setVelocity(100, percent);
 
+    MogoPneu.set(false);
     DoinkerPneu.set(false);
     HangPneu.set(false);
 
     Conveyer.setStopping(coast);
     Conveyer.setMaxTorque(100, percent);
-    Conveyer.setVelocity(80, percent);
+    Conveyer.setVelocity(100, percent);
 
     LeftFront.setMaxTorque(100, percent);
     LeftBack.setMaxTorque(100, percent);
@@ -153,7 +154,7 @@ void pre_auton(void) {
     RightFront.setVelocity(100, percent);
     RightBack.setVelocity(100, percent);
     StackedRight.setVelocity(100, percent);
-    Conveyer.setVelocity(80, percent);
+    Conveyer.setVelocity(100, percent);
 
     ArmRotation.setReversed(false);
     ArmRotation.resetPosition();
@@ -180,14 +181,14 @@ bool mobilePneu = false;
 void spinIntakeForward() {
   Intake.setVelocity(100, percent);
   Intake.spin(forward);
-  Conveyer.setVelocity(80, percent);
+  Conveyer.setVelocity(100, percent);
   Conveyer.spin(forward);
 }
 
 void spinIntakeReverse() {
   Intake.setVelocity(100, percent);
   Intake.spin(reverse);
-  Conveyer.setVelocity(80, percent);
+  Conveyer.setVelocity(100, percent);
   Conveyer.spin(reverse);
 }
 
@@ -261,7 +262,7 @@ void usercontrol(void) {
     MogoPneu.set(true);
 
     Intake.setVelocity(100, percent);
-    Conveyer.setVelocity(80, percent);
+    Conveyer.setVelocity(100, percent);
     Drivetrain.setStopping(coast);
     
     Arm.setVelocity(100, percent);
