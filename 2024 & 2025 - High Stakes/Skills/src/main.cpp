@@ -134,7 +134,8 @@ void pre_auton(void) {
     Arm.setVelocity(100, percent);
 
     MogoPneu.set(false);
-    DoinkerPneu.set(false);
+    LeftDoinker.set(false);
+    RightDoinker.set(false);
     HangPneu.set(false);
 
     Conveyer.setStopping(coast);
@@ -194,14 +195,14 @@ void spinIntakeReverse() {
 
 
 void toggleDoinkerPneuPos() {
-  if (DoinkerPneu) {
-    DoinkerPneu.set(false);
-    DoinkerPneu = false;
-  }
-  else {
-    DoinkerPneu.set(true);
-    DoinkerPneu = true;
-  }  
+  // if (DoinkerPneu) {
+  //   DoinkerPneu.set(false);
+  //   DoinkerPneu = false;
+  // }
+  // else {
+  //   DoinkerPneu.set(true);
+  //   DoinkerPneu = true;
+  // }  
 }
 
 void triggerMogoMech() {
@@ -225,8 +226,8 @@ void triggerHangMech() {
 bool DoinkerPneuPos = false;
 
 void triggerDoinkerMech() {
-  DoinkerPneuPos = !DoinkerPneuPos;
-  DoinkerPneu.set(DoinkerPneuPos);
+  //DoinkerPneuPos = !DoinkerPneuPos;
+  //DoinkerPneu.set(DoinkerPneuPos);
 }
 
 void moveArmUp() {
@@ -296,7 +297,7 @@ void usercontrol(void) {
 
     //Replace this line with chassis.control_tank(); for tank drive 
     //or chassis.control_holonomic(); for holo drive.
-    chassis.control_arcade();
+    chassis.control_tank();
 
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.

@@ -70,6 +70,9 @@ void loadArm() {
   // else {
   //   chassis.arm_to_angle(22);
   // }
+  while (ArmRotation.angle() < 355) {
+    Arm.spin(reverse);
+  }
   chassis.arm_to_angle(350);
   spinIntake();
 }
@@ -182,7 +185,7 @@ void auton() {
   chassis.set_swing_constants(9, .3, .001, 2, 15);
   spinIntake();
   wait(0.5, seconds);
-  chassis.drive_distance(11.5);
+  chassis.drive_distance(11);
   stopIntake();
   chassis.turn_to_angle(270);
   vex::task gfm(grabFirstMogo);
@@ -197,8 +200,8 @@ void auton() {
   loadArm();
   //vex::task loadForStake1(loadForWallStake);
   chassis.drive_distance(19);
-  chassis.turn_to_angle(35);
-  chassis.drive_distance(27); // was 33.5
+  chassis.turn_to_angle(40);
+  chassis.drive_distance(28); // was 33.5
   stopIntake();
   chassis.turn_to_angle(88);
   Intake.spin(forward);
@@ -222,12 +225,8 @@ void auton() {
   chassis.set_drive_constants(11, 1.5, 0, 10, 0);
   chassis.drive_distance(-17.5);
   chassis.turn_to_angle(135);
-  if (Conveyer.velocity(percent) < 50) {
-    allowDisksThrough();
-  }
-  chassis.drive_distance(12);
-  wait(0.5, seconds);
-  chassis.turn_to_angle(340);
+  chassis.drive_distance(10);
+  chassis.turn_to_angle(350);
   chassis.drive_distance(-10);
   MogoPneu.set(false);
   chassis.drive_distance(4.75);
