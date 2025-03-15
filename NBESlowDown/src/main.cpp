@@ -137,7 +137,7 @@ void pre_auton(void) {
 
     Conveyer.setStopping(coast);
     Conveyer.setMaxTorque(100, percent);
-    Conveyer.setVelocity(70, percent);
+    Conveyer.setVelocity(80, percent);
     
     Intake.setStopping(coast);
     Intake.setMaxTorque(100, percent);
@@ -165,8 +165,8 @@ void pre_auton(void) {
   }
 
 void autonomous(void) {
-  //wallstake();
-  rushmid();
+  wallstake();
+  //rushmid();
 }
 
 /*---------------------------------------------------------------------------*/
