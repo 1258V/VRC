@@ -68,49 +68,66 @@ void MogoDown1(){
   MogoPneu.set(true);
 }
 void LeftDoinker(){
+  wait(0.24, seconds);
+  RightDoinkerPneu.set(false);
+}
+void DoinkersDown(){
+  wait(0.23, seconds);
   LeftDoinkerPneu.set(true);
+  wait(0.46, seconds);
+  RightDoinkerPneu.set(true);
 }
 
 void wallstake(){
   int d=45;
   thread(ArmUp).detach();
   wait(0.75, seconds);
-  thread(ArmDown1).detach();
   chassis.set_drive_exit_conditions(0.3, 300, 170);
   chassis.drive_distance(-5);
-  chassis.set_swing_exit_conditions(1, 300, 500);
-  chassis.right_swing_to_angle(1+d);
+  thread(ArmDown1).detach();
+  chassis.set_turn_exit_conditions(1, 300, 500);
+  chassis.turn_to_angle(1+d);
   chassis.set_drive_exit_conditions(0.3, 300, 1000);
   //chassis.drive_distance(-14);
   chassis.set_drive_constants(12, 0.5, 0, 10, 0);
-  chassis.drive_distance(-36.5); //-15
+  chassis.drive_distance(-40); //-15
   MogoPneu.set(true);
   wait(0.45, seconds);
-  chassis.turn_to_angle(-124.5+d);
+  chassis.turn_to_angle(-129.5+d);
   Intake.setVelocity(50, percent);
   Intake.spin(reverse);
   chassis.set_drive_exit_conditions(0.3, 300, 800);
-  chassis.drive_distance(23);
-  chassis.set_swing_exit_conditions(1, 300, 300);
+  chassis.drive_distance(22.6);
+  chassis.set_swing_exit_conditions(1, 300, 500);
   chassis.left_swing_to_angle(-80+d);
-  chassis.set_drive_exit_conditions(0.3, 300, 200);
+  chassis.set_drive_exit_conditions(0.3, 300, 250);
   chassis.set_drive_constants(12, 5, 0, 10, 0);
-  chassis.drive_distance(5);
-  chassis.drive_distance(-5);
-  chassis.set_drive_exit_conditions(0.3, 300, 800);
-  chassis.left_swing_to_angle(-124.5+d);
-  chassis.drive_distance(-2);
-  //chassis.drive_distance(6);
-  thread(LeftDoinker).detach();
-  wait(0.3, seconds);
-  chassis.right_swing_to_angle(-141+d);
-  chassis.drive_distance(3, -135+d);
+  chassis.drive_distance(13);
+  chassis.drive_distance(-3);
+  chassis.set_drive_exit_conditions(0.3, 300, 250);
+  wait(0.1, seconds);
+  //chassis.drive_distance(-2);
+  chassis.set_drive_exit_conditions(0.3, 300, 250);
+  //chassis.drive_distance(3);
+  //wait(0.2, seconds);
+  chassis.turn_to_angle(-165+d);
   RightDoinkerPneu.set(true);
-  wait(0.4, seconds);
-  //chassis.drive_distance(8);
-  chassis.drive_distance(-20, -120+d);
-  chassis.turn_to_angle(-270+d);
+  wait(0.2, seconds);
+  chassis.right_swing_to_angle(-150+d);
+  LeftDoinkerPneu.set(true);
+  wait(0.2, seconds);
+  //chassis.drive_distance(6.7, -130+d);
+  chassis.turn_to_angle(60+d);
+  Intake.setVelocity(100, percent);
+  Intake.spin(forward);
+  Conveyer.spin(forward);
   LeftDoinkerPneu.set(false);
+  wait(0.2, seconds);
+  thread(LeftDoinker).detach();
+  chassis.set_drive_exit_conditions(0.3, 300, 800);
+  chassis.set_drive_constants(9, 1, 0, 10, 0);
+  chassis.drive_distance(-33, -60+d);
+  chassis.drive_distance(20, -280+d);
 
 }
 void BarTouch(){
