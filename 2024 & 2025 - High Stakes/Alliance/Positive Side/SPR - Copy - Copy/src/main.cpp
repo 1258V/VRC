@@ -203,9 +203,11 @@ void spinIntakeForwardSpec() {
 
 void loadArm() {
   //thread(spinIntakeForwardSpec).detach();
-  Arm.spinTo(0, degrees);
-  Arm.spinTo(0, degrees);
-  Arm.spinTo(0, degrees);
+  while (ArmRotation.angle() < 355) {
+    Arm.spin(reverse);
+  }
+  chassis.arm_to_angle(350);  
+
   /*Arm.spinFor(forward, 0 - Arm.position(degrees), degrees);
   Arm.spinFor(forward, 0 - Arm.position(degrees), degrees);
   Arm.spinFor(forward, 0 - Arm.position(degrees), degrees);
